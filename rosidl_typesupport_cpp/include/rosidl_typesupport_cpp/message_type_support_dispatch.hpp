@@ -15,14 +15,10 @@
 #ifndef ROSIDL_TYPESUPPORT_CPP__MESSAGE_TYPE_SUPPORT_DISPATCH_HPP_
 #define ROSIDL_TYPESUPPORT_CPP__MESSAGE_TYPE_SUPPORT_DISPATCH_HPP_
 
-#include <cstdio>
-#include <cstring>
-
 #include "rosidl_generator_c/message_type_support_struct.h"
 #include "rosidl_generator_c/visibility_control.h"
 
-#include "rosidl_typesupport_cpp/identifier.hpp"
-#include "rosidl_typesupport_cpp/type_support_map.h"
+#include "rosidl_typesupport_cpp/visibility_control.h"
 
 namespace rosidl_typesupport_cpp
 {
@@ -30,22 +26,7 @@ namespace rosidl_typesupport_cpp
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_message_type_support_t *
 dispatch_message_type_support_handle(
-  const char * identifier, const rosidl_message_type_support_t * handle)
-{
-  if (strcmp(handle->typesupport_identifier, identifier) == 0) {
-    return handle;
-  }
-  if (handle->typesupport_identifier == rosidl_typesupport_cpp::typesupport_identifier) {
-    const type_support_map_t * map = \
-      static_cast<const type_support_map_t *>(handle->data);
-    for (size_t i = 0; i < map->size; ++i) {
-      if (map->typesupport_identifier[i] == identifier) {
-        return static_cast<const rosidl_message_type_support_t *>(map->data[i]);
-      }
-    }
-  }
-  return nullptr;
-}
+  const char * identifier, const rosidl_message_type_support_t * handle);
 
 }  // namespace rosidl_typesupport_cpp
 
