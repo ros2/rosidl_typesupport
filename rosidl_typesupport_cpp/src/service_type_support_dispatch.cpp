@@ -14,33 +14,17 @@
 
 #include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
 
-#include <cstddef>
-#include <cstdio>
-#include <cstring>
-
-#include "rosidl_typesupport_cpp/identifier.hpp"
-#include "rosidl_typesupport_cpp/type_support_map.h"
+#include "type_support_dispatch.hpp"
 
 namespace rosidl_typesupport_cpp
 {
 
 const rosidl_service_type_support_t *
-dispatch_service_type_support_handle(
-  const char * identifier, const rosidl_service_type_support_t * handle)
+get_service_typesupport_handle_function(
+  const rosidl_service_type_support_t * handle, const char * identifier)
 {
-  if (strcmp(handle->typesupport_identifier, identifier) == 0) {
-    return handle;
-  }
-  if (handle->typesupport_identifier == rosidl_typesupport_cpp::typesupport_identifier) {
-    const type_support_map_t * map = \
-      static_cast<const type_support_map_t *>(handle->data);
-    for (size_t i = 0; i < map->size; ++i) {
-      if (map->typesupport_identifier[i] == identifier) {
-        return static_cast<const rosidl_service_type_support_t *>(map->data[i]);
-      }
-    }
-  }
-  return nullptr;
+  return rosidl_typesupport_cpp::get_typesupport_handle_function<
+    rosidl_service_type_support_t>(handle, identifier);
 }
 
 }  // namespace rosidl_typesupport_cpp

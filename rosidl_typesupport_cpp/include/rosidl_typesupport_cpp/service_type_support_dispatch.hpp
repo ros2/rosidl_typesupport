@@ -25,8 +25,8 @@ namespace rosidl_typesupport_cpp
 
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_service_type_support_t *
-dispatch_service_type_support_handle(
-  const char * identifier, const rosidl_service_type_support_t * handle);
+get_service_typesupport_handle_function(
+  const rosidl_service_type_support_t * handle, const char * identifier);
 
 }  // namespace rosidl_typesupport_cpp
 

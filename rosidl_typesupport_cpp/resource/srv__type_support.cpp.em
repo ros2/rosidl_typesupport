@@ -18,15 +18,12 @@
 
 #include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__struct.hpp"
 
-@[for type_support in sorted(type_supports)]@
-#include "@(type_support)/identifier.hpp"
-#include "@(type_support)/service_type_support_decl.hpp"
-@[end for]@
-
 #include "rosidl_typesupport_cpp/identifier.hpp"
 #include "rosidl_typesupport_cpp/service_type_support.hpp"
+#include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
 #include "rosidl_typesupport_cpp/type_support_map.h"
 #include "rosidl_typesupport_cpp/visibility_control.h"
+#include "rosidl_typesupport_interface/macros.h"
 
 namespace @(spec.pkg_name)
 {
@@ -44,42 +41,54 @@ typedef struct _type_support_ids_t
 
 static const _type_support_ids_t _@(spec.srv_name)_service_typesupport_ids = {
   {
+@# TODO(dirk-thomas) use identifier symbol again
 @[for type_support in sorted(type_supports)]@
-    ::@(type_support)::typesupport_identifier,
+    "@(type_support)",  // ::@(type_support)::typesupport_identifier,
+@[end for]@
+  }
+};
+
+typedef struct _type_support_symbol_names_t
+{
+  const char * symbol_name[@(len(type_supports))];
+} _type_support_symbol_names_t;
+
+#define STRINGIFY_(s) #s
+#define STRINGIFY(s) STRINGIFY_(s)
+
+static const _type_support_symbol_names_t _@(spec.srv_name)_service_typesupport_symbol_names = {
+  {
+@[for type_support in sorted(type_supports)]@
+    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(spec.pkg_name), @(spec.srv_name))),
 @[end for]@
   }
 };
 
 typedef struct _type_support_data_t
 {
-  const void * data[@(len(type_supports))];
+  void * data[@(len(type_supports))];
 } _type_support_data_t;
 
-static const _type_support_data_t _@(spec.srv_name)_service_typesupport_data = {
+static _type_support_data_t _@(spec.srv_name)_service_typesupport_data = {
   {
 @[for type_support in sorted(type_supports)]@
-    ::@(type_support)::get_service_type_support_handle<
-      @(spec.pkg_name)::srv::@(spec.srv_name)>(),
+    0,  // will store the shared library later
 @[end for]@
   }
 };
 
-typedef struct _type_support_map_t
-{
-  const size_t size;
-  const _type_support_ids_t * typesupport_identifier;
-  const _type_support_data_t * data;
-} _type_support_map_t;
-
-static const _type_support_map_t _@(spec.srv_name)_service_typesupport_map = {
+static const type_support_map_t _@(spec.srv_name)_service_typesupport_map = {
   @(len(type_supports)),
-  &_@(spec.srv_name)_service_typesupport_ids,
-  &_@(spec.srv_name)_service_typesupport_data
+  "@(spec.pkg_name)",
+  &_@(spec.srv_name)_service_typesupport_ids.typesupport_identifier[0],
+  &_@(spec.srv_name)_service_typesupport_symbol_names.symbol_name[0],
+  &_@(spec.srv_name)_service_typesupport_data.data[0],
 };
 
 static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support_handle = {
   ::rosidl_typesupport_cpp::typesupport_identifier,
-  reinterpret_cast<const type_support_map_t *>(&_@(spec.srv_name)_service_typesupport_map)
+  reinterpret_cast<const type_support_map_t *>(&_@(spec.srv_name)_service_typesupport_map),
+  ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
 };
 
 }  // namespace rosidl_typesupport_cpp
@@ -93,6 +102,7 @@ namespace rosidl_typesupport_cpp
 {
 
 template<>
+ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_service_type_support_t *
 get_service_type_support_handle<@(spec.pkg_name)::srv::@(spec.srv_name)>()
 {
