@@ -24,7 +24,6 @@
 
 #include "Poco/SharedLibrary.h"
 
-#include "rosidl_typesupport_cpp/identifier.hpp"
 #include "rosidl_typesupport_cpp/type_support_map.h"
 
 namespace rosidl_typesupport_cpp
@@ -37,6 +36,8 @@ std::string get_env_var(const char * env_var);
 std::list<std::string> split(const std::string & value, const char delimiter);
 
 bool is_file_exist(const char * filename);
+
+extern const char * typesupport_identifier;
 
 template<typename TypeSupport>
 const TypeSupport *
