@@ -79,6 +79,10 @@ add_custom_command(
 set(_target_suffix "__rosidl_typesupport_cpp")
 
 add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} SHARED ${_generated_files})
+if(rosidl_generate_interfaces_LIBRARY_NAME)
+  set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
+endif()
 if(WIN32)
   target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PRIVATE "ROSIDL_BUILDING_DLL")
@@ -93,14 +97,11 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
 )
-ament_index_get_resources(type_supports "rosidl_typesupport_cpp")
-foreach(type_support ${type_supports})
-  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    ${rosidl_generate_interfaces_TARGET}__${type_support}
-  )
-endforeach()
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  "rosidl_typesupport_cpp")
+  "rosidl_generator_c"
+  "rosidl_generator_cpp"
+  "rosidl_typesupport_cpp"
+  "rosidl_typesupport_interface")
 foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
   ament_target_dependencies(
     ${rosidl_generate_interfaces_TARGET}${_target_suffix}

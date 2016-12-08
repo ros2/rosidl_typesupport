@@ -12,18 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ROSIDL_TYPESUPPORT_CPP__SERVICE_TYPE_SUPPORT_HPP_
-#define ROSIDL_TYPESUPPORT_CPP__SERVICE_TYPE_SUPPORT_HPP_
+#include "rosidl_typesupport_cpp/message_type_support_dispatch.hpp"
 
-#include <rosidl_generator_c/service_type_support.h>
-#include <rosidl_generator_c/visibility_control.h>
+#include "type_support_dispatch.hpp"
 
 namespace rosidl_typesupport_cpp
 {
 
-template<typename T>
-const rosidl_service_type_support_t * get_service_type_support_handle();
+const rosidl_message_type_support_t *
+get_message_typesupport_handle_function(
+  const rosidl_message_type_support_t * handle, const char * identifier)
+{
+  return rosidl_typesupport_cpp::get_typesupport_handle_function<
+    rosidl_message_type_support_t>(handle, identifier);
+}
 
 }  // namespace rosidl_typesupport_cpp
-
-#endif  // ROSIDL_TYPESUPPORT_CPP__SERVICE_TYPE_SUPPORT_HPP_

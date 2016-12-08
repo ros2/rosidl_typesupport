@@ -28,8 +28,10 @@ typedef struct type_support_map_t
   // but should be set for the struct when it is being used
   // same for rosidl_message_type_support_t et al
   const size_t size;
-  const char ** typesupport_identifier;
-  const void ** data;
+  const char * package_name;
+  const char * const * typesupport_identifier;
+  const char * const * symbol_name;
+  void ** data;
 } type_support_map_t;
 
 #ifdef __cplusplus
