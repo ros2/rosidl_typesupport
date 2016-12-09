@@ -13,7 +13,7 @@
 # limitations under the License.
 
 set(_output_path
-  "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_cpp/${PROJECT_NAME}")
+  "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
 foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
@@ -44,10 +44,10 @@ foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
 endforeach()
 
 set(target_dependencies
-  "${rosidl_typesupport_cpp_BIN}"
-  ${rosidl_typesupport_cpp_GENERATOR_FILES}
-  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/msg__type_support.cpp.em"
-  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/srv__type_support.cpp.em"
+  "${rosidl_typesupport_c_BIN}"
+  ${rosidl_typesupport_c_GENERATOR_FILES}
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
   ${rosidl_generate_interfaces_IDL_FILES}
   ${_dependency_files})
 foreach(dep ${target_dependencies})
@@ -56,27 +56,37 @@ foreach(dep ${target_dependencies})
   endif()
 endforeach()
 
-set(generator_arguments_file "${CMAKE_BINARY_DIR}/rosidl_typesupport_cpp__arguments.json")
+set(generator_arguments_file "${CMAKE_BINARY_DIR}/rosidl_typesupport_c__arguments.json")
 rosidl_write_generator_arguments(
   "${generator_arguments_file}"
   PACKAGE_NAME "${PROJECT_NAME}"
   ROS_INTERFACE_FILES "${rosidl_generate_interfaces_IDL_FILES}"
   ROS_INTERFACE_DEPENDENCIES "${_dependencies}"
   OUTPUT_DIR "${_output_path}"
-  TEMPLATE_DIR "${rosidl_typesupport_cpp_TEMPLATE_DIR}"
+  TEMPLATE_DIR "${rosidl_typesupport_c_TEMPLATE_DIR}"
   TARGET_DEPENDENCIES ${target_dependencies}
 )
 
 add_custom_command(
   OUTPUT ${_generated_files}
-  COMMAND ${PYTHON_EXECUTABLE} ${rosidl_typesupport_cpp_BIN}
+  COMMAND ${PYTHON_EXECUTABLE} ${rosidl_typesupport_c_BIN}
   --generator-arguments-file "${generator_arguments_file}"
   DEPENDS ${target_dependencies}
-  COMMENT "Generating C++ type support dispatch for ROS interfaces"
+  COMMENT "Generating C type support dispatch for ROS interfaces"
   VERBATIM
 )
 
-set(_target_suffix "__rosidl_typesupport_cpp")
+# generate header to switch between export and import for a specific package
+set(_visibility_control_file
+  "${_output_path}/msg/rosidl_typesupport_c__visibility_control.h")
+string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
+configure_file(
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/rosidl_typesupport_c__visibility_control.h.in"
+  "${_visibility_control_file}"
+  @ONLY
+)
+
+set(_target_suffix "__rosidl_typesupport_c")
 
 add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} SHARED ${_generated_files})
 if(rosidl_generate_interfaces_LIBRARY_NAME)
@@ -85,7 +95,9 @@ if(rosidl_generate_interfaces_LIBRARY_NAME)
 endif()
 if(WIN32)
   target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
+    PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
+  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL_${PROJECT_NAME}")
 endif()
 if(NOT WIN32)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
@@ -93,12 +105,13 @@ if(NOT WIN32)
 endif()
 target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PUBLIC
-  ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
+  ${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c
 )
+target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c)
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   "rosidl_generator_c"
-  "rosidl_generator_cpp"
-  "rosidl_typesupport_cpp"
+  "rosidl_typesupport_c"
   "rosidl_typesupport_interface")
 foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
   ament_target_dependencies(
@@ -109,10 +122,6 @@ endforeach()
 add_dependencies(
   ${rosidl_generate_interfaces_TARGET}
   ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-)
-add_dependencies(
-  ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  ${rosidl_generate_interfaces_TARGET}__cpp
 )
 
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
@@ -129,13 +138,13 @@ if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
   if(NOT _generated_files STREQUAL "")
     find_package(ament_cmake_cppcheck REQUIRED)
     ament_cppcheck(
-      TESTNAME "cppcheck_rosidl_typesupport_cpp"
+      TESTNAME "cppcheck_rosidl_typesupport_c"
       "${_output_path}")
 
     find_package(ament_cmake_cpplint REQUIRED)
     get_filename_component(_cpplint_root "${_output_path}" DIRECTORY)
     ament_cpplint(
-      TESTNAME "cpplint_rosidl_typesupport_cpp"
+      TESTNAME "cpplint_rosidl_typesupport_c"
       # the generated code might contain longer lines for templated types
       MAX_LINE_LENGTH 999
       ROOT "${_cpplint_root}"
@@ -143,7 +152,7 @@ if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
 
     find_package(ament_cmake_uncrustify REQUIRED)
     ament_uncrustify(
-      TESTNAME "uncrustify_rosidl_typesupport_cpp"
+      TESTNAME "uncrustify_rosidl_typesupport_c"
       # the generated code might contain longer lines for templated types
       MAX_LINE_LENGTH 999
       "${_output_path}")
