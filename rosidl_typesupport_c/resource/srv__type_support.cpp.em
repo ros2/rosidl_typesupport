@@ -18,11 +18,14 @@
 
 #include "@(spec.pkg_name)/msg/rosidl_typesupport_c__visibility_control.h"
 
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/service_type_support_dispatch.h"
 #include "rosidl_typesupport_c/type_support_map.h"
+@[end if]@
 #include "rosidl_typesupport_interface/macros.h"
 
+@[if len(type_supports) != 1]@
 namespace @(spec.pkg_name)
 {
 
@@ -95,7 +98,10 @@ static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support
 
 }  // namespace @(spec.pkg_name)
 
+@[else]@
+#include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__@(list(type_supports)[0]).h"
 
+@[end if]@
 #ifdef __cplusplus
 extern "C"
 {
@@ -104,7 +110,11 @@ extern "C"
 ROSIDL_TYPESUPPORT_C_EXPORT_@(spec.pkg_name)
 const rosidl_service_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_c, @(spec.pkg_name), @(spec.srv_name))() {
+@[if len(type_supports) != 1]@
   return &::@(spec.pkg_name)::srv::rosidl_typesupport_c::@(spec.srv_name)_service_type_support_handle;
+@[else]@
+  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
+@[end if]@
 }
 
 #ifdef __cplusplus

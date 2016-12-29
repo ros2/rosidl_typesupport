@@ -9,6 +9,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 # provides FindPoco.cmake and Poco on platforms without it
+# TODO(dirk-thomas) make poco optional, if not available only support shortcut later
 find_package(poco_vendor REQUIRED)
 find_package(Poco REQUIRED COMPONENTS Foundation)
 find_package(rosidl_generator_c REQUIRED)

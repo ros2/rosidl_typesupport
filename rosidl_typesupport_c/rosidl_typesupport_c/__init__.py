@@ -14,7 +14,6 @@
 
 import os
 
-from ament_index_python import get_resources
 from rosidl_cmake import convert_camel_case_to_lower_case_underscore
 from rosidl_cmake import expand_template
 from rosidl_cmake import extract_message_types
@@ -25,7 +24,7 @@ from rosidl_parser import parse_service_file
 from rosidl_parser import validate_field_types
 
 
-def generate_c(generator_arguments_file):
+def generate_c(generator_arguments_file, type_supports):
     args = read_generator_arguments(generator_arguments_file)
 
     template_dir = args['template_dir']
@@ -52,7 +51,6 @@ def generate_c(generator_arguments_file):
         'get_header_filename_from_msg_name': convert_camel_case_to_lower_case_underscore,
     }
     latest_target_timestamp = get_newest_modification_time(args['target_dependencies'])
-    type_supports = list(get_resources('rosidl_typesupport_c').keys())
 
     for ros_interface_file in args['ros_interface_files']:
         extension = os.path.splitext(ros_interface_file)[1]
