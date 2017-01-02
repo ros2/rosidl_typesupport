@@ -15,11 +15,17 @@ def main(argv=sys.argv[1:]):
         '--generator-arguments-file',
         required=True,
         help='The location of the file containing the generator arguments')
+    parser.add_argument(
+        '--typesupports',
+        required=True,
+        nargs='+',
+        help='The typesupports to be used')
     args = parser.parse_args(argv)
 
     try:
         return generate_cpp(
             args.generator_arguments_file,
+            args.typesupports,
         )
     except UnknownMessageType as e:
         print(str(e), file=sys.stderr)

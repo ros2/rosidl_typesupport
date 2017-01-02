@@ -18,13 +18,20 @@
 
 #include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__struct.hpp"
 
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_cpp/identifier.hpp"
+@[end if]@
 #include "rosidl_typesupport_cpp/service_type_support.hpp"
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
 #include "rosidl_typesupport_cpp/type_support_map.h"
+@[end if]@
 #include "rosidl_typesupport_cpp/visibility_control.h"
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_interface/macros.h"
+@[end if]@
 
+@[if len(type_supports) != 1]@
 namespace @(spec.pkg_name)
 {
 
@@ -97,7 +104,10 @@ static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support
 
 }  // namespace @(spec.pkg_name)
 
+@[else]@
+#include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__@(list(type_supports)[0]).hpp"
 
+@[end if]@
 namespace rosidl_typesupport_cpp
 {
 
@@ -106,7 +116,11 @@ ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_service_type_support_t *
 get_service_type_support_handle<@(spec.pkg_name)::srv::@(spec.srv_name)>()
 {
+@[if len(type_supports) != 1]@
   return &::@(spec.pkg_name)::srv::rosidl_typesupport_cpp::@(spec.srv_name)_service_type_support_handle;
+@[else]@
+  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
+@[end if]@
 }
 
 }  // namespace rosidl_typesupport_cpp

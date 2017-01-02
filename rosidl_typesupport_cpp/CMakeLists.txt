@@ -8,6 +8,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 # provides FindPoco.cmake and Poco on platforms without it
+# TODO(dirk-thomas) make poco optional, if not available only support shortcut later
 find_package(poco_vendor REQUIRED)
 find_package(Poco REQUIRED COMPONENTS Foundation)
 find_package(rosidl_generator_c REQUIRED)
@@ -15,6 +16,7 @@ find_package(rosidl_generator_c REQUIRED)
 link_directories(${Poco_LIBRARY_DIR})
 
 ament_export_dependencies(rosidl_typesupport_interface)
+ament_export_dependencies(rosidl_typesupport_c)
 
 ament_export_include_directories(include)
 

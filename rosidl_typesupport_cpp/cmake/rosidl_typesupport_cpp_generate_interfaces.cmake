@@ -67,10 +67,12 @@ rosidl_write_generator_arguments(
   TARGET_DEPENDENCIES ${target_dependencies}
 )
 
+get_used_typesupports(typesupports "rosidl_typesupport_cpp")
 add_custom_command(
   OUTPUT ${_generated_files}
   COMMAND ${PYTHON_EXECUTABLE} ${rosidl_typesupport_cpp_BIN}
   --generator-arguments-file "${generator_arguments_file}"
+  --typesupports ${typesupports}
   DEPENDS ${target_dependencies}
   COMMENT "Generating C++ type support dispatch for ROS interfaces"
   VERBATIM
@@ -95,6 +97,17 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
 )
+
+# if only a single typesupport is used this package will directly reference it
+# therefore it needs to link against the selected typesupport
+if(NOT typesupports MATCHES ";")
+  target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PUBLIC
+    "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
+  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    ${rosidl_generate_interfaces_TARGET}__${typesupports})
+endif()
+
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   "rosidl_generator_c"
   "rosidl_generator_cpp"

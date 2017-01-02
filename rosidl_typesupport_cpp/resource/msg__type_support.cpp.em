@@ -21,13 +21,20 @@
 
 #include "@(spec.base_type.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.base_type.type))__struct.hpp"
 
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_cpp/identifier.hpp"
+@[end if]@
 #include "rosidl_typesupport_cpp/message_type_support.hpp"
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_cpp/message_type_support_dispatch.hpp"
 #include "rosidl_typesupport_cpp/type_support_map.h"
+@[end if]@
 #include "rosidl_typesupport_cpp/visibility_control.h"
+@[if len(type_supports) != 1]@
 #include "rosidl_typesupport_interface/macros.h"
+@[end if]@
 
+@[if len(type_supports) != 1]@
 namespace @(spec.base_type.pkg_name)
 {
 
@@ -100,7 +107,10 @@ static const rosidl_message_type_support_t @(spec.base_type.type)_message_type_s
 
 }  // namespace @(spec.base_type.pkg_name)
 
+@[else]@
+#include "@(spec.base_type.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.base_type.type))__@(list(type_supports)[0]).hpp"
 
+@[end if]@
 namespace rosidl_typesupport_cpp
 {
 
@@ -109,7 +119,11 @@ ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_message_type_support_t *
 get_message_type_support_handle<@(spec.base_type.pkg_name)::@(subfolder)::@(spec.base_type.type)>()
 {
+@[if len(type_supports) != 1]@
   return &::@(spec.base_type.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.base_type.type)_message_type_support_handle;
+@[else]@
+  return ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.base_type.pkg_name), @(subfolder), @(spec.base_type.type))();
+@[end if]@
 }
 
 }  // namespace rosidl_typesupport_cpp
