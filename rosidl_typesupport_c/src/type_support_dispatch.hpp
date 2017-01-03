@@ -22,7 +22,9 @@
 #include <list>
 #include <string>
 
+#ifdef ROSIDL_TYPESUPPORT_C_USE_POCO
 #include "Poco/SharedLibrary.h"
+#endif
 
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
@@ -48,6 +50,8 @@ get_typesupport_handle_function(
   if (strcmp(handle->typesupport_identifier, identifier) == 0) {
     return handle;
   }
+
+#ifdef ROSIDL_TYPESUPPORT_C_USE_POCO
   if (handle->typesupport_identifier == rosidl_typesupport_c__typesupport_identifier) {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
@@ -81,6 +85,8 @@ get_typesupport_handle_function(
       return ts;
     }
   }
+#endif
+
   return nullptr;
 }
 
