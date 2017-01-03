@@ -106,6 +106,9 @@ if(NOT typesupports MATCHES ";")
     "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
   target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
+elseif(NOT rosidl_typesupport_cpp_SUPPORTS_POCO)
+  message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
+    "rosidl_typesupport_cpp was built")
 endif()
 
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}

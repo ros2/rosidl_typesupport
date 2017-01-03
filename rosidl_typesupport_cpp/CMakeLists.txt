@@ -8,9 +8,8 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 # provides FindPoco.cmake and Poco on platforms without it
-# TODO(dirk-thomas) make poco optional, if not available only support shortcut later
-find_package(poco_vendor REQUIRED)
-find_package(Poco REQUIRED COMPONENTS Foundation)
+find_package(poco_vendor)
+find_package(Poco COMPONENTS Foundation)
 find_package(rosidl_generator_c REQUIRED)
 
 link_directories(${Poco_LIBRARY_DIR})
@@ -27,6 +26,10 @@ add_library(${PROJECT_NAME} SHARED
   src/message_type_support_dispatch.cpp
   src/service_type_support_dispatch.cpp
   src/type_support_dispatch.cpp)
+if(Poco_FOUND)
+  target_compile_definitions(${PROJECT_NAME}
+    PRIVATE "ROSIDL_TYPESUPPORT_CPP_USE_POCO")
+endif()
 if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")

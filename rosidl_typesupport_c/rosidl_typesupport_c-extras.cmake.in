@@ -10,6 +10,8 @@ ament_register_extension(
   "rosidl_typesupport_c"
   "rosidl_typesupport_c_generate_interfaces.cmake")
 
+set(rosidl_typesupport_c_SUPPORTS_POCO @Poco_FOUND@)
+
 set(rosidl_typesupport_c_BIN
   "${rosidl_typesupport_c_DIR}/../../../lib/rosidl_typesupport_c/rosidl_typesupport_c")
 normalize_path(rosidl_typesupport_c_BIN
