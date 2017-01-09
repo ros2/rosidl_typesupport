@@ -66,6 +66,7 @@ get_typesupport_handle_function(
           map->package_name, identifier);
         std::string library_path = find_library_path(library_name);
         if (library_path.empty()) {
+          fprintf(stderr, "Failed to find library '%s'\n", library_name);
           return nullptr;
         }
         lib = new Poco::SharedLibrary(library_path);
@@ -74,6 +75,7 @@ get_typesupport_handle_function(
       auto clib = static_cast<const Poco::SharedLibrary *>(map->data[i]);
       lib = const_cast<Poco::SharedLibrary *>(clib);
       if (!lib->hasSymbol(map->symbol_name[i])) {
+        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
         return nullptr;
       }
       void * sym = lib->getSymbol(map->symbol_name[i]);
