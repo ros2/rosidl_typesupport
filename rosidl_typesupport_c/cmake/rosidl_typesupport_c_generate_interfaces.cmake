@@ -115,7 +115,8 @@ target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 if(typesupports MATCHES ";")
   if(NOT BUILD_SHARED_LIBS)
     message(FATAL_ERROR "Multiple typesupports but static linking was requested")
-  elseif(NOT rosidl_typesupport_c_SUPPORTS_POCO)
+  endif()
+  if(NOT rosidl_typesupport_c_SUPPORTS_POCO)
     message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
       "rosidl_typesupport_c was built")
   endif()
