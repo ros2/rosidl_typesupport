@@ -116,7 +116,7 @@ target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c)
 
 if(typesupports MATCHES ";")
-  if(NOT BUILD_SHARED_LIBS)
+  if(DEFINED BUILD_SHARED_LIBS AND NOT BUILD_SHARED_LIBS)
     message(FATAL_ERROR "Multiple typesupports but static linking was requested")
   endif()
   if(NOT rosidl_typesupport_c_SUPPORTS_POCO)
