@@ -99,7 +99,7 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 )
 
 if(typesupports MATCHES ";")
-  if(NOT BUILD_SHARED_LIBS)
+  if(DEFINED BUILD_SHARED_LIBS AND NOT BUILD_SHARED_LIBS)
     message(FATAL_ERROR "Multiple typesupports but static linking was requested")
   endif()
   if(NOT rosidl_typesupport_cpp_SUPPORTS_POCO)
