@@ -10,6 +10,8 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <build_export_depend>rosidl_generator_cpp</build_export_depend>
+  <!-- This is needed for the import_type_support function used by each meassage -->
+  <build_export_depend>rosidl_generator_py</build_export_depend>
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_introspection_c</build_export_depend>
