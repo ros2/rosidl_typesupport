@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
   <name>rosidl_default_runtime</name>
-  <version>0.0.0</version>
+  <version>0.0.2</version>
   <description>A configuration package defining the runtime for the ROS interfaces.</description>
   <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
   <license>Apache License 2.0</license>
@@ -10,6 +10,8 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <build_export_depend>rosidl_generator_cpp</build_export_depend>
+  <!-- This is needed for the import_type_support function used by each meassage -->
+  <build_export_depend>rosidl_generator_py</build_export_depend>
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_introspection_c</build_export_depend>
