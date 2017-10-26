@@ -29,7 +29,7 @@ ament_export_include_directories(include)
 
 ament_python_install_package(${PROJECT_NAME})
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
   src/identifier.c
   src/message_type_support_dispatch.cpp
   src/service_type_support_dispatch.cpp

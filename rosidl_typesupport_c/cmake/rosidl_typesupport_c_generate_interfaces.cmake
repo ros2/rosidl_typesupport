@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+find_package(ament_cmake_ros REQUIRED)
+
 set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
@@ -90,7 +92,7 @@ configure_file(
 
 set(_target_suffix "__rosidl_typesupport_c")
 
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} SHARED ${_generated_files})
+add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${_generated_files})
 if(rosidl_generate_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
