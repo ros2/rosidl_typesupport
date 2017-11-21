@@ -14,7 +14,7 @@
 @
 #include <cstddef>
 
-#include "rosidl_generator_c/service_type_support.h"
+#include "rosidl_generator_c/service_type_support_struct.h"
 
 #include "@(spec.pkg_name)/msg/rosidl_typesupport_c__visibility_control.h"
 
