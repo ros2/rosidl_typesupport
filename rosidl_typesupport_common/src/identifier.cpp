@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <rosidl_typesupport_cpp/visibility_control.h>
+#include <rosidl_typesupport_common/namespace.h>
+#include <rosidl_typesupport_common/visibility_control.h>
+#include <rosidl_typesupport_common/identifier.h>
 
-namespace rosidl_typesupport_cpp
-{
-
-ROSIDL_TYPESUPPORT_CPP_EXPORT
-const char * typesupport_identifier = "rosidl_typesupport_cpp";
-
-}  // namespace rosidl_typesupport_cpp
+ROSIDL_TYPESUPPORT_COMMON_EXPORT
+const char * NS_ROSIDL_TYPESUPPORT(typesupport_identifier) = ROSIDL_TYPESUPPORT_STRING;

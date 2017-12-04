@@ -12,23 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "rosidl_typesupport_c/service_type_support_dispatch.h"
+#ifndef ROSIDL_TYPESUPPORT_COMMON__IDENTIFIER_H_
+#define ROSIDL_TYPESUPPORT_COMMON__IDENTIFIER_H_
 
-#include "type_support_dispatch.hpp"
+#include <rosidl_typesupport_common/namespace.h>
+#include <rosidl_typesupport_common/visibility_control.h>
 
-#if __cplusplus
-extern "C"
-{
-#endif
+#ifdef ROSIDL_TYPESUPPORT_COMMON_C
 
-const rosidl_service_type_support_t *
-rosidl_typesupport_c__get_service_typesupport_handle_function(
-  const rosidl_service_type_support_t * handle, const char * identifier)
-{
-  return rosidl_typesupport_c::get_typesupport_handle_function<
-    rosidl_service_type_support_t>(handle, identifier);
-}
+NS_BEGIN
 
-#if __cplusplus
-}
-#endif
+ROSIDL_TYPESUPPORT_COMMON_PUBLIC
+extern const char * NS_ROSIDL_TYPESUPPORT(typesupport_identifier);
+
+NS_END
+
+#else
+
+NS_BEGIN
+
+ROSIDL_TYPESUPPORT_COMMON_IMPORT
+extern const char * typesupport_identifier;
+
+NS_END
+
+#endif  // ROSIDL_TYPESUPPORT_COMMON_C
+
+#endif  // ROSIDL_TYPESUPPORT_COMMON__IDENTIFIER_H_

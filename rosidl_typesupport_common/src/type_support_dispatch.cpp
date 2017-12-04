@@ -20,7 +20,7 @@
 #include <fstream>
 #include <sstream>
 
-namespace rosidl_typesupport_c
+namespace rosidl_typesupport_common
 {
 
 std::string find_library_path(const std::string & library_name)
@@ -99,4 +99,4 @@ bool is_file_exist(const char * filename)
   return h.good();
 }
 
-}  // namespace rosidl_typesupport_c
+}  // namespace rosidl_typesupport_common

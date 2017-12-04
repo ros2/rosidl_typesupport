@@ -1,4 +1,4 @@
-// generated from rosidl_typesupport_c/resource/srv__type_support.cpp.em
+// generated from rosidl_typesupport_common/resource/srv__type_support.cpp.em
 // generated code does not contain a copyright notice
 
 @#######################################################################
@@ -16,12 +16,12 @@
 
 #include "rosidl_generator_c/service_type_support.h"
 
-#include "@(spec.pkg_name)/msg/rosidl_typesupport_c__visibility_control.h"
+#include "@(spec.pkg_name)/msg/rosidl_typesupport_common__visibility_control.h"
 
 @[if len(type_supports) != 1]@
-#include "rosidl_typesupport_c/identifier.h"
-#include "rosidl_typesupport_c/service_type_support_dispatch.h"
-#include "rosidl_typesupport_c/type_support_map.h"
+#include "rosidl_typesupport_common/identifier.h"
+#include "rosidl_typesupport_common/service_type_support_dispatch.h"
+#include "rosidl_typesupport_common/type_support_map.h"
 @[end if]@
 #include "rosidl_typesupport_interface/macros.h"
 
@@ -32,7 +32,7 @@ namespace @(spec.pkg_name)
 namespace srv
 {
 
-namespace rosidl_typesupport_c
+namespace rosidl_typesupport_common
 {
 
 typedef struct _type_support_ids_t
@@ -87,12 +87,12 @@ static const type_support_map_t _@(spec.srv_name)_service_typesupport_map = {
 };
 
 static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support_handle = {
-  rosidl_typesupport_c__typesupport_identifier,
+  rosidl_typesupport_common__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(spec.srv_name)_service_typesupport_map),
-  rosidl_typesupport_c__get_service_typesupport_handle_function,
+  rosidl_typesupport_common__get_service_typesupport_handle_function,
 };
 
-}  // namespace rosidl_typesupport_c
+}  // namespace rosidl_typesupport_common
 
 }  // namespace srv
 
@@ -107,11 +107,11 @@ extern "C"
 {
 #endif
 
-ROSIDL_TYPESUPPORT_C_EXPORT_@(spec.pkg_name)
+ROSIDL_TYPESUPPORT_COMMON_EXPORT_@(spec.pkg_name)
 const rosidl_service_type_support_t *
-ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_c, @(spec.pkg_name), @(spec.srv_name))() {
+ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_common, @(spec.pkg_name), @(spec.srv_name))() {
 @[if len(type_supports) != 1]@
-  return &::@(spec.pkg_name)::srv::rosidl_typesupport_c::@(spec.srv_name)_service_type_support_handle;
+  return &::@(spec.pkg_name)::srv::rosidl_typesupport_common::@(spec.srv_name)_service_type_support_handle;
 @[else]@
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
 @[end if]@
