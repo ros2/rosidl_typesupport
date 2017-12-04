@@ -29,8 +29,7 @@ ament_python_install_package(${PROJECT_NAME})
 add_library(${PROJECT_NAME} SHARED
   src/identifier.cpp
   src/message_type_support_dispatch.cpp
-  src/service_type_support_dispatch.cpp
-  src/type_support_dispatch.cpp)
+  src/service_type_support_dispatch.cpp)
 if(Poco_FOUND)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_USE_POCO")

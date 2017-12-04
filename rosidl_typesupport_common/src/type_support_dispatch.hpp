@@ -45,18 +45,19 @@ extern const char * typesupport_identifier;
 template<typename TypeSupport>
 const TypeSupport *
 get_typesupport_handle_function(
-  const TypeSupport * handle, const char * identifier)
+  const TypeSupport * handle, const char * primary_identifier,
+  const char * secondary_identifier)
 {
-  if (strcmp(handle->typesupport_identifier, identifier) == 0) {
+  if (strcmp(handle->typesupport_identifier, primary_identifier) == 0) {
     return handle;
   }
 
 #ifdef ROSIDL_TYPESUPPORT_COMMON_USE_POCO
-  if (handle->typesupport_identifier == NS_ROSIDL_TYPESUPPORT(typesupport_identifier)) {
+  if (handle->typesupport_identifier == secondary_identifier) {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
     for (size_t i = 0; i < map->size; ++i) {
-      if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
+      if (strcmp(map->typesupport_identifier[i], primary_identifier) != 0) {
         continue;
       }
       Poco::SharedLibrary * lib = nullptr;
@@ -64,7 +65,7 @@ get_typesupport_handle_function(
         char library_name[1024];
         snprintf(
           library_name, 1023, "%s__%s",
-          map->package_name, identifier);
+          map->package_name, primary_identifier);
         std::string library_path = find_library_path(library_name);
         if (library_path.empty()) {
           fprintf(stderr, "Failed to find library '%s'\n", library_name);
