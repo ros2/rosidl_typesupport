@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>rosidl_typesupport_c</name>
+  <version>0.0.3</version>
+  <description>Generate the type support for C messages.</description>
+  <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>libpoco-dev</build_depend>
+  <build_depend>poco_vendor</build_depend>
+  <build_depend>rosidl_generator_c</build_depend>
+
+  <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
+  <build_export_depend>rmw_implementation</build_export_depend>
+  <build_export_depend>rosidl_generator_c</build_export_depend>
+  <build_export_depend>rosidl_typesupport_connext_c</build_export_depend>
+  <build_export_depend>rosidl_typesupport_introspection_c</build_export_depend>
+  <build_export_depend>rosidl_typesupport_opensplice_c</build_export_depend>
+
+  <exec_depend>libpoco-dev</exec_depend>
+  <exec_depend>poco_vendor</exec_depend>
+  <exec_depend>rosidl_typesupport_interface</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
