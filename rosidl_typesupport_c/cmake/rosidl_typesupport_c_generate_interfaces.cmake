@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+find_package(ament_cmake_ros REQUIRED)
+
 set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
@@ -90,7 +92,7 @@ configure_file(
 
 set(_target_suffix "__rosidl_typesupport_c")
 
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} SHARED ${_generated_files})
+add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${_generated_files})
 if(rosidl_generate_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
@@ -115,17 +117,22 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c)
 
+if(typesupports MATCHES ";")
+  if(DEFINED BUILD_SHARED_LIBS AND NOT BUILD_SHARED_LIBS)
+    message(FATAL_ERROR "Multiple typesupports but static linking was requested")
+  endif()
+  if(NOT rosidl_typesupport_c_SUPPORTS_POCO)
+    message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
+      "rosidl_typesupport_c was built")
+  endif()
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
-if(NOT typesupports MATCHES ";")
+else()
   target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PUBLIC
     "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
   target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
-elseif(NOT rosidl_typesupport_c_SUPPORTS_POCO)
-  message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
-    "rosidl_typesupport_c was built")
 endif()
 
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
