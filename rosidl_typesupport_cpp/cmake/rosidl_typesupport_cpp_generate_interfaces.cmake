@@ -80,7 +80,7 @@ add_custom_command(
 
 set(_target_suffix "__rosidl_typesupport_cpp")
 
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} SHARED ${_generated_files})
+add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_cpp_LIBRARY_TYPE} ${_generated_files})
 if(rosidl_generate_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
@@ -109,9 +109,14 @@ if(NOT typesupports MATCHES ";")
     "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
   target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
-elseif(NOT rosidl_typesupport_cpp_SUPPORTS_POCO)
-  message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
-    "rosidl_typesupport_cpp was built")
+else()
+  if("${rosidl_typesupport_cpp_LIBRARY_TYPE}" STREQUAL "STATIC")
+    message(FATAL_ERROR "Multiple typesupports but static linking was requested")
+  endif()
+  if(NOT rosidl_typesupport_cpp_SUPPORTS_POCO)
+    message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
+      "rosidl_typesupport_cpp was built")
+  endif()
 endif()
 
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
