@@ -45,6 +45,8 @@ std::string find_library_path(const std::string & library_name)
   filename_prefix = "lib";
   filename_extension = ".so";
 #endif
+
+#if !defined(ROSIDL_TYPESUPPORT_C_NO_ENV)
   std::string search_path = get_env_var(env_var);
   std::list<std::string> search_paths = split(search_path, separator);
 
@@ -57,9 +59,11 @@ std::string find_library_path(const std::string & library_name)
       return path;
     }
   }
+#endif
   return "";
 }
 
+#if !defined(ROSIDL_TYPESUPPORT_C_NO_ENV)
 std::string get_env_var(const char * env_var)
 {
   char * value = nullptr;
@@ -79,6 +83,7 @@ std::string get_env_var(const char * env_var)
   // printf("get_env_var(%s) = %s\n", env_var, value_str.c_str());
   return value_str;
 }
+#endif
 
 std::list<std::string> split(const std::string & value, const char delimiter)
 {

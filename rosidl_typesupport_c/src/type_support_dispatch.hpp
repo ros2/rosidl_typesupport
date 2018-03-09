@@ -26,6 +26,20 @@
 #include "Poco/SharedLibrary.h"
 #endif
 
+#if defined(WIN32)
+#include <SDKDDKVer.h>
+#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WIN8)
+#include <winapifamily.h>
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#define ROSIDL_TYPESUPPORT_C_NO_ENV 1
+#endif
+#endif
+#endif
+
+#if defined(ANDROID)
+#define ROSIDL_TYPESUPPORT_C_NO_ENV 1
+#endif
+
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
@@ -34,7 +48,9 @@ namespace rosidl_typesupport_c
 
 std::string find_library_path(const std::string & library_name);
 
+#if !defined(ROSIDL_TYPESUPPORT_C_NO_ENV)
 std::string get_env_var(const char * env_var);
+#endif
 
 std::list<std::string> split(const std::string & value, const char delimiter);
 
