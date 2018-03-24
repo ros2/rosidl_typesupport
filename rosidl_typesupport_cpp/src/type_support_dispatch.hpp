@@ -31,14 +31,19 @@
 namespace rosidl_typesupport_cpp
 {
 
-std::string find_library_path(const std::string & library_name);
+// std::string find_library_path(const std::string & library_name);
+using rosidl_typesupport_common::find_library_path;
 
-std::string get_env_var(const char * env_var);
+// std::string get_env_var(const char * env_var);
+using rosidl_typesupport_common::get_env_var;
 
-std::list<std::string> split(const std::string & value, const char delimiter);
+// std::list<std::string> split(const std::string & value, const char delimiter)
+using rosidl_typesupport_common::split;
 
-bool is_file_exist(const char * filename);
+// bool is_file_exist(const char * filename)
+using rosidl_typesupport_common::is_file_exist;
 
+// ?
 extern const char * typesupport_identifier;
 
 template<typename TypeSupport>
@@ -46,49 +51,8 @@ const TypeSupport *
 get_typesupport_handle_function(
   const TypeSupport * handle, const char * identifier)
 {
-  if (strcmp(handle->typesupport_identifier, identifier) == 0) {
-    return handle;
-  }
-
-#ifdef ROSIDL_TYPESUPPORT_CPP_USE_POCO
-  if (handle->typesupport_identifier == rosidl_typesupport_cpp::typesupport_identifier) {
-    const type_support_map_t * map = \
-      static_cast<const type_support_map_t *>(handle->data);
-    for (size_t i = 0; i < map->size; ++i) {
-      if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
-        continue;
-      }
-      Poco::SharedLibrary * lib = nullptr;
-      if (!map->data[i]) {
-        char library_name[1024];
-        snprintf(
-          library_name, 1023, "%s__%s",
-          map->package_name, identifier);
-        std::string library_path = find_library_path(library_name);
-        if (library_path.empty()) {
-          fprintf(stderr, "Failed to find library '%s'\n", library_name);
-          return nullptr;
-        }
-        lib = new Poco::SharedLibrary(library_path);
-        map->data[i] = lib;
-      }
-      auto clib = static_cast<const Poco::SharedLibrary *>(map->data[i]);
-      lib = const_cast<Poco::SharedLibrary *>(clib);
-      if (!lib->hasSymbol(map->symbol_name[i])) {
-        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
-        return nullptr;
-      }
-      void * sym = lib->getSymbol(map->symbol_name[i]);
-
-      typedef const TypeSupport * (* funcSignature)(void);
-      funcSignature func = reinterpret_cast<funcSignature>(sym);
-      const TypeSupport * ts = func();
-      return ts;
-    }
-  }
-#endif
-
-  return nullptr;
+  return rosidl_typesupport_common::get_typesupport_handle_function(
+    handle, identifier, rosidl_typesupport_cpp::typesupport_identifier);
 }
 
 }  // namespace rosidl_typesupport_cpp

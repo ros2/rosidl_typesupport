@@ -24,7 +24,7 @@ from rosidl_parser import parse_service_file
 from rosidl_parser import validate_field_types
 
 
-def generate_cpp(generator_arguments_file, type_supports):
+def generate_common(generator_arguments_file, type_supports):
     args = read_generator_arguments(generator_arguments_file)
 
     template_dir = args['template_dir']
