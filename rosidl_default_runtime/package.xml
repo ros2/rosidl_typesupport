@@ -22,6 +22,8 @@
   <!-- Once that issue is properly resolved this needs to be removed. -->
   <build_export_depend>rosidl_typesupport_connext_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_connext_cpp</build_export_depend>
+  <build_export_depend>rosidl_typesupport_coredx_c</build_export_depend>
+  <build_export_depend>rosidl_typesupport_coredx_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_opensplice_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_opensplice_cpp</build_export_depend>
 

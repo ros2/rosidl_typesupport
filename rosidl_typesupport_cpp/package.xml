@@ -18,6 +18,7 @@
   <build_export_depend>rosidl_generator_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_connext_cpp</build_export_depend>
+  <build_export_depend>rosidl_typesupport_coredx_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_introspection_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_opensplice_cpp</build_export_depend>
 
