@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>rosidl_default_generators</name>
   <version>0.4.0</version>
   <description>A configuration package defining the default ROS interface generators.</description>
@@ -18,6 +18,8 @@
   <buildtool_export_depend>rosidl_typesupport_c</buildtool_export_depend>
   <buildtool_export_depend>rosidl_typesupport_cpp</buildtool_export_depend>
 
+  <group_depend>rosidl_typesupport_c_packages</group_depend>
+  <group_depend>rosidl_typesupport_cpp_packages</group_depend>
   <buildtool_export_depend>rosidl_typesupport_introspection_c</buildtool_export_depend>
   <buildtool_export_depend>rosidl_typesupport_introspection_cpp</buildtool_export_depend>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>rosidl_typesupport_c</name>
   <version>0.4.0</version>
   <description>Generate the type support for C messages.</description>
@@ -16,6 +16,8 @@
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
   <build_export_depend>rosidl_generator_c</build_export_depend>
+
+  <group_depend>rosidl_typesupport_c_packages</group_depend>
   <build_export_depend>rosidl_typesupport_connext_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_introspection_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_opensplice_c</build_export_depend>
