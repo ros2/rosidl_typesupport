@@ -19,7 +19,7 @@
 
 #include "rosidl_typesupport_c/visibility_control.h"
 
-#if __cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -29,7 +29,7 @@ const rosidl_message_type_support_t *
 rosidl_typesupport_c__get_message_typesupport_handle_function(
   const rosidl_message_type_support_t * handle, const char * identifier);
 
-#if __cplusplus
+#ifdef __cplusplus
 }
 #endif
 
