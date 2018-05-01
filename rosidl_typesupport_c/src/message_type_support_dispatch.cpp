@@ -16,7 +16,7 @@
 
 #include "type_support_dispatch.hpp"
 
-#if __cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -29,6 +29,6 @@ rosidl_typesupport_c__get_message_typesupport_handle_function(
     rosidl_message_type_support_t>(handle, identifier);
 }
 
-#if __cplusplus
+#ifdef __cplusplus
 }
 #endif
