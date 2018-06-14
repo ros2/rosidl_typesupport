@@ -17,6 +17,7 @@
   <build_export_depend>rosidl_typesupport_introspection_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_introspection_cpp</build_export_depend>
 
+  <group_depend>rosidl_runtime_packages</group_depend>
   <group_depend>rosidl_typesupport_c_packages</group_depend>
   <group_depend>rosidl_typesupport_cpp_packages</group_depend>
   <!-- These two dependencies cannot stay here. -->

@@ -1,23 +1,14 @@
 # generated from
-# rosidl_default_generators/rosidl_default_generators-extras.cmake.in
+# rosidl_default_runtime/rosidl_default_runtime-extras.cmake.in
 
 find_package(ament_cmake_core REQUIRED)
-ament_index_get_resources(rosidl_generator_packages "rosidl_generator_packages")
-ament_index_get_resources(rosidl_typesupport_c_packages "rosidl_typesupport_c")
-ament_index_get_resources(rosidl_typesupport_cpp_packages "rosidl_typesupport_cpp")
-set(_exported_dependencies
-  ${rosidl_generator_packages}
-  "rosidl_typesupport_c"
-  "rosidl_typesupport_cpp"
-  ${rosidl_typesupport_c_packages}
-  ${rosidl_typesupport_cpp_packages}
-)
+ament_index_get_resources(rosidl_runtime_packages "rosidl_runtime_packages")
 
 # find_package() all dependencies (if available)
 # and append their DEFINITIONS INCLUDE_DIRS and LIBRARIES variables
 # to @PROJECT_NAME@_DEFINITIONS , @PROJECT_NAME@_INCLUDE_DIRS and
 # @PROJECT_NAME@_LIBRARIES.
-foreach(_dep ${_exported_dependencies})
+foreach(_dep ${rosidl_runtime_packages})
   find_package("${_dep}" QUIET)
   if(${_dep}_FOUND)
     if(${_dep}_DEFINITIONS)

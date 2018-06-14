@@ -19,6 +19,7 @@
   <buildtool_export_depend>rosidl_typesupport_c</buildtool_export_depend>
   <buildtool_export_depend>rosidl_typesupport_cpp</buildtool_export_depend>
 
+  <group_depend>rosidl_generator_packages</group_depend>
   <group_depend>rosidl_typesupport_c_packages</group_depend>
   <group_depend>rosidl_typesupport_cpp_packages</group_depend>
   <buildtool_export_depend>rosidl_typesupport_introspection_c</buildtool_export_depend>
