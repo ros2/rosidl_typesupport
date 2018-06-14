@@ -7,10 +7,6 @@ find_package(ament_cmake REQUIRED)
 ament_export_dependencies(ament_cmake_core)
 ament_export_dependencies(rosidl_cmake)
 
-ament_export_dependencies(rosidl_generator_c)
-ament_export_dependencies(rosidl_generator_cpp)
-ament_export_dependencies(rosidl_generator_py)
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
