@@ -4,15 +4,11 @@ project(rosidl_default_runtime NONE)
 
 find_package(ament_cmake REQUIRED)
 
-ament_export_dependencies(rosidl_generator_cpp)
-ament_export_dependencies(rosidl_typesupport_c)
-ament_export_dependencies(rosidl_typesupport_cpp)
-ament_export_dependencies(rosidl_typesupport_introspection_c)
-ament_export_dependencies(rosidl_typesupport_introspection_cpp)
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
+ament_package(
+  CONFIG_EXTRAS "rosidl_default_runtime-extras.cmake.in"
+)
