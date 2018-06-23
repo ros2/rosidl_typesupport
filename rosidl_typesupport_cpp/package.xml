@@ -12,6 +12,14 @@
   <build_depend>libpoco-dev</build_depend>
   <build_depend>poco_vendor</build_depend>
   <build_depend>rosidl_generator_c</build_depend>
+  <!--
+  Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_cpp_packages.
+  This ensures that binary packages have support for all of these rmw impl. enabled.
+  -->
+  <build_depend>rosidl_typesupport_connext_cpp</build_depend>
+  <build_depend>rosidl_typesupport_introspection_cpp</build_depend>
+  <build_depend>rosidl_typesupport_opensplice_cpp</build_depend>
+  <!-- end of group rosidl_typesupport_cpp_packages for bloom -->
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
@@ -19,9 +27,6 @@
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
 
   <group_depend>rosidl_typesupport_cpp_packages</group_depend>
-  <build_export_depend>rosidl_typesupport_connext_cpp</build_export_depend>
-  <build_export_depend>rosidl_typesupport_introspection_cpp</build_export_depend>
-  <build_export_depend>rosidl_typesupport_opensplice_cpp</build_export_depend>
 
   <exec_depend>libpoco-dev</exec_depend>
   <exec_depend>poco_vendor</exec_depend>
