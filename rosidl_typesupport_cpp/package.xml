@@ -26,14 +26,14 @@
   <build_export_depend>rosidl_generator_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
 
-  <group_depend>rosidl_typesupport_cpp_packages</group_depend>
-
   <exec_depend>libpoco-dev</exec_depend>
   <exec_depend>poco_vendor</exec_depend>
   <exec_depend>rosidl_typesupport_interface</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
+
+  <group_depend>rosidl_typesupport_cpp_packages</group_depend>
 
   <member_of_group>rosidl_runtime_packages</member_of_group>
 
