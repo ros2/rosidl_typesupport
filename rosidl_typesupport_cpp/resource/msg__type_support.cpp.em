@@ -126,4 +126,18 @@ get_message_type_support_handle<@(spec.base_type.pkg_name)::@(subfolder)::@(spec
 @[end if]@
 }
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+ROSIDL_TYPESUPPORT_CPP_PUBLIC
+const rosidl_message_type_support_t *
+ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_cpp, @(spec.base_type.pkg_name), @(subfolder), @(spec.base_type.type))() {
+  return get_message_type_support_handle<@(spec.base_type.pkg_name)::@(subfolder)::@(spec.base_type.type)>();
+}
+
+#ifdef __cplusplus
+}
+#endif
 }  // namespace rosidl_typesupport_cpp
