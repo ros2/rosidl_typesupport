@@ -7,6 +7,9 @@
 @# Context:
 @#  - spec (rosidl_parser.ServiceSpecification)
 @#    Parsed specification of the .srv file
+@#  - subfolder (string)
+@#    The subfolder / subnamespace of the message
+@#    Either 'srv' or 'action'
 @#  - type_supports (list of strings)
 @#    The name of the type support packages
 @#  - get_header_filename_from_msg_name (function)
@@ -16,7 +19,7 @@
 
 #include "rosidl_generator_c/service_type_support_struct.h"
 
-#include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__struct.hpp"
+#include "@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.srv_name))__struct.hpp"
 
 @[if len(type_supports) != 1]@
 #include "rosidl_typesupport_cpp/identifier.hpp"
@@ -35,7 +38,7 @@
 namespace @(spec.pkg_name)
 {
 
-namespace srv
+namespace @(subfolder)
 {
 
 namespace rosidl_typesupport_cpp
@@ -100,12 +103,12 @@ static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support
 
 }  // namespace rosidl_typesupport_cpp
 
-}  // namespace srv
+}  // namespace @(subfolder)
 
 }  // namespace @(spec.pkg_name)
 
 @[else]@
-#include "@(spec.pkg_name)/srv/@(get_header_filename_from_msg_name(spec.srv_name))__@(list(type_supports)[0]).hpp"
+#include "@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.srv_name))__@(list(type_supports)[0]).hpp"
 
 @[end if]@
 namespace rosidl_typesupport_cpp
@@ -114,10 +117,10 @@ namespace rosidl_typesupport_cpp
 template<>
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_service_type_support_t *
-get_service_type_support_handle<@(spec.pkg_name)::srv::@(spec.srv_name)>()
+get_service_type_support_handle<@(spec.pkg_name)::@(subfolder)::@(spec.srv_name)>()
 {
 @[if len(type_supports) != 1]@
-  return &::@(spec.pkg_name)::srv::rosidl_typesupport_cpp::@(spec.srv_name)_service_type_support_handle;
+  return &::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.srv_name)_service_type_support_handle;
 @[else]@
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
 @[end if]@

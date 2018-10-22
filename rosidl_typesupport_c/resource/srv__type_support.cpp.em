@@ -7,6 +7,9 @@
 @# Context:
 @#  - spec (rosidl_parser.ServiceSpecification)
 @#    Parsed specification of the .srv file
+@#  - subfolder (string)
+@#    The subfolder / subnamespace of the message
+@#    Either 'srv' or 'action'
 @#  - type_supports (list of strings)
 @#    The name of the type support packages
 @#  - get_header_filename_from_msg_name (function)
@@ -29,7 +32,7 @@
 namespace @(spec.pkg_name)
 {
 
-namespace srv
+namespace @(subfolder)
 {
 
 namespace rosidl_typesupport_c
@@ -94,7 +97,7 @@ static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support
 
 }  // namespace rosidl_typesupport_c
 
-}  // namespace srv
+}  // namespace @(subfolder)
 
 }  // namespace @(spec.pkg_name)
 
@@ -111,7 +114,7 @@ ROSIDL_TYPESUPPORT_C_EXPORT_@(spec.pkg_name)
 const rosidl_service_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_c, @(spec.pkg_name), @(spec.srv_name))() {
 @[if len(type_supports) != 1]@
-  return &::@(spec.pkg_name)::srv::rosidl_typesupport_c::@(spec.srv_name)_service_type_support_handle;
+  return &::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_c::@(spec.srv_name)_service_type_support_handle;
 @[else]@
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
 @[end if]@
