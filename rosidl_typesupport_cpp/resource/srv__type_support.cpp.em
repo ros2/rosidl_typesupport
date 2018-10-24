@@ -69,7 +69,7 @@ typedef struct _type_support_symbol_names_t
 static const _type_support_symbol_names_t _@(spec.srv_name)_service_typesupport_symbol_names = {
   {
 @[for type_support in sorted(type_supports)]@
-    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(spec.pkg_name), @(spec.srv_name))),
+    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(spec.pkg_name), @(subfolder), @(spec.srv_name))),
 @[end for]@
   }
 };
@@ -122,7 +122,7 @@ get_service_type_support_handle<@(spec.pkg_name)::@(subfolder)::@(spec.srv_name)
 @[if len(type_supports) != 1]@
   return &::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.srv_name)_service_type_support_handle;
 @[else]@
-  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(spec.srv_name))();
+  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(subfolder), @(spec.srv_name))();
 @[end if]@
 }
 
