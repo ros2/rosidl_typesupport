@@ -9,7 +9,7 @@
 @#    Parsed specification of the .msg file
 @#  - subfolder (string)
 @#    The subfolder / subnamespace of the message
-@#    Either 'msg' or 'srv'
+@#    Could be 'msg', 'srv' or 'action'
 @#  - type_supports (list of strings)
 @#    The name of the type support packages
 @#  - get_header_filename_from_msg_name (function)
