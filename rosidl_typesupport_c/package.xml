@@ -19,6 +19,7 @@
   <build_depend>rosidl_typesupport_connext_c</build_depend>
   <build_depend>rosidl_typesupport_introspection_c</build_depend>
   <build_depend>rosidl_typesupport_opensplice_c</build_depend>
+  <build_depend>rosidl_typesupport_micro_dds_c</build_depend>
   <!-- end of group rosidl_typesupport_c_packages for bloom -->
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
