@@ -5,7 +5,7 @@
 @# EmPy template for generating <action>__type_support.cpp files
 @#
 @# Context:
-@#  - spec (rosidl_parser.MessageSpecification)
+@#  - spec (rosidl_parser.ActionSpecification)
 @#    Parsed specification of the .action file
 @#  - subfolder (string)
 @#    The subfolder / subnamespace of the message, usually 'action'

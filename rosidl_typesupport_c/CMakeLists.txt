@@ -31,6 +31,7 @@ ament_python_install_package(${PROJECT_NAME})
 
 add_library(${PROJECT_NAME}
   src/identifier.c
+  src/action_type_support_dispatch.cpp
   src/message_type_support_dispatch.cpp
   src/service_type_support_dispatch.cpp
   src/type_support_dispatch.cpp)

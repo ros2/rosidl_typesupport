@@ -56,6 +56,7 @@ endforeach()
 set(target_dependencies
   "${rosidl_typesupport_c_BIN}"
   ${rosidl_typesupport_c_GENERATOR_FILES}
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
   ${rosidl_generate_interfaces_IDL_FILES}
