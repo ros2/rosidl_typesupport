@@ -16,6 +16,11 @@ set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
 
+# append action files to interface_idl_files to be considered during json eval
+foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
+  list(APPEND ${rosidl_generate_interfaces_IDL_FILES} _idl_file)
+endforeach()
+
 foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   get_filename_component(_extension "${_idl_file}" EXT)
   get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
@@ -30,6 +35,11 @@ foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
     if(NOT _parent_folder IN_LIST _allowed_parent_folders)
       message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
     endif()
+  elseif(_extension STREQUAL ".action")
+    set(_allowed_parent_folders "action")
+    if(NOT _parent_folder IN_LIST _allowed_parent_folders)
+      message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
+    endif()
   else()
     message(FATAL_ERROR "Interface file with unknown extension: ${_idl_file}")
   endif()
@@ -38,11 +48,6 @@ foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   list(APPEND _generated_files
     "${_output_path}/${_parent_folder}/${_header_name}__type_support.cpp"
   )
-endforeach()
-
-# append action files to interface_idl_files to be considered during json eval
-foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
-  list(APPEND ${rosidl_generate_interfaces_IDL_FILES} _idl_file)
 endforeach()
 
 set(_dependency_files "")
