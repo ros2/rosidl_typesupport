@@ -16,26 +16,11 @@ set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
 
-# append action files to interface_idl_files to be considered during json eval
 foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
-  list(APPEND ${rosidl_generate_interfaces_IDL_FILES} _idl_file)
-endforeach()
-
-foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   get_filename_component(_extension "${_idl_file}" EXT)
   get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
   get_filename_component(_parent_folder "${_parent_folder}" NAME)
-  if(_extension STREQUAL ".msg")
-    set(_allowed_parent_folders "msg" "srv" "action")
-    if(NOT _parent_folder IN_LIST _allowed_parent_folders)
-      message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
-    endif()
-  elseif(_extension STREQUAL ".srv")
-    set(_allowed_parent_folders "srv" "action")
-    if(NOT _parent_folder IN_LIST _allowed_parent_folders)
-      message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
-    endif()
-  elseif(_extension STREQUAL ".action")
+  if(_extension STREQUAL ".action")
     set(_allowed_parent_folders "action")
     if(NOT _parent_folder IN_LIST _allowed_parent_folders)
       message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
@@ -70,7 +55,7 @@ set(target_dependencies
   "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
-  ${rosidl_generate_interfaces_IDL_FILES}
+  ${rosidl_generate_action_interfaces_IDL_FILES}
   ${_dependency_files})
 foreach(dep ${target_dependencies})
   if(NOT EXISTS "${dep}")
@@ -85,7 +70,7 @@ set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c__
 rosidl_write_generator_arguments(
   "${generator_arguments_file}"
   PACKAGE_NAME "${PROJECT_NAME}"
-  ROS_INTERFACE_FILES "${rosidl_generate_interfaces_IDL_FILES}"
+  ROS_INTERFACE_FILES "${rosidl_generate_action_interfaces_IDL_FILES}"
   ROS_INTERFACE_DEPENDENCIES "${_dependencies}"
   OUTPUT_DIR "${_output_path}"
   TEMPLATE_DIR "${rosidl_typesupport_c_TEMPLATE_DIR}"
