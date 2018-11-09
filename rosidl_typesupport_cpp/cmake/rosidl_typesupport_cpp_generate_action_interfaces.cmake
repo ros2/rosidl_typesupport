@@ -37,7 +37,7 @@ endforeach()
 
 set(_dependency_files "")
 set(_dependencies "")
-foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
+foreach(_pkg_name ${rosidl_generate_action_interfaces_DEPENDENCY_PACKAGE_NAMES})
   foreach(_idl_file ${${_pkg_name}_INTERFACE_FILES})
   get_filename_component(_extension "${_idl_file}" EXT)
   if(_extension STREQUAL ".msg")
@@ -89,23 +89,23 @@ add_custom_command(
 
 set(_target_suffix "__rosidl_typesupport_cpp")
 
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_cpp_LIBRARY_TYPE} ${_generated_files})
-if(rosidl_generate_interfaces_LIBRARY_NAME)
-  set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
+add_library(${rosidl_generate_action_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_cpp_LIBRARY_TYPE} ${_generated_files})
+if(rosidl_generate_action_interfaces_LIBRARY_NAME)
+  set_target_properties(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+    PROPERTIES OUTPUT_NAME "${rosidl_generate_action_interfaces_LIBRARY_NAME}${_target_suffix}")
 endif()
 if(WIN32)
-  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  target_compile_definitions(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
 endif()
-set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+set_target_properties(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   PROPERTIES CXX_STANDARD 14)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  set_target_properties(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     PROPERTIES COMPILE_OPTIONS -Wall -Wextra -Wpedantic)
 endif()
-target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+target_include_directories(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
 )
@@ -113,11 +113,11 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
 if(NOT typesupports MATCHES ";")
-  target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  target_include_directories(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     PUBLIC
     "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
-  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    ${rosidl_generate_interfaces_TARGET}__${typesupports})
+  target_link_libraries(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+    ${rosidl_generate_action_interfaces_TARGET}__${typesupports})
 else()
   if("${rosidl_typesupport_cpp_LIBRARY_TYPE}" STREQUAL "STATIC")
     message(FATAL_ERROR "Multiple typesupports but static linking was requested")
@@ -128,37 +128,37 @@ else()
   endif()
 endif()
 
-ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+ament_target_dependencies(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   "rosidl_generator_c"
   "rosidl_generator_cpp"
   "rosidl_typesupport_cpp"
   "rosidl_typesupport_interface")
-foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
+foreach(_pkg_name ${rosidl_generate_action_interfaces_DEPENDENCY_PACKAGE_NAMES})
   ament_target_dependencies(
-    ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     ${_pkg_name})
 endforeach()
 
 add_dependencies(
-  ${rosidl_generate_interfaces_TARGET}
-  ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}
+  ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
 )
 add_dependencies(
-  ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  ${rosidl_generate_interfaces_TARGET}__cpp
+  ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}__cpp
 )
 
-if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
+if(NOT rosidl_generate_action_interfaces_SKIP_INSTALL)
   install(
-    TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    TARGETS ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
   )
-  ament_export_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix})
+  ament_export_libraries(${rosidl_generate_action_interfaces_TARGET}${_target_suffix})
 endif()
 
-if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
+if(BUILD_TESTING AND rosidl_generate_action_interfaces_ADD_LINTER_TESTS)
   if(NOT _generated_files STREQUAL "")
     find_package(ament_cmake_cppcheck REQUIRED)
     ament_cppcheck(
