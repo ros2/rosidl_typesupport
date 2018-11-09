@@ -13,6 +13,11 @@ ament_register_extension(
   "rosidl_typesupport_c"
   "rosidl_typesupport_c_generate_interfaces.cmake")
 
+ament_register_extension(
+  "rosidl_generate_action_interfaces"
+  "rosidl_typesupport_c"
+  "rosidl_typesupport_c_generate_action_interfaces.cmake")
+
 set(rosidl_typesupport_c_SUPPORTS_POCO @Poco_FOUND@)
 
 set(rosidl_typesupport_c_BIN
