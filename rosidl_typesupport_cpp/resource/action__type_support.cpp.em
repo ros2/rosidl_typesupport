@@ -22,7 +22,7 @@
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__goal.hpp>
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__result.hpp>
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__struct.hpp>
-#include <@(spec.pkg_name)/msg/rosidl_generator_c__visibility_control.h>
+#include <@(spec.pkg_name)/action/rosidl_generator_c__visibility_control.h>
 
 #include "rosidl_generator_c/action_type_support_struct.h"
 #include "rosidl_generator_cpp/action_type_support_decl.hpp"
@@ -51,7 +51,7 @@ namespace rosidl_generator_cpp
 {
 
 template<>
-ROSIDL_GENERATOR_C_PUBLIC_@(spec.pkg_name)
+ROSIDL_GENERATOR_C_PUBLIC_@(spec.pkg_name)_ACTION
 const rosidl_action_type_support_t *
 get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.pkg_name)>()
 {

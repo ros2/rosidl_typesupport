@@ -56,7 +56,6 @@ endforeach()
 set(target_dependencies
   "${rosidl_typesupport_c_BIN}"
   ${rosidl_typesupport_c_GENERATOR_FILES}
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
   "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
   ${rosidl_generate_interfaces_IDL_FILES}
@@ -102,6 +101,16 @@ configure_file(
   @ONLY
 )
 
+# generate header to switch between export and import for actions of a specific package
+set(_action_visibility_control_file
+  "${_output_path}/action/rosidl_typesupport_c__visibility_control.h")
+string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
+configure_file(
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/rosidl_typesupport_c__action_visibility_control.h.in"
+  "${_action_visibility_control_file}"
+  @ONLY
+)
+
 set(_target_suffix "__rosidl_typesupport_c")
 
 add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_c_LIBRARY_TYPE} ${_generated_files})
@@ -114,6 +123,10 @@ if(WIN32)
     PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
   target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL_${PROJECT_NAME}")
+  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}_ACTION")
+  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL_${PROJECT_NAME}_ACTION")
 endif()
 
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
