@@ -15,6 +15,11 @@
 set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
+
+foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
+  list(APPEND ${rosidl_generate_interfaces_IDL_FILES} _idl_file)
+endforeach()
+
 foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   get_filename_component(_extension "${_idl_file}" EXT)
   get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
@@ -26,6 +31,25 @@ foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
     endif()
   elseif(_extension STREQUAL ".srv")
     set(_allowed_parent_folders "srv" "action")
+    if(NOT _parent_folder IN_LIST _allowed_parent_folders)
+      message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
+    endif()
+  else()
+    message(FATAL_ERROR "Interface file with unknown extension: ${_idl_file}")
+  endif()
+  get_filename_component(_msg_name "${_idl_file}" NAME_WE)
+  string_camel_case_to_lower_case_underscore("${_msg_name}" _header_name)
+  list(APPEND _generated_files
+    "${_output_path}/${_parent_folder}/${_header_name}__type_support.cpp"
+  )
+endforeach()
+
+foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
+  get_filename_component(_extension "${_idl_file}" EXT)
+  get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
+  get_filename_component(_parent_folder "${_parent_folder}" NAME)
+  if(_extension STREQUAL ".action")
+    set(_allowed_parent_folders "action")
     if(NOT _parent_folder IN_LIST _allowed_parent_folders)
       message(FATAL_ERROR "Interface file with unknown parent folder: ${_idl_file}")
     endif()
