@@ -22,7 +22,7 @@
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__goal.hpp>
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__result.hpp>
 #include <@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.action_name))__struct.hpp>
-#include <@(spec.pkg_name)/action/rosidl_generator_c__visibility_control.h>
+#include "rosidl_typesupport_cpp/visibility_control.h"
 
 #include "rosidl_generator_c/action_type_support_struct.h"
 #include "rosidl_generator_cpp/action_type_support_decl.hpp"
@@ -51,17 +51,17 @@ namespace rosidl_generator_cpp
 {
 
 template<>
-ROSIDL_GENERATOR_C_PUBLIC_@(spec.pkg_name)_ACTION
+ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_action_type_support_t *
-get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.pkg_name)>()
+get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)>()
 {
-  using ::@(spec.pkg_name)::@(subfolder)::rosidl_generator_cpp::@(spec.action_name)_action_type_support_handle;
+  using ::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.action_name)_action_type_support_handle;
   // Thread-safe by always writing the same values to the static struct
-  @(spec.action_name)_action_type_support_handle.goal_service_type_support = get_service_type_support_handle<::@(spec.action_name)::@(subfolder)::@(spec.action_name)::GoalRequestService>();
-  @(spec.action_name)_action_type_support_handle.result_service_type_support = get_service_type_support_handle<::@(spec.action_name)::@(subfolder)::@(spec.action_name)::GoalResultService>();
-  @(spec.action_name)_action_type_support_handle.cancel_service_type_support = get_service_type_support_handle<::@(spec.action_name)::@(subfolder)::@(spec.action_name)::CancelGoalService>();
-  @(spec.action_name)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@(spec.action_name)::@(subfolder)::@(spec.action_name)::Feedback>();
-  @(spec.action_name)_action_type_support_handle.status_message_type_support = get_message_type_support_handle<::@(spec.action_name)::@(subfolder)::@(spec.action_name)::GoalStatusMessage>();
+  @(spec.action_name)_action_type_support_handle.goal_service_type_support = get_service_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)::GoalRequestService>();
+  @(spec.action_name)_action_type_support_handle.result_service_type_support = get_service_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)::GoalResultService>();
+  @(spec.action_name)_action_type_support_handle.cancel_service_type_support = get_service_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)::CancelGoalService>();
+  @(spec.action_name)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)::Feedback>();
+  @(spec.action_name)_action_type_support_handle.status_message_type_support = get_message_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)::GoalStatusMessage>();
   return &@(spec.action_name)_action_type_support_handle;
 }
 
