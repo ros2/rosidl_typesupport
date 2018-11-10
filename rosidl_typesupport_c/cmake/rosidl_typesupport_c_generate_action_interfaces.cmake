@@ -31,7 +31,7 @@ foreach(_idl_file ${rosidl_generate_action_interfaces_IDL_FILES})
   get_filename_component(_msg_name "${_idl_file}" NAME_WE)
   string_camel_case_to_lower_case_underscore("${_msg_name}" _header_name)
   list(APPEND _generated_files
-    "${_output_path}/${_parent_folder}/${_header_name}__type_support.cpp"
+    "${_output_path}/${_parent_folder}/${_header_name}__type_support.c"
   )
 endforeach()
 
@@ -52,9 +52,7 @@ endforeach()
 set(target_dependencies
   "${rosidl_typesupport_c_BIN}"
   ${rosidl_typesupport_c_GENERATOR_FILES}
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.cpp.em"
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.c.em"
   ${rosidl_generate_action_interfaces_IDL_FILES}
   ${_dependency_files})
 foreach(dep ${target_dependencies})
@@ -66,7 +64,7 @@ foreach(dep ${target_dependencies})
   endif()
 endforeach()
 
-set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c__arguments.json")
+set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c__generate_action_interfaces__arguments.json")
 rosidl_write_generator_arguments(
   "${generator_arguments_file}"
   PACKAGE_NAME "${PROJECT_NAME}"
@@ -90,10 +88,10 @@ add_custom_command(
 
 # generate header to switch between export and import for a specific package
 set(_visibility_control_file
-  "${_output_path}/msg/rosidl_typesupport_c__visibility_control.h")
+  "${_output_path}/action/rosidl_typesupport_c__visibility_control.h")
 string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
 configure_file(
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/rosidl_typesupport_c__visibility_control.h.in"
+  "${rosidl_typesupport_c_TEMPLATE_DIR}/rosidl_typesupport_c__action_visibility_control.h.in"
   "${_visibility_control_file}"
   @ONLY
 )
