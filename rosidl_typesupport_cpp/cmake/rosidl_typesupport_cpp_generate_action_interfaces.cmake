@@ -52,8 +52,7 @@ endforeach()
 set(target_dependencies
   "${rosidl_typesupport_cpp_BIN}"
   ${rosidl_typesupport_cpp_GENERATOR_FILES}
-  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/msg__type_support.cpp.em"
-  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/srv__type_support.cpp.em"
+  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/action__type_support.cpp.em"
   ${rosidl_generate_action_interfaces_IDL_FILES}
   ${_dependency_files})
 foreach(dep ${target_dependencies})
@@ -65,7 +64,7 @@ foreach(dep ${target_dependencies})
   endif()
 endforeach()
 
-set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_cpp__arguments.json")
+set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_cpp__generate_action_interfaces__arguments.json")
 rosidl_write_generator_arguments(
   "${generator_arguments_file}"
   PACKAGE_NAME "${PROJECT_NAME}"
@@ -107,6 +106,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 target_include_directories(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   PUBLIC
+  ${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_cpp
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
 )
 
