@@ -65,4 +65,4 @@ get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_n
   return &@(spec.action_name)_action_type_support_handle;
 }
 
-}  // namespace rosidl_typesupport_cpp
+}  // namespace rosidl_generator_cpp
