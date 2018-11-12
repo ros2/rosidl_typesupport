@@ -25,9 +25,9 @@
 #include "rosidl_typesupport_cpp/visibility_control.h"
 
 #include "rosidl_generator_c/action_type_support_struct.h"
-#include "rosidl_generator_cpp/action_type_support_decl.hpp"
-#include "rosidl_generator_cpp/message_type_support_decl.hpp"
-#include "rosidl_generator_cpp/service_type_support_decl.hpp"
+#include "rosidl_typesupport_cpp/action_type_support.hpp"
+#include "rosidl_typesupport_cpp/message_type_support.hpp"
+#include "rosidl_typesupport_cpp/service_type_support.hpp"
 
 namespace @(spec.pkg_name)
 {
@@ -47,13 +47,13 @@ static rosidl_action_type_support_t @(spec.action_name)_action_type_support_hand
 
 }  // namespace @(spec.pkg_name)
 
-namespace rosidl_generator_cpp
+namespace rosidl_typesupport_cpp
 {
 
 template<>
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_action_type_support_t *
-get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_name)>()
+get_action_type_support_handle<@(spec.pkg_name)::@(subfolder)::@(spec.action_name)>()
 {
   using ::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.action_name)_action_type_support_handle;
   // Thread-safe by always writing the same values to the static struct
@@ -65,4 +65,4 @@ get_action_type_support_handle<::@(spec.pkg_name)::@(subfolder)::@(spec.action_n
   return &@(spec.action_name)_action_type_support_handle;
 }
 
-}  // namespace rosidl_generator_cpp
+}  // namespace rosidl_typesupport_cpp
