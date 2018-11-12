@@ -143,9 +143,16 @@ add_dependencies(
   ${rosidl_generate_action_interfaces_TARGET}
   ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
 )
+
+# Depend on target created by rosidl_generator_cpp for including msg and srv headers it generates
 add_dependencies(
   ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   ${rosidl_generate_action_interfaces_TARGET}__cpp
+)
+# Depend on target created by rosidl_generator_cpp for including action headers it generates
+add_dependencies(
+  ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}__cpp__actions
 )
 
 if(NOT rosidl_generate_action_interfaces_SKIP_INSTALL)
