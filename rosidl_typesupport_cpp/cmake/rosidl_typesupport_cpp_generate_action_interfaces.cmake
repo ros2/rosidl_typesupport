@@ -110,6 +110,10 @@ target_include_directories(${rosidl_generate_action_interfaces_TARGET}${_target_
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
 )
 
+# Add dependency to type support library for generated msg and srv for actions
+target_link_libraries(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}__rosidl_typesupport_cpp)
+
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
 if(NOT typesupports MATCHES ";")
