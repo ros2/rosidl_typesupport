@@ -122,6 +122,9 @@ target_include_directories(${rosidl_generate_action_interfaces_TARGET}${_target_
 )
 target_link_libraries(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   ${rosidl_generate_action_interfaces_TARGET}__rosidl_generator_c)
+# Add dependency to type support library for generated msg and srv for actions
+target_link_libraries(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}__rosidl_typesupport_c)
 
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
