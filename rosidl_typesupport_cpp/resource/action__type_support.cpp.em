@@ -9,8 +9,6 @@
 @#    Parsed specification of the .action file
 @#  - subfolder (string)
 @#    The subfolder / subnamespace of the message, usually 'action'
-@#  - type_supports (list of strings)
-@#    The name of the type support packages
 @#  - get_header_filename_from_msg_name (function)
 @#######################################################################
 @

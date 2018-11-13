@@ -99,7 +99,7 @@ def generate_cpp(generator_arguments_file, type_supports):
                     args['output_dir'], subfolder, generated_filename %
                     convert_camel_case_to_lower_case_underscore(spec.action_name))
 
-                data = {'spec': spec, 'subfolder': subfolder, 'type_supports': type_supports}
+                data = {'spec': spec, 'subfolder': subfolder}
                 data.update(functions)
                 expand_template(
                     template_file, data, generated_file,
