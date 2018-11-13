@@ -15,7 +15,6 @@
 set(_output_path
   "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c/${PROJECT_NAME}")
 set(_generated_files "")
-
 foreach(_idl_file ${rosidl_generate_interfaces_IDL_FILES})
   get_filename_component(_extension "${_idl_file}" EXT)
   get_filename_component(_parent_folder "${_idl_file}" DIRECTORY)
