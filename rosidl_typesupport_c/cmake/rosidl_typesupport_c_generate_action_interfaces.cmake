@@ -86,16 +86,6 @@ add_custom_command(
   VERBATIM
 )
 
-# generate header to switch between export and import for a specific package
-set(_visibility_control_file
-  "${_output_path}/action/rosidl_typesupport_c__visibility_control.h")
-string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
-configure_file(
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/rosidl_typesupport_c__action_visibility_control.h.in"
-  "${_visibility_control_file}"
-  @ONLY
-)
-
 set(_target_suffix "__rosidl_typesupport_c__generate_action_interfaces")
 
 add_library(${rosidl_generate_action_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_c_LIBRARY_TYPE} ${_generated_files})
@@ -103,12 +93,8 @@ if(rosidl_generate_action_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
     PROPERTIES OUTPUT_NAME "${rosidl_generate_action_interfaces_LIBRARY_NAME}${_target_suffix}")
 endif()
-if(WIN32)
-  target_compile_definitions(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
-    PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
-  target_compile_definitions(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
-    PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL_${PROJECT_NAME}")
-endif()
+target_compile_definitions(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}_ACTION")
 
 set_target_properties(${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
   PROPERTIES CXX_STANDARD 14)
