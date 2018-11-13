@@ -82,7 +82,7 @@ add_custom_command(
   --generator-arguments-file "${generator_arguments_file}"
   --typesupports ${typesupports}
   DEPENDS ${target_dependencies}
-  COMMENT "Generating C++ type support dispatch for ROS interfaces"
+  COMMENT "Generating C++ type support dispatch for ROS action interfaces"
   VERBATIM
 )
 
