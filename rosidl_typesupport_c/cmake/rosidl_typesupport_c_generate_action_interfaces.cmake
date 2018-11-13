@@ -158,6 +158,11 @@ add_dependencies(
   ${rosidl_generate_action_interfaces_TARGET}
   ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
 )
+# Depend on generated headers for C type support
+add_dependencies(
+  ${rosidl_generate_action_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_action_interfaces_TARGET}__c__actions
+)
 
 if(NOT rosidl_generate_action_interfaces_SKIP_INSTALL)
   install(
