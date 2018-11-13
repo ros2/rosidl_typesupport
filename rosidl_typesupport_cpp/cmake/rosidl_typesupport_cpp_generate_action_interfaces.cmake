@@ -86,7 +86,7 @@ add_custom_command(
   VERBATIM
 )
 
-set(_target_suffix "__generate_action_interfaces__rosidl_typesupport_cpp")
+set(_target_suffix "__rosidl_typesupport_cpp__generate_action_interfaces")
 
 add_library(${rosidl_generate_action_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_cpp_LIBRARY_TYPE} ${_generated_files})
 if(rosidl_generate_action_interfaces_LIBRARY_NAME)
