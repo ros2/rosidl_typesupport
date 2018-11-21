@@ -1,55 +1,53 @@
-// generated from rosidl_typesupport_cpp/resource/srv__type_support.cpp.em
-// generated code does not contain a copyright notice
+@# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
+@{
+from rosidl_cmake import convert_camel_case_to_lower_case_underscore
+include_parts = [package_name] + list(interface_path.parents[0].parts) + \
+    [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
+include_base = '/'.join(include_parts)
 
-@#######################################################################
-@# EmPy template for generating <srv>__type_support.cpp files
-@#
-@# Context:
-@#  - spec (rosidl_parser.ServiceSpecification)
-@#    Parsed specification of the .srv file
-@#  - subfolder (string)
-@#    The subfolder / subnamespace of the message
-@#    Either 'srv' or 'action'
-@#  - type_supports (list of strings)
-@#    The name of the type support packages
-@#  - get_header_filename_from_msg_name (function)
-@#######################################################################
+header_files = [
+    'cstddef',
+    'rosidl_generator_c/service_type_support_struct.h',
+    include_base + '__struct.hpp',
+]
+if len(type_supports) != 1:
+    header_files.append('rosidl_typesupport_cpp/identifier.hpp')
+header_files.append('rosidl_typesupport_cpp/service_type_support.hpp')
+if len(type_supports) != 1:
+    header_files += [
+        'rosidl_typesupport_cpp/service_type_support_dispatch.hpp',
+        'rosidl_typesupport_cpp/type_support_map.h',
+    ]
+header_files.append('rosidl_typesupport_cpp/visibility_control.h')
+if len(type_supports) != 1:
+    header_files.append('rosidl_typesupport_interface/macros.h')
+}@
+@[for header_file in header_files]@
+@[    if header_file in include_directives]@
+// already included above
+// @
+@[    else]@
+@{include_directives.add(header_file)}@
+@[    end if]@
+#include "@(header_file)"
+@[end for]@
 @
-#include <cstddef>
-
-#include "rosidl_generator_c/service_type_support_struct.h"
-
-#include "@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.srv_name))__struct.hpp"
-
 @[if len(type_supports) != 1]@
-#include "rosidl_typesupport_cpp/identifier.hpp"
-@[end if]@
-#include "rosidl_typesupport_cpp/service_type_support.hpp"
-@[if len(type_supports) != 1]@
-#include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
-#include "rosidl_typesupport_cpp/type_support_map.h"
-@[end if]@
-#include "rosidl_typesupport_cpp/visibility_control.h"
-@[if len(type_supports) != 1]@
-#include "rosidl_typesupport_interface/macros.h"
-@[end if]@
+@[  for ns in service.structure_type.namespaces]@
 
-@[if len(type_supports) != 1]@
-namespace @(spec.pkg_name)
+namespace @(ns)
 {
-
-namespace @(subfolder)
-{
+@[  end for]@
 
 namespace rosidl_typesupport_cpp
 {
 
-typedef struct _type_support_ids_t
+typedef struct _@(service.structure_type.name)_type_support_ids_t
 {
   const char * typesupport_identifier[@(len(type_supports))];
-} _type_support_ids_t;
+} _@(service.structure_type.name)_type_support_ids_t;
 
-static const _type_support_ids_t _@(spec.srv_name)_service_typesupport_ids = {
+static const _@(service.structure_type.name)_type_support_ids_t _@(service.structure_type.name)_service_typesupport_ids = {
   {
 @# TODO(dirk-thomas) use identifier symbol again
 @[for type_support in sorted(type_supports)]@
@@ -58,28 +56,28 @@ static const _type_support_ids_t _@(spec.srv_name)_service_typesupport_ids = {
   }
 };
 
-typedef struct _type_support_symbol_names_t
+typedef struct _@(service.structure_type.name)_type_support_symbol_names_t
 {
   const char * symbol_name[@(len(type_supports))];
-} _type_support_symbol_names_t;
+} _@(service.structure_type.name)_type_support_symbol_names_t;
 
 #define STRINGIFY_(s) #s
 #define STRINGIFY(s) STRINGIFY_(s)
 
-static const _type_support_symbol_names_t _@(spec.srv_name)_service_typesupport_symbol_names = {
+static const _@(service.structure_type.name)_type_support_symbol_names_t _@(service.structure_type.name)_service_typesupport_symbol_names = {
   {
 @[for type_support in sorted(type_supports)]@
-    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(spec.pkg_name), @(subfolder), @(spec.srv_name))),
+    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.structure_type.name))),
 @[end for]@
   }
 };
 
-typedef struct _type_support_data_t
+typedef struct _@(service.structure_type.name)_type_support_data_t
 {
   void * data[@(len(type_supports))];
-} _type_support_data_t;
+} _@(service.structure_type.name)_type_support_data_t;
 
-static _type_support_data_t _@(spec.srv_name)_service_typesupport_data = {
+static _@(service.structure_type.name)_type_support_data_t _@(service.structure_type.name)_service_typesupport_data = {
   {
 @[for type_support in sorted(type_supports)]@
     0,  // will store the shared library later
@@ -87,28 +85,33 @@ static _type_support_data_t _@(spec.srv_name)_service_typesupport_data = {
   }
 };
 
-static const type_support_map_t _@(spec.srv_name)_service_typesupport_map = {
+static const type_support_map_t _@(service.structure_type.name)_service_typesupport_map = {
   @(len(type_supports)),
-  "@(spec.pkg_name)",
-  &_@(spec.srv_name)_service_typesupport_ids.typesupport_identifier[0],
-  &_@(spec.srv_name)_service_typesupport_symbol_names.symbol_name[0],
-  &_@(spec.srv_name)_service_typesupport_data.data[0],
+  "@(package_name)",
+  &_@(service.structure_type.name)_service_typesupport_ids.typesupport_identifier[0],
+  &_@(service.structure_type.name)_service_typesupport_symbol_names.symbol_name[0],
+  &_@(service.structure_type.name)_service_typesupport_data.data[0],
 };
 
-static const rosidl_service_type_support_t @(spec.srv_name)_service_type_support_handle = {
+static const rosidl_service_type_support_t @(service.structure_type.name)_service_type_support_handle = {
   ::rosidl_typesupport_cpp::typesupport_identifier,
-  reinterpret_cast<const type_support_map_t *>(&_@(spec.srv_name)_service_typesupport_map),
+  reinterpret_cast<const type_support_map_t *>(&_@(service.structure_type.name)_service_typesupport_map),
   ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
 };
 
 }  // namespace rosidl_typesupport_cpp
+@[  for ns in reversed(service.structure_type.namespaces)]@
 
-}  // namespace @(subfolder)
-
-}  // namespace @(spec.pkg_name)
+}  // namespace @(ns)
+@[  end for]@
 
 @[else]@
-#include "@(spec.pkg_name)/@(subfolder)/@(get_header_filename_from_msg_name(spec.srv_name))__@(list(type_supports)[0]).hpp"
+@{
+include_parts = [package_name] + list(interface_path.parents[0].parts) + \
+    [convert_camel_case_to_lower_case_underscore(service.structure_type.name)]
+include_base = '/'.join(include_parts)
+}@
+#include "@(include_base)__@(list(type_supports)[0]).hpp"
 
 @[end if]@
 namespace rosidl_typesupport_cpp
@@ -117,12 +120,12 @@ namespace rosidl_typesupport_cpp
 template<>
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_service_type_support_t *
-get_service_type_support_handle<@(spec.pkg_name)::@(subfolder)::@(spec.srv_name)>()
+get_service_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(service.structure_type.name)>()
 {
 @[if len(type_supports) != 1]@
-  return &::@(spec.pkg_name)::@(subfolder)::rosidl_typesupport_cpp::@(spec.srv_name)_service_type_support_handle;
+  return &::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_cpp::@(service.structure_type.name)_service_type_support_handle;
 @[else]@
-  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(spec.pkg_name), @(subfolder), @(spec.srv_name))();
+  return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.structure_type.name))();
 @[end if]@
 }
 
