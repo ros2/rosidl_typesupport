@@ -46,7 +46,7 @@ ROSIDL_TYPESUPPORT_INTERFACE__ACTION_SYMBOL_NAME(
     rosidl_typesupport_c, action_msgs, srv, CancelGoal)();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.feedback_message_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)_Feedback)();
+    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)_Action_Feedback)();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.status_message_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c, action_msgs, msg, GoalStatusArray)();

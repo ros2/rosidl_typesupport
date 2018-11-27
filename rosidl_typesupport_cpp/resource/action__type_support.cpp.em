@@ -57,7 +57,7 @@ get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.
   @(interface_path.stem)_action_type_support_handle.goal_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalRequestService>();
   @(interface_path.stem)_action_type_support_handle.result_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalResultService>();
   @(interface_path.stem)_action_type_support_handle.cancel_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::CancelGoalService>();
-  @(interface_path.stem)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Feedback>();
+  @(interface_path.stem)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::FeedbackMessage>();
   @(interface_path.stem)_action_type_support_handle.status_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalStatusMessage>();
   return &@(interface_path.stem)_action_type_support_handle;
 }
