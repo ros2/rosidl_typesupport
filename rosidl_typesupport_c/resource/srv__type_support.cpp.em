@@ -104,7 +104,7 @@ static const rosidl_service_type_support_t @(service.structure_type.name)_servic
 @[else]@
 @{
 include_parts = [package_name] + list(interface_path.parents[0].parts) + \
-    [convert_camel_case_to_lower_case_underscore(service.structure_type.name)]
+    [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
 }@
 #include "@(include_base)__@(list(type_supports)[0]).h"
