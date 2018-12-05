@@ -56,6 +56,27 @@ from rosidl_parser.definition import Action
 
 @{
 TEMPLATE(
+    'msg__type_support.cpp.em',
+    package_name=package_name, interface_path=interface_path, message=action.goal_request,
+    include_directives=include_directives, type_supports=type_supports)
+}@
+
+@{
+TEMPLATE(
+    'msg__type_support.cpp.em',
+    package_name=package_name, interface_path=interface_path, message=action.result_response,
+    include_directives=include_directives, type_supports=type_supports)
+}@
+
+@{
+TEMPLATE(
+    'msg__type_support.cpp.em',
+    package_name=package_name, interface_path=interface_path, message=action.feedback,
+    include_directives=include_directives, type_supports=type_supports)
+}@
+
+@{
+TEMPLATE(
     'srv__type_support.cpp.em',
     package_name=package_name, interface_path=interface_path, service=action.goal_service,
     include_directives=include_directives, type_supports=type_supports)
