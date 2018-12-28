@@ -138,11 +138,12 @@ if(NOT typesupports MATCHES ";")
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
   if("${rosidl_typesupport_c_LIBRARY_TYPE}" STREQUAL "STATIC")
-    message(FATAL_ERROR "Multiple typesupports but static linking was requested")
+    message(FATAL_ERROR "Multiple typesupports [${typesupports}] but static "
+      "linking was requested")
   endif()
   if(NOT rosidl_typesupport_c_SUPPORTS_POCO)
-    message(FATAL_ERROR "Multiple typesupports but Poco was not available when "
-      "rosidl_typesupport_c was built")
+    message(FATAL_ERROR "Multiple typesupports [${typesupports}] but Poco was "
+      "not available when rosidl_typesupport_c was built")
   endif()
 endif()
 
