@@ -54,11 +54,11 @@ get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.
 {
   using ::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_cpp::@(interface_path.stem)_action_type_support_handle;
   // Thread-safe by always writing the same values to the static struct
-  @(interface_path.stem)_action_type_support_handle.goal_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalRequestService>();
-  @(interface_path.stem)_action_type_support_handle.result_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalResultService>();
-  @(interface_path.stem)_action_type_support_handle.cancel_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::CancelGoalService>();
-  @(interface_path.stem)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::FeedbackMessage>();
-  @(interface_path.stem)_action_type_support_handle.status_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::GoalStatusMessage>();
+  @(interface_path.stem)_action_type_support_handle.goal_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Impl::SendGoalService>();
+  @(interface_path.stem)_action_type_support_handle.result_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Impl::GetResultService>();
+  @(interface_path.stem)_action_type_support_handle.cancel_service_type_support = get_service_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Impl::CancelGoalService>();
+  @(interface_path.stem)_action_type_support_handle.feedback_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Impl::FeedbackMessage>();
+  @(interface_path.stem)_action_type_support_handle.status_message_type_support = get_message_type_support_handle<::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)::Impl::GoalStatusMessage>();
   return &@(interface_path.stem)_action_type_support_handle;
 }
 

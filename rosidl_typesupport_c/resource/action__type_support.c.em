@@ -1,6 +1,9 @@
 @# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
 @{
 from rosidl_cmake import convert_camel_case_to_lower_case_underscore
+from rosidl_parser.definition import ACTION_FEEDBACK_MESSAGE_SUFFIX
+from rosidl_parser.definition import ACTION_GOAL_SERVICE_SUFFIX
+from rosidl_parser.definition import ACTION_RESULT_SERVICE_SUFFIX
 include_parts = [package_name] + list(interface_path.parents[0].parts) + \
     [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
@@ -37,16 +40,16 @@ ROSIDL_TYPESUPPORT_INTERFACE__ACTION_SYMBOL_NAME(
   // Thread-safe by always writing the same values to the static struct
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.goal_service_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(
-    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)_Action_Goal)();
+    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)@(ACTION_GOAL_SERVICE_SUFFIX))();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.result_service_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(
-    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)_Action_Result)();
+    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)@(ACTION_RESULT_SERVICE_SUFFIX))();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.cancel_service_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(
     rosidl_typesupport_c, action_msgs, srv, CancelGoal)();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.feedback_message_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
-    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)_Action_Feedback)();
+    rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem)@(ACTION_FEEDBACK_MESSAGE_SUFFIX))();
   _@('__'.join([package_name] + list(interface_path.parents[0].parts)))__@(interface_path.stem)__typesupport_c.status_message_type_support =
     ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c, action_msgs, msg, GoalStatusArray)();
