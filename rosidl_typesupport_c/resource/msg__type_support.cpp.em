@@ -109,8 +109,15 @@ static const rosidl_message_type_support_t @(message.structure.type.name)_messag
 include_parts = [package_name] + list(interface_path.parents[0].parts) + \
     [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
+header_file = include_base + '__' + list(type_supports)[0] + '.h'
 }@
-#include "@(include_base)__@(list(type_supports)[0]).h"
+@[  if header_file in include_directives]@
+// already included above
+// @
+@[  else]@
+@{include_directives.add(header_file)}@
+@[  end if]@
+#include "@(header_file)"
 
 @[end if]@
 #ifdef __cplusplus
