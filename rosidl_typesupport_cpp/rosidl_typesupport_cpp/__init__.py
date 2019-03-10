@@ -93,7 +93,9 @@ def generate_cpp(generator_arguments_file, type_supports):
 
         elif extension == '.action':
             spec = parse_action_file(pkg_name, ros_interface_file)
-            validate_field_types(spec, known_msg_types)
+            # TODO(sloretz) validate field types when overall action is generated with msg and srv
+            # https://github.com/ros2/rosidl/issues/348#issuecomment-462874513
+            # validate_field_types(spec, known_msg_types)
             for template_file, generated_filename in mapping_actions.items():
                 generated_file = os.path.join(
                     args['output_dir'], subfolder, generated_filename %
