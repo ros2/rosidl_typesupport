@@ -41,10 +41,10 @@ if(WIN32)
 endif()
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-  include ${Poco_INCLUDE_DIRS}
+  include
 )
 target_link_libraries(${PROJECT_NAME} ${Poco_LIBRARIES})
-ament_target_dependencies(${PROJECT_NAME} "rosidl_generator_c")
+ament_target_dependencies(${PROJECT_NAME} "Poco" "rosidl_generator_c")
 ament_export_libraries(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
