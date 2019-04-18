@@ -33,7 +33,7 @@ if len(type_supports) != 1:
 @[end for]@
 @
 @[if len(type_supports) != 1]@
-@[  for ns in message.structure.type.namespaces]@
+@[  for ns in message.structure.namespaced_type.namespaces]@
 
 namespace @(ns)
 {
@@ -42,12 +42,12 @@ namespace @(ns)
 namespace rosidl_typesupport_cpp
 {
 
-typedef struct _@(message.structure.type.name)_type_support_ids_t
+typedef struct _@(message.structure.namespaced_type.name)_type_support_ids_t
 {
   const char * typesupport_identifier[@(len(type_supports))];
-} _@(message.structure.type.name)_type_support_ids_t;
+} _@(message.structure.namespaced_type.name)_type_support_ids_t;
 
-static const _@(message.structure.type.name)_type_support_ids_t _@(message.structure.type.name)_message_typesupport_ids = {
+static const _@(message.structure.namespaced_type.name)_type_support_ids_t _@(message.structure.namespaced_type.name)_message_typesupport_ids = {
   {
 @# TODO(dirk-thomas) use identifier symbol again
 @[for type_support in sorted(type_supports)]@
@@ -56,28 +56,28 @@ static const _@(message.structure.type.name)_type_support_ids_t _@(message.struc
   }
 };
 
-typedef struct _@(message.structure.type.name)_type_support_symbol_names_t
+typedef struct _@(message.structure.namespaced_type.name)_type_support_symbol_names_t
 {
   const char * symbol_name[@(len(type_supports))];
-} _@(message.structure.type.name)_type_support_symbol_names_t;
+} _@(message.structure.namespaced_type.name)_type_support_symbol_names_t;
 
 #define STRINGIFY_(s) #s
 #define STRINGIFY(s) STRINGIFY_(s)
 
-static const _@(message.structure.type.name)_type_support_symbol_names_t _@(message.structure.type.name)_message_typesupport_symbol_names = {
+static const _@(message.structure.namespaced_type.name)_type_support_symbol_names_t _@(message.structure.namespaced_type.name)_message_typesupport_symbol_names = {
   {
 @[for type_support in sorted(type_supports)]@
-    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.type.name))),
+    STRINGIFY(ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.namespaced_type.name))),
 @[end for]@
   }
 };
 
-typedef struct _@(message.structure.type.name)_type_support_data_t
+typedef struct _@(message.structure.namespaced_type.name)_type_support_data_t
 {
   void * data[@(len(type_supports))];
-} _@(message.structure.type.name)_type_support_data_t;
+} _@(message.structure.namespaced_type.name)_type_support_data_t;
 
-static _@(message.structure.type.name)_type_support_data_t _@(message.structure.type.name)_message_typesupport_data = {
+static _@(message.structure.namespaced_type.name)_type_support_data_t _@(message.structure.namespaced_type.name)_message_typesupport_data = {
   {
 @[for type_support in sorted(type_supports)]@
     0,  // will store the shared library later
@@ -85,22 +85,22 @@ static _@(message.structure.type.name)_type_support_data_t _@(message.structure.
   }
 };
 
-static const type_support_map_t _@(message.structure.type.name)_message_typesupport_map = {
+static const type_support_map_t _@(message.structure.namespaced_type.name)_message_typesupport_map = {
   @(len(type_supports)),
   "@(package_name)",
-  &_@(message.structure.type.name)_message_typesupport_ids.typesupport_identifier[0],
-  &_@(message.structure.type.name)_message_typesupport_symbol_names.symbol_name[0],
-  &_@(message.structure.type.name)_message_typesupport_data.data[0],
+  &_@(message.structure.namespaced_type.name)_message_typesupport_ids.typesupport_identifier[0],
+  &_@(message.structure.namespaced_type.name)_message_typesupport_symbol_names.symbol_name[0],
+  &_@(message.structure.namespaced_type.name)_message_typesupport_data.data[0],
 };
 
-static const rosidl_message_type_support_t @(message.structure.type.name)_message_type_support_handle = {
+static const rosidl_message_type_support_t @(message.structure.namespaced_type.name)_message_type_support_handle = {
   ::rosidl_typesupport_cpp::typesupport_identifier,
-  reinterpret_cast<const type_support_map_t *>(&_@(message.structure.type.name)_message_typesupport_map),
+  reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   ::rosidl_typesupport_cpp::get_message_typesupport_handle_function,
 };
 
 }  // namespace rosidl_typesupport_cpp
-@[  for ns in reversed(message.structure.type.namespaces)]@
+@[  for ns in reversed(message.structure.namespaced_type.namespaces)]@
 
 }  // namespace @(ns)
 @[  end for]@
@@ -127,12 +127,12 @@ namespace rosidl_typesupport_cpp
 template<>
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_message_type_support_t *
-get_message_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(message.structure.type.name)>()
+get_message_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(message.structure.namespaced_type.name)>()
 {
 @[if len(type_supports) != 1]@
-  return &::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_cpp::@(message.structure.type.name)_message_type_support_handle;
+  return &::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_cpp::@(message.structure.namespaced_type.name)_message_type_support_handle;
 @[else]@
-  return ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.type.name))();
+  return ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.namespaced_type.name))();
 @[end if]@
 }
 
@@ -143,8 +143,8 @@ extern "C"
 
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_message_type_support_t *
-ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_cpp, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.type.name))() {
-  return get_message_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(message.structure.type.name)>();
+ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_cpp, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.namespaced_type.name))() {
+  return get_message_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(message.structure.namespaced_type.name)>();
 }
 
 #ifdef __cplusplus

@@ -26,7 +26,7 @@ header_files = (
 #include "@(header_file)"
 @[end for]@
 @
-@[  for ns in action.structure_type.namespaces]@
+@[  for ns in action.namespaced_type.namespaces]@
 
 namespace @(ns)
 {
@@ -39,7 +39,7 @@ static rosidl_action_type_support_t @(interface_path.stem)_action_type_support_h
   NULL, NULL, NULL, NULL, NULL};
 
 }  // namespace rosidl_typesupport_cpp
-@[  for ns in reversed(action.structure_type.namespaces)]@
+@[  for ns in reversed(action.namespaced_type.namespaces)]@
 
 }  // namespace @(ns)
 @[  end for]@
