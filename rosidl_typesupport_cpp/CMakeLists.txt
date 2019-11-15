@@ -43,8 +43,11 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC
   include
 )
-target_link_libraries(${PROJECT_NAME} ${Poco_LIBRARIES})
-ament_target_dependencies(${PROJECT_NAME} "Poco" "rosidl_generator_c")
+
+if(Poco_FOUND)
+  ament_target_dependencies(${PROJECT_NAME} "Poco")
+endif()
+ament_target_dependencies(${PROJECT_NAME} "rosidl_generator_c")
 ament_export_libraries(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
