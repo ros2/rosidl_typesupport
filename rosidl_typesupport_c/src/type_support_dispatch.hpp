@@ -26,19 +26,12 @@
 #include "Poco/SharedLibrary.h"
 #endif
 
+#include "rcpputils/find_library.hpp"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
 namespace rosidl_typesupport_c
 {
-
-std::string find_library_path(const std::string & library_name);
-
-std::string get_env_var(const char * env_var);
-
-std::list<std::string> split(const std::string & value, const char delimiter);
-
-bool is_file_exist(const char * filename);
 
 extern const char * typesupport_identifier;
 
@@ -65,7 +58,7 @@ get_typesupport_handle_function(
         snprintf(
           library_name, 1023, "%s__%s",
           map->package_name, identifier);
-        std::string library_path = find_library_path(library_name);
+        std::string library_path = rcpputils::find_library_path(library_name);
         if (library_path.empty()) {
           fprintf(stderr, "Failed to find library '%s'\n", library_name);
           return nullptr;

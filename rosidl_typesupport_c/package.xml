@@ -9,6 +9,7 @@
 
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
+  <depend>rcpputils</depend>
   <build_depend>libpoco-dev</build_depend>
   <build_depend>poco_vendor</build_depend>
   <build_depend>rosidl_generator_c</build_depend>
