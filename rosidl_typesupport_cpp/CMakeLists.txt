@@ -17,6 +17,7 @@ find_package(poco_vendor)
 find_package(Poco COMPONENTS Foundation)
 find_package(rcpputils REQUIRED)
 find_package(rosidl_generator_c REQUIRED)
+find_package(rosidl_runtime_c REQUIRED)
 
 link_directories(${Poco_LIBRARY_DIR})
 
@@ -48,7 +49,11 @@ target_include_directories(${PROJECT_NAME}
 if(Poco_FOUND)
   ament_target_dependencies(${PROJECT_NAME} "Poco")
 endif()
-ament_target_dependencies(${PROJECT_NAME} "rcpputils" "rosidl_generator_c")
+ament_target_dependencies(${PROJECT_NAME}
+  "rcpputils"
+  "rosidl_generator_c"
+  "rosidl_runtime_c"
+)
 ament_export_libraries(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
