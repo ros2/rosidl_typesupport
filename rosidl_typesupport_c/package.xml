@@ -12,7 +12,6 @@
   <depend>rcpputils</depend>
   <build_depend>libpoco-dev</build_depend>
   <build_depend>poco_vendor</build_depend>
-  <build_depend>rosidl_generator_c</build_depend>
   <build_depend>rosidl_runtime_c</build_depend>
   <!--
   Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_c_packages.
@@ -24,7 +23,6 @@
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
-  <build_export_depend>rosidl_generator_c</build_export_depend>
 
   <exec_depend>libpoco-dev</exec_depend>
   <exec_depend>poco_vendor</exec_depend>
