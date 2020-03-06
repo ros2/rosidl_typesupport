@@ -23,6 +23,7 @@
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
+  <build_export_depend>rosidl_runtime_c</build_export_depend>
 
   <exec_depend>libpoco-dev</exec_depend>
   <exec_depend>poco_vendor</exec_depend>
