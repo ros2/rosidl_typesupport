@@ -11,8 +11,6 @@ ament_register_extension(
   "rosidl_typesupport_cpp"
   "rosidl_typesupport_cpp_generate_interfaces.cmake")
 
-set(rosidl_typesupport_cpp_SUPPORTS_POCO @Poco_FOUND@)
-
 set(rosidl_typesupport_cpp_BIN
   "${rosidl_typesupport_cpp_DIR}/../../../lib/rosidl_typesupport_cpp/rosidl_typesupport_cpp")
 normalize_path(rosidl_typesupport_cpp_BIN

@@ -22,10 +22,7 @@
 #include <list>
 #include <string>
 
-#ifdef ROSIDL_TYPESUPPORT_C_USE_POCO
-#include "Poco/SharedLibrary.h"
-#endif
-
+#include "rcutils/shared_library.h"
 #include "rcpputils/find_library.hpp"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
@@ -44,7 +41,6 @@ get_typesupport_handle_function(
     return handle;
   }
 
-#ifdef ROSIDL_TYPESUPPORT_C_USE_POCO
   if (handle->typesupport_identifier == rosidl_typesupport_c__typesupport_identifier) {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
@@ -52,7 +48,17 @@ get_typesupport_handle_function(
       if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
         continue;
       }
-      Poco::SharedLibrary * lib = nullptr;
+      rcutils_shared_library_t * lib = nullptr;
+      rcutils_allocator_t allocator = rcutils_get_default_allocator();
+      lib = static_cast<rcutils_shared_library_t *>(allocator.allocate(
+              sizeof(rcutils_shared_library_t), allocator.state));
+      if (!lib) {
+        fprintf(stderr, "failed to allocate memory");
+        return nullptr;
+      }
+
+      *lib = rcutils_get_zero_initialized_shared_library();
+
       if (!map->data[i]) {
         char library_name[1024];
         snprintf(
@@ -63,16 +69,19 @@ get_typesupport_handle_function(
           fprintf(stderr, "Failed to find library '%s'\n", library_name);
           return nullptr;
         }
-        lib = new Poco::SharedLibrary(library_path);
+        rcutils_ret_t ret = rcutils_load_shared_library(lib, library_path.c_str());
+        if (ret != RCUTILS_RET_OK) {
+          fprintf(stderr, "Cannot open library %s", library_path.c_str());
+          return nullptr;
+        }
         map->data[i] = lib;
       }
-      auto clib = static_cast<const Poco::SharedLibrary *>(map->data[i]);
-      lib = const_cast<Poco::SharedLibrary *>(clib);
-      if (!lib->hasSymbol(map->symbol_name[i])) {
+      auto clib = static_cast<rcutils_shared_library_t *>(map->data[i]);
+      void * sym = rcutils_get_symbol(clib, map->symbol_name[i]);
+      if (!sym) {
         fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
         return nullptr;
       }
-      void * sym = lib->getSymbol(map->symbol_name[i]);
 
       typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);
@@ -80,8 +89,6 @@ get_typesupport_handle_function(
       return ts;
     }
   }
-#endif
-
   return nullptr;
 }
 
