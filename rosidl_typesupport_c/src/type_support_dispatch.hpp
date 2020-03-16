@@ -18,6 +18,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <stdexcept>
 
 #include <list>
 #include <string>
@@ -50,14 +51,6 @@ get_typesupport_handle_function(
       }
       rcutils_shared_library_t * lib = nullptr;
       rcutils_allocator_t allocator = rcutils_get_default_allocator();
-      lib = static_cast<rcutils_shared_library_t *>(allocator.allocate(
-              sizeof(rcutils_shared_library_t), allocator.state));
-      if (!lib) {
-        fprintf(stderr, "failed to allocate memory");
-        return nullptr;
-      }
-
-      *lib = rcutils_get_zero_initialized_shared_library();
 
       if (!map->data[i]) {
         char library_name[1024];
@@ -66,21 +59,37 @@ get_typesupport_handle_function(
           map->package_name, identifier);
         std::string library_path = rcpputils::find_library_path(library_name);
         if (library_path.empty()) {
-          fprintf(stderr, "Failed to find library '%s'\n", library_name);
-          return nullptr;
+          throw std::runtime_error("Failed to find library '" + std::string(library_name) + "'");
         }
+
+        lib = static_cast<rcutils_shared_library_t *>(allocator.allocate(
+            sizeof(rcutils_shared_library_t), allocator.state));
+        if (!lib) {
+          throw std::bad_alloc();
+        }
+
+        *lib = rcutils_get_zero_initialized_shared_library();
+
         rcutils_ret_t ret = rcutils_load_shared_library(lib, library_path.c_str());
         if (ret != RCUTILS_RET_OK) {
-          fprintf(stderr, "Cannot open library %s", library_path.c_str());
-          return nullptr;
+          allocator.deallocate(lib, allocator.state);
+          if (ret == RCUTILS_RET_INVALID_ARGUMENT) {
+            throw std::runtime_error("Invaled arguments in rcutils_load_shared_library");
+          } else if (ret == RCUTILS_RET_BAD_ALLOC) {
+            throw std::bad_alloc();
+          } else {
+            throw std::runtime_error("Cannot open library " + library_path);
+          }
         }
         map->data[i] = lib;
       }
       auto clib = static_cast<rcutils_shared_library_t *>(map->data[i]);
       void * sym = rcutils_get_symbol(clib, map->symbol_name[i]);
       if (!sym) {
-        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
-        return nullptr;
+        allocator.deallocate(lib, allocator.state);
+        throw std::runtime_error(
+                "Failed to find symbol '" + std::string(
+                  map->symbol_name[i]) + "' in library");
       }
 
       typedef const TypeSupport * (* funcSignature)(void);
