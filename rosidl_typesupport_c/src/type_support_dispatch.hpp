@@ -18,6 +18,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <memory>
 #include <stdexcept>
 
 #include <list>
@@ -50,7 +51,6 @@ get_typesupport_handle_function(
         continue;
       }
       rcutils_shared_library_t * lib = nullptr;
-      rcutils_allocator_t allocator = rcutils_get_default_allocator();
 
       if (!map->data[i]) {
         char library_name[1024];
@@ -62,17 +62,12 @@ get_typesupport_handle_function(
           throw std::runtime_error("Failed to find library '" + std::string(library_name) + "'");
         }
 
-        lib = static_cast<rcutils_shared_library_t *>(allocator.allocate(
-            sizeof(rcutils_shared_library_t), allocator.state));
-        if (!lib) {
-          throw std::bad_alloc();
-        }
-
+        lib = new rcutils_shared_library_t;
         *lib = rcutils_get_zero_initialized_shared_library();
 
         rcutils_ret_t ret = rcutils_load_shared_library(lib, library_path.c_str());
         if (ret != RCUTILS_RET_OK) {
-          allocator.deallocate(lib, allocator.state);
+          delete lib;
           if (ret == RCUTILS_RET_INVALID_ARGUMENT) {
             throw std::runtime_error("Invaled arguments in rcutils_load_shared_library");
           } else if (ret == RCUTILS_RET_BAD_ALLOC) {
@@ -86,7 +81,7 @@ get_typesupport_handle_function(
       auto clib = static_cast<rcutils_shared_library_t *>(map->data[i]);
       void * sym = rcutils_get_symbol(clib, map->symbol_name[i]);
       if (!sym) {
-        allocator.deallocate(lib, allocator.state);
+        delete lib;
         throw std::runtime_error(
                 "Failed to find symbol '" + std::string(
                   map->symbol_name[i]) + "' in library");
