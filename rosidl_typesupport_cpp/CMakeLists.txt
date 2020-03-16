@@ -32,7 +32,6 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
 endif()
-target_link_libraries(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   include
