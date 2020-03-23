@@ -23,8 +23,8 @@
 
 #include <string>
 
-#include "rcutils/shared_library.h"
 #include "rcpputils/find_library.hpp"
+#include "rcpputils/shared_library.hpp"
 #include "rosidl_typesupport_cpp/type_support_map.h"
 
 namespace rosidl_typesupport_cpp
@@ -48,7 +48,7 @@ get_typesupport_handle_function(
       if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
         continue;
       }
-      rcutils_shared_library_t * lib = nullptr;
+      rcpputils::SharedLibrary * lib = nullptr;
 
       if (!map->data[i]) {
         char library_name[1024];
@@ -60,30 +60,22 @@ get_typesupport_handle_function(
           throw std::runtime_error("Failed to find library '" + std::string(library_name) + "'");
         }
 
-        lib = new rcutils_shared_library_t;
-        *lib = rcutils_get_zero_initialized_shared_library();
-
-        rcutils_ret_t ret = rcutils_load_shared_library(lib, library_path.c_str());
-        if (ret != RCUTILS_RET_OK) {
-          delete lib;
-          if (ret == RCUTILS_RET_INVALID_ARGUMENT) {
-            throw std::runtime_error("Invaled arguments in rcutils_load_shared_library");
-          } else if (ret == RCUTILS_RET_BAD_ALLOC) {
-            throw std::bad_alloc();
-          } else {
-            throw std::runtime_error("Cannot open library " + library_path);
-          }
+        try {
+          lib = new rcpputils::SharedLibrary(library_path.c_str());
+        } catch (const std::runtime_error & e) {
+          throw std::runtime_error("Could not load library " + std::string(e.what()));
         }
         map->data[i] = lib;
       }
-      auto clib = static_cast<rcutils_shared_library_t *>(map->data[i]);
-      void * sym = rcutils_get_symbol(clib, map->symbol_name[i]);
-      if (!sym) {
-        delete lib;
+      auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
+      lib = const_cast<rcpputils::SharedLibrary *>(clib);
+      if (!lib->has_symbol(map->symbol_name[i])) {
         throw std::runtime_error(
                 "Failed to find symbol '" + std::string(
                   map->symbol_name[i]) + "' in library");
       }
+      void * sym = lib->get_symbol(map->symbol_name[i]);
+
 
       typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);

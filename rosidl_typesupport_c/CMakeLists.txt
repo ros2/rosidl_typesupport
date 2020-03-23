@@ -16,7 +16,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_ros REQUIRED)
-find_package(rcutils REQUIRED)
 find_package(rcpputils REQUIRED)
 find_package(rosidl_generator_c REQUIRED)
 
@@ -41,7 +40,7 @@ target_include_directories(${PROJECT_NAME}
   include
 )
 
-ament_target_dependencies(${PROJECT_NAME} "rcpputils" "rcutils" "rosidl_generator_c")
+ament_target_dependencies(${PROJECT_NAME} "rcpputils" "rosidl_generator_c")
 ament_export_libraries(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
