@@ -34,7 +34,6 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL")
 endif()
-
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   include
