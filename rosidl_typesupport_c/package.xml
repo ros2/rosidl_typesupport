@@ -22,7 +22,6 @@
   <!-- end of group rosidl_typesupport_c_packages for bloom -->
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
-  <buildtool_export_depend>rosidl_generator_c</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
   <build_export_depend>rosidl_runtime_c</build_export_depend>
 

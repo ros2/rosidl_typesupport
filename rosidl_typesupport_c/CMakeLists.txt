@@ -25,7 +25,6 @@ find_package(rosidl_runtime_c REQUIRED)
 link_directories(${Poco_LIBRARY_DIR})
 
 ament_export_dependencies(rosidl_runtime_c)
-ament_export_dependencies(rosidl_generator_c)
 ament_export_dependencies(rosidl_typesupport_interface)
 
 ament_export_include_directories(include)
