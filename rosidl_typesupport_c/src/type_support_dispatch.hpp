@@ -67,11 +67,11 @@ get_typesupport_handle_function(
           lib = new rcpputils::SharedLibrary(library_path.c_str());
         } catch (const std::runtime_error & e) {
           throw std::runtime_error(
-                  "Could not load library " + library_path + " :" +
+                  "Could not load library " + library_path + ": " +
                   std::string(e.what()));
         } catch (const std::bad_alloc & e) {
           throw std::runtime_error(
-                  "Could not load library " + library_path + " :" +
+                  "Could not load library " + library_path + ": " +
                   std::string(e.what()));
         }
         map->data[i] = lib;
