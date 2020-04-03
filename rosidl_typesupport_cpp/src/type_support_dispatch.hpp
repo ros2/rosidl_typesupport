@@ -57,7 +57,8 @@ get_typesupport_handle_function(
           map->package_name, identifier);
         std::string library_path = rcpputils::find_library_path(library_name);
         if (library_path.empty()) {
-          throw std::runtime_error("Failed to find library '" + std::string(library_name) + "'");
+          fprintf(stderr, "Failed to find library '%s'\n", library_name);
+          return nullptr;
         }
 
         try {
@@ -72,9 +73,8 @@ get_typesupport_handle_function(
       auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
       lib = const_cast<rcpputils::SharedLibrary *>(clib);
       if (!lib->has_symbol(map->symbol_name[i])) {
-        throw std::runtime_error(
-                "Failed to find symbol '" + std::string(
-                  map->symbol_name[i]) + "' in library");
+        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
+        return nullptr;
       }
       void * sym = lib->get_symbol(map->symbol_name[i]);
 
