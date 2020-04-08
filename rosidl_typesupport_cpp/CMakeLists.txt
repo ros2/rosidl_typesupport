@@ -12,13 +12,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_ros REQUIRED)
-# provides FindPoco.cmake and Poco on platforms without it
-find_package(poco_vendor)
-find_package(Poco COMPONENTS Foundation)
 find_package(rcpputils REQUIRED)
 find_package(rosidl_generator_c REQUIRED)
-
-link_directories(${Poco_LIBRARY_DIR})
 
 ament_export_dependencies(rosidl_typesupport_interface)
 ament_export_dependencies(rosidl_typesupport_c)
@@ -32,10 +27,6 @@ add_library(${PROJECT_NAME}
   src/message_type_support_dispatch.cpp
   src/service_type_support_dispatch.cpp
   src/type_support_dispatch.cpp)
-if(Poco_FOUND)
-  target_compile_definitions(${PROJECT_NAME}
-    PRIVATE "ROSIDL_TYPESUPPORT_CPP_USE_POCO")
-endif()
 if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
@@ -45,9 +36,6 @@ target_include_directories(${PROJECT_NAME}
   include
 )
 
-if(Poco_FOUND)
-  ament_target_dependencies(${PROJECT_NAME} "Poco")
-endif()
 ament_target_dependencies(${PROJECT_NAME} "rcpputils" "rosidl_generator_c")
 ament_export_libraries(${PROJECT_NAME})
 

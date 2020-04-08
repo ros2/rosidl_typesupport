@@ -109,10 +109,6 @@ else()
     message(FATAL_ERROR "Multiple typesupports [${typesupports}] but static "
       "linking was requested")
   endif()
-  if(NOT rosidl_typesupport_cpp_SUPPORTS_POCO)
-    message(FATAL_ERROR "Multiple typesupports [${typesupports}] but Poco was "
-      "not available when rosidl_typesupport_cpp was built")
-  endif()
 endif()
 
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
