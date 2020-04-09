@@ -10,8 +10,6 @@
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
   <depend>rcpputils</depend>
-  <build_depend>libpoco-dev</build_depend>
-  <build_depend>poco_vendor</build_depend>
   <build_depend>rosidl_runtime_c</build_depend>
   <!--
   Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_cpp_packages.
@@ -27,8 +25,6 @@
   <build_export_depend>rosidl_runtime_c</build_export_depend>
   <build_export_depend>rosidl_runtime_cpp</build_export_depend>
 
-  <exec_depend>libpoco-dev</exec_depend>
-  <exec_depend>poco_vendor</exec_depend>
   <exec_depend>rosidl_typesupport_interface</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
