@@ -1,4 +1,4 @@
-# Copyright 2016 Open Source Robotics Foundation, Inc.
+# Copyright 2016-2020 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,12 @@
 #
 # Get the concrete typesupport names to be used.
 #
+# The result can be overridden by setting either a CMake or environment
+# variable named ``STATIC_${typesupport_type}`` (all uppercase).
+# The variable can contain ROS IDL typesupport names separated by the platform
+# specific path separator.
+# Including an unavailable ROS IDL typesupport results in a fatal error message.
+#
 # :param var: the output variable name for the typesupport names
 # :type var: list of strings
 # :param typesupport_type: the type of the typesupport to look for
@@ -23,50 +29,43 @@
 # @public
 #
 function(get_used_typesupports var typesupport_type)
-  ament_index_get_resources(rmw_implementations "rmw_typesupport")
-  if(rmw_implementations STREQUAL "")
-    message(FATAL_ERROR "No RMW implementations found")
-  endif()
-
   # all type supports available
   ament_index_get_resources(available_typesupports "${typesupport_type}")
   if(available_typesupports STREQUAL "")
     message(FATAL_ERROR "No '${typesupport_type}' found")
   endif()
 
-  # supported type supports across all rmw implementations
-  set(supported_typesupports "")
-  foreach(rmw_implementation IN LISTS rmw_implementations)
-    ament_index_get_resource(resource "rmw_typesupport" "${rmw_implementation}")
-    foreach(ts IN LISTS resource)
-      if(NOT ts IN_LIST supported_typesupports)
-        list(APPEND supported_typesupports "${ts}")
+  # use explicitly provided list if provided
+  # option()
+  string(TOUPPER "${typesupport_type}" typesupport_type_upper)
+  if(NOT "$ENV{STATIC_${typesupport_type_upper}}" STREQUAL "")
+    string(REPLACE ":" ";" STATIC_${typesupport_type_upper} "$ENV{STATIC_${typesupport_type_upper}}")
+  endif()
+  if(NOT "${STATIC_${typesupport_type_upper}}" STREQUAL "")
+    # check if given ROS IDL typesupports are available
+    foreach(typesupport ${STATIC_${typesupport_type_upper}})
+      if(NOT "${typesupport}" IN_LIST available_typesupports)
+        message(FATAL_ERROR
+          "The ROS IDL typesupport '${typesupport}' specified in "
+          "'STATIC_${typesupport_type_upper}' is not available ("
+          "${available_typesupports})")
       endif()
     endforeach()
-  endforeach()
-
-  # supported type supports across all rmw implementations which are available
-  set(matching_typesupports "")
-  foreach(ts IN LISTS supported_typesupports)
-    if(ts IN_LIST available_typesupports)
-      list(APPEND matching_typesupports "${ts}")
-    endif()
-  endforeach()
-  list(REMOVE_ITEM matching_typesupports "${typesupport_type}")
-  if(matching_typesupports STREQUAL "")
-    message(FATAL_ERROR "No '${typesupport_type}' found for the following "
-      "rmw implementations: ${rmw_implementations}")
-  endif()
-
-  # if across all available rmw implementation only one type support is supported
-  # then return only that one which will ignore all other available
-  # and enable to bypass the dynamic dispatch
-  list(LENGTH matching_typesupports count)
-  if(count EQUAL 1)
-    message(STATUS "Using single matching ${typesupport_type}: ${matching_typesupports}")
-    set(${var} "${matching_typesupports}" PARENT_SCOPE)
+    set(selected_typesupports ${STATIC_${typesupport_type_upper}})
+    message(STATUS
+      "Filtered available ROS IDL typesupport implementations: ${selected_typesupports}")
+    set(msg_used_typesupports "selected")
   else()
-    message(STATUS "Using all available ${typesupport_type}: ${available_typesupports}")
-    set(${var} "${available_typesupports}" PARENT_SCOPE)
+    set(selected_typesupports ${available_typesupports})
+    set(msg_used_typesupports "all available")
   endif()
+
+  # if only one type support is available / selected the caller might decide to
+  # bypass the dynamic dispatch
+  list(LENGTH selected_typesupports count)
+  if(count EQUAL 1)
+    set(msg_used_typesupports "single")
+  endif()
+  message(STATUS "Using ${msg_used_typesupports} ${typesupport_type}: ${selected_typesupports}")
+  set(${var} "${selected_typesupports}" PARENT_SCOPE)
 endfunction()
