@@ -10,7 +10,7 @@
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
   <depend>rcpputils</depend>
-  <build_depend>rosidl_generator_c</build_depend>
+  <build_depend>rosidl_runtime_c</build_depend>
   <!--
   Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_cpp_packages.
   This ensures that binary packages have support for all of these rmw impl. enabled.
@@ -21,8 +21,9 @@
 
   <buildtool_export_depend>ament_cmake_core</buildtool_export_depend>
   <build_export_depend>rmw_implementation</build_export_depend>
-  <build_export_depend>rosidl_generator_c</build_export_depend>
   <build_export_depend>rosidl_typesupport_c</build_export_depend>
+  <build_export_depend>rosidl_runtime_c</build_export_depend>
+  <build_export_depend>rosidl_runtime_cpp</build_export_depend>
 
   <exec_depend>rosidl_typesupport_interface</exec_depend>
 

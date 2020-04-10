@@ -17,8 +17,9 @@ endif()
 
 find_package(ament_cmake_ros REQUIRED)
 find_package(rcpputils REQUIRED)
-find_package(rosidl_generator_c REQUIRED)
+find_package(rosidl_runtime_c REQUIRED)
 
+ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(rosidl_typesupport_interface)
 
 ament_export_include_directories(include)
@@ -39,7 +40,10 @@ target_include_directories(${PROJECT_NAME}
   include
 )
 
-ament_target_dependencies(${PROJECT_NAME} "rcpputils" "rosidl_generator_c")
+ament_target_dependencies(${PROJECT_NAME}
+  "rcpputils"
+  "rosidl_runtime_c"
+)
 ament_export_libraries(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
