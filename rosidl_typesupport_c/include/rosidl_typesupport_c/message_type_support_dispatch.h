@@ -15,7 +15,7 @@
 #ifndef ROSIDL_TYPESUPPORT_C__MESSAGE_TYPE_SUPPORT_DISPATCH_H_
 #define ROSIDL_TYPESUPPORT_C__MESSAGE_TYPE_SUPPORT_DISPATCH_H_
 
-#include "rosidl_generator_c/message_type_support_struct.h"
+#include "rosidl_runtime_c/message_type_support_struct.h"
 
 #include "rosidl_typesupport_c/visibility_control.h"
 
