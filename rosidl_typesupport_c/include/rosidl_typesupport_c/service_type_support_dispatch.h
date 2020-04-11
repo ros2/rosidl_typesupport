@@ -24,6 +24,17 @@ extern "C"
 {
 #endif
 
+/// Get the service type support handle specific to this identifier
+/**
+ * This function is a general function used to be called by a generated service message's c
+ * functionality. If the identifier is the same as this handle's typesupport_identifier, then the
+ * handle is simply returned, otherwise it's loaded from a shared library.
+ *
+ * If no type support handle can be found, this function returns NULL.
+ *
+ * param handle Handle to message type support
+ * param identifier The typesupport identifier to get the handle function for
+ */
 ROSIDL_TYPESUPPORT_C_PUBLIC
 const rosidl_service_type_support_t *
 rosidl_typesupport_c__get_service_typesupport_handle_function(

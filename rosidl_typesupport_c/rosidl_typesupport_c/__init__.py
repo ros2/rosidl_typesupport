@@ -16,6 +16,12 @@ from rosidl_cmake import generate_files
 
 
 def generate_c(generator_arguments_file, type_supports):
+    """
+    Generate the C type support to handle ROS messages.
+
+    :param generator_arguments_file: Path location of the file containing the generator arguments
+    :param type_support: List of type supports to be used
+    """
     mapping = {
         'idl__type_support.cpp.em': '%s__type_support.cpp',
     }
