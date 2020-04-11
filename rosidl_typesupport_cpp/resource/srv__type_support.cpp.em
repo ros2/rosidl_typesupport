@@ -23,7 +23,7 @@ include_base = '/'.join(include_parts)
 
 header_files = [
     'cstddef',
-    'rosidl_generator_c/service_type_support_struct.h',
+    'rosidl_runtime_c/service_type_support_struct.h',
     include_base + '__struct.hpp',
 ]
 if len(type_supports) != 1:
