@@ -20,7 +20,7 @@
 namespace rosidl_typesupport_cpp
 {
 
-/// String identifier specific to rosidl_typesupport_cpp
+/// String identifier specific to rosidl_typesupport_cpp.
 ROSIDL_TYPESUPPORT_CPP_IMPORT
 extern const char * typesupport_identifier;
 
