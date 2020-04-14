@@ -7,12 +7,15 @@ from rosidl_parser.definition import ACTION_RESULT_SERVICE_SUFFIX
 include_parts = [package_name] + list(interface_path.parents[0].parts) + \
     [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
+include_parts_detail = [package_name] + list(interface_path.parents[0].parts) + [
+    'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
+include_base_detail = '/'.join(include_parts_detail)
 
 header_files = (
     'action_msgs/msg/goal_status_array.h',
     'action_msgs/srv/cancel_goal.h',
     include_base + '.h',
-    include_base + '__type_support.h',
+    include_base_detail + '__type_support.h',
 )
 }@
 @[for header_file in header_files]@
