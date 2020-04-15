@@ -25,7 +25,6 @@ namespace rosidl_typesupport_cpp
 
 /// Get the message type support handle specific to this identifier.
 /**
- * This function is a general function used to be called by a generated message's c++ functionality
  * If the identifier is the same as this handle's typesupport_identifier, then the handle is
  * simply returned, otherwise it's loaded from a shared library.
  *

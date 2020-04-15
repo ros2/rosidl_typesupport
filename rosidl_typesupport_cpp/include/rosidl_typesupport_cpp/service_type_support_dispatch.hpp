@@ -25,9 +25,8 @@ namespace rosidl_typesupport_cpp
 
 /// Get the service type support handle specific to this identifier.
 /**
- * This function is a general function used to be called by a generated service message's c
- * functionality. If the identifier is the same as this handle's typesupport_identifier, then the
- * handle is simply returned, otherwise it's loaded from a shared library.
+ * If the identifier is the same as this handle's typesupport_identifier, then the handle is
+ * simply returned, otherwise it's loaded from a shared library.
  *
  * \param handle Handle to message type support
  * \param identifier The typesupport identifier to get the handle function for

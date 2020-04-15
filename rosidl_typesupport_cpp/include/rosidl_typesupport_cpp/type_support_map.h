@@ -22,14 +22,14 @@ extern "C"
 {
 #endif
 
-/// Standard structure for encapsulating information about a rosidl interface type's support.
+/// Contains all available C++ typesupport handles to choose from.
 typedef struct type_support_map_t
 {
   // TODO(dirk-thomas) const should not be defined for the fields
   // but should be set for the struct when it is being used
   // same for rosidl_message_type_support_t et al
 
-  /// Number of type_supports in the data array.
+  /// Length of the `typesupport_identidentifier`, `symbol_name` and `data` arrays.
   const size_t size;
 
   /// The ROS 2 package this is generated from.
@@ -41,7 +41,7 @@ typedef struct type_support_map_t
   /// Names of the symbols associated with each type support.
   const char * const * symbol_name;
 
-  /// Type erased data pointer.
+  /// Array of pointers to type support handle functions that were successfully found.
   void ** data;
 } type_support_map_t;
 
