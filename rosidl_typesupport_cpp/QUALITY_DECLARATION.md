@@ -11,7 +11,10 @@ Below are the rationales, notes, and caveats for this claim, organized by each r
 ### Version Scheme [1.i]
 
 `rosidl_typesupport_cpp` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#versioning).
-However, it is not yet at a stable version, i.e. `>= 1.0.0`.
+
+### Version Stability [1.ii]
+
+`rosidl_typesupport_cpp` is not yet at a stable version, i.e. `>= 1.0.0`.
 
 ### Public API Declaration [1.iii]
 
@@ -100,8 +103,8 @@ There are currently no tests for the public API.
 
 ## Dependencies [5]
 
-### Direct Runtime ROS Dependencies [5.i]
-`rosidl_typesupport_cpp` has the following ROS dependencies:
+### Direct Runtime ROS Dependencies [5.i/5.ii]
+`rosidl_typesupport_cpp` has the following runtime ROS dependencies:
 * `rcpputils`
 * `rosidl_runtime_c`
 * `rosidl_typesupport_cpponnext_c`
@@ -110,6 +113,10 @@ There are currently no tests for the public API.
 
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
+
+### Direct Runtime Non-ROS Dependencies [5.iii]
+
+`rosidl_typesupport_cpp` does not have any runtime non-ROS dependencies.
 
 ## Platform Support [6]
 
@@ -120,3 +127,7 @@ Currently nightly results can be seen here:
 * [linux-arm64_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp/)
 * [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_cpp/)
 * [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_cpp/)
+
+## Vulnerability Disclosure Policy [7.i]
+
+This package does not yet have a Vulnerability Disclosure Policy
