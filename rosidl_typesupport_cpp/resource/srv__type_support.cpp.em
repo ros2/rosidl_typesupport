@@ -123,8 +123,8 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
 
 @[else]@
 @{
-include_parts = [package_name] + list(interface_path.parents[0].parts) + \
-    [convert_camel_case_to_lower_case_underscore(interface_path.stem)]
+include_parts = [package_name] + list(interface_path.parents[0].parts) + [
+    'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
 header_file = include_base + '__' + list(type_supports)[0] + '.hpp'
 }@
