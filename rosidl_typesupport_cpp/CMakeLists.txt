@@ -33,16 +33,16 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
 endif()
-target_include_directories(${PROJECT_NAME}
-  PUBLIC
-  include
-)
+target_include_directories(${PROJECT_NAME} PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>")
 
 ament_target_dependencies(${PROJECT_NAME}
   "rcpputils"
   "rosidl_runtime_c"
 )
 ament_export_libraries(${PROJECT_NAME})
+ament_export_targets(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
 
@@ -74,7 +74,7 @@ install(
   DESTINATION include
 )
 install(
-  TARGETS ${PROJECT_NAME}
+  TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
