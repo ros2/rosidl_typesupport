@@ -6,84 +6,102 @@ The package `rosidl_typesupport_c` claims to be in the **Quality Level 4** categ
 
 Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 4 in REP-2004](https://www.ros.org/reps/rep-2004.html).
 
-## Version Policy
+## Version Policy [1]
 
-### Version Scheme
+### Version Scheme [1.i]
 
 `rosidl_typesupport_c` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#versioning).
 However, it is not yet at a stable version, i.e. `>= 1.0.0`.
 
-### API Stability Within a Released ROS Distribution
-
-`rosidl_typesupport_c` will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
-
-### ABI Stability Within a Released ROS Distribution
-
-`rosidl_typesupport_c` contains C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
-
-### Public API Declaration
+### Public API Declaration [1.iii]
 
 All symbols in the installed headers are considered part of the public API.
 
 All installed headers are in the `include` directory of the package, headers in any other folders are not installed and considered private.
 
-## Change Control Process
+### API Stability Within a Released ROS Distribution [1.iv]/[1.vi]
+
+`rosidl_typesupport_c` will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+
+### ABI Stability Within a Released ROS Distribution [1.v]/[1.vi]
+
+`rosidl_typesupport_c` contains C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
+
+
+## Change Control Process [2]
 
 `rosidl_typesupport_c` follows the recommended guidelines for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#package-requirements).
 
-This includes:
+### Change Requests [2.i]
 
-- all changes occur through a pull request
-- all pull request have at least 1 peer review
-- all pull request must pass CI on all [tier 1 platforms](https://www.ros.org/reps/rep-2000.html#support-tiers)
-- all pull request must resolve related documentation changes before merging
+This package requires that all changes occurr through a pull request.
+### Contributor Origin [2.ii]
+ This package has a confirmation of contributor origin policy, which can be found in [CONTRIBUTING](../CONTRIBUTING.md)
 
-## Documentation
+### Peer Review Policy [2.iii]
 
-### Feature Documentation
+ Following the recommended guidelines for ROS Core packages, all pull request have at least 1 peer review.
+
+### Continuous Integration [2.iv]
+
+All pull request must pass CI on all [tier 1 platforms](https://www.ros.org/reps/rep-2000.html#support-tiers)
+
+Currently nightly results can be seen here:
+* [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [linux-arm64_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_c/)
+
+## Documentation [3]
+
+### Feature Documentation [3.i]
 
 `rosidl_typesupport_c` does not have any feature documentation and it will need to be added for higher quality levels.
 
-### Public API Documentation
+### Public API Documentation [3.ii]
 
 `rosidl_typesupport_c` does not currently have public API documentation.
 
-### License
+### License [3.iii]
 
-The license for `rosidl_typesupport_c` is Apache 2.0, and a summary is in each source file, the type is declared in the `package.xml` manifest file, and a full copy of the license is in the `LICENSE` file.
+The license for `rosidl_typesupport_c` is Apache 2.0, and a summary is in each source file, the type is declared in the `package.xml` manifest file, and a full copy of the license is in the [LICENSE](./LICENSE) file.
 
 There is an automated test which runs a linter that ensures each file has a license statement.
 
-### Copyright Statements
+### Copyright Statements [3.iv]
 
 The copyright holders each provide a statement of copyright in each source code file in `rosidl_typesupport_c`.
 
 There is an automated test which runs a linter that ensures each file has at least one copyright statement.
 
-## Testing
+Most recent test results can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_c/)
 
-### Feature Testing
+
+## Testing [4]
+
+### Feature Testing [4.i]
 
 There are currently no public features undergoing tests.
 
-### Public API Testing
+### Public API Testing [4.ii]
 
 There are currently no tests for the public API.
 
-### Coverage
+### Coverage [4.iv]
 
 `rosidl_typesupport_c` does not currently track test coverage.
 
-### Performance
+### Performance [4.iv]
 
 `rosidl_typesupport_c` does not currently have performance tests.
 
-### Linters and Static Analysis
+### Linters and Static Analysis [4.v]
 
 `rosidl_typesupport_c` uses and passes all the standard linters and static analysis tools for a C++ package as described in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#linters).
 
-## Dependencies
+## Dependencies [5]
 
+### Direct Runtime ROS Dependencies [5.i]
 `rosidl_typesupport_c` has the following ROS dependencies:
 * `rcpputils`
 * `rosidl_runtime_c`
@@ -94,6 +112,12 @@ There are currently no tests for the public API.
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
 
-## Platform Support
+## Platform Support [6]
 
 `rosidl_typesupport_c` supports all of the tier 1 platforms as described in [REP-2000](https://www.ros.org/reps/rep-2000.html#support-tiers), and tests each change against all of them.
+
+Currently nightly results can be seen here:
+* [linux-aarch64_release](https://ci.ros2.org/view/nightly/job/nightly_linux-aarch64_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [linux-arm64_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_c/)
+* [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_c/)
