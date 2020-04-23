@@ -38,7 +38,7 @@ typedef struct type_support_map_t
   /// Array of identifiers for the type_supports.
   const char * const * typesupport_identifier;
 
-  /// Names of the symbols associated with each type support.
+  /// Array of symbol names to get the typesupports.
   const char * const * symbol_name;
 
   /// Array of pointers to type support handle functions that were successfully found.
