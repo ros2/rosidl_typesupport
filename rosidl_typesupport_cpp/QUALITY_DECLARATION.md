@@ -36,7 +36,7 @@ All installed headers are in the `include` directory of the package, headers in 
 
 ### Change Requests [2.i]
 
-This package requires that all changes occur through a pull request, and all pull requests must resolve related documentation changes before merging.
+This package requires that all changes occur through a pull request.
 
 ### Contributor Origin [2.ii]
  This package has a confirmation of contributor origin policy, which can be found in [CONTRIBUTING](../CONTRIBUTING.md)
@@ -54,6 +54,10 @@ Currently nightly results for the master branch can be seen here:
 * [linux_release](https://ci.ros2.org/view/nightly/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp/)
 * [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_cpp/)
 * [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_cpp/)
+
+### Documentation Policy [2.v]
+
+All pull requests must resolve related documentation changes before merging.
 
 ## Documentation [3]
 

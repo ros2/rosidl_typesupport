@@ -37,7 +37,8 @@ All installed headers are in the `include` directory of the package, headers in 
 
 ### Change Requests [2.i]
 
-This package requires that all changes occurr through a pull request.
+This package requires that all changes occur through a pull request.
+
 ### Contributor Origin [2.ii]
  This package has a confirmation of contributor origin policy, which can be found in [CONTRIBUTING](../CONTRIBUTING.md)
 
