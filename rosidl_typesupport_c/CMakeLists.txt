@@ -19,6 +19,7 @@ find_package(ament_cmake_ros REQUIRED)
 find_package(rcpputils REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
 
+ament_export_dependencies(rcpputils)
 ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(rosidl_typesupport_interface)
 

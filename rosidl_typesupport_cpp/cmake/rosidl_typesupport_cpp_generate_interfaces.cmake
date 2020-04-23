@@ -93,7 +93,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PUBLIC
-  ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>"
+  "$<INSTALL_INTERFACE:include>"
 )
 
 # if only a single typesupport is used this package will directly reference it
@@ -113,12 +114,16 @@ endif()
 
 ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   "rosidl_runtime_c"
+  "rosidl_runtime_cpp"
   "rosidl_typesupport_cpp"
   "rosidl_typesupport_interface")
 foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
   ament_target_dependencies(
     ${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${_pkg_name})
+  if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
+    ament_export_dependencies(${_pkg_name})
+  endif()
 endforeach()
 
 add_dependencies(
@@ -133,11 +138,13 @@ add_dependencies(
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
   install(
     TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    EXPORT ${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
   )
   ament_export_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix})
+  ament_export_targets(${rosidl_generate_interfaces_TARGET}${_target_suffix})
 endif()
 
 if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
