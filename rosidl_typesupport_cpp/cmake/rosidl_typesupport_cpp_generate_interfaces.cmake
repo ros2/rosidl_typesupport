@@ -102,7 +102,7 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 if(NOT typesupports MATCHES ";")
   target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PUBLIC
-    "${CMAKE_CURRENT_BINARY_DIR}/${typesupports}")
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${typesupports}>")
   target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
