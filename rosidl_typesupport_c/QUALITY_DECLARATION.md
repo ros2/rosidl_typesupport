@@ -40,7 +40,8 @@ All installed headers are in the `include` directory of the package, headers in 
 This package requires that all changes occur through a pull request.
 
 ### Contributor Origin [2.ii]
- This package has a confirmation of contributor origin policy, which can be found in [CONTRIBUTING](../CONTRIBUTING.md)
+ This package uses DCO as its confirmation of contributor origin policy.
+ More information can be found in [CONTRIBUTING](../CONTRIBUTING.md).
 
 ### Peer Review Policy [2.iii]
 
@@ -72,7 +73,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### License [3.iii]
 
-The license for `rosidl_typesupport_c` is Apache 2.0, and a summary is in each source file, the type is declared in the `package.xml` manifest file, and a full copy of the license is in the [LICENSE](./LICENSE) file.
+The license for `rosidl_typesupport_c` is Apache 2.0, and a summary is in each source file, the type is declared in the [package.xml](package.xml) manifest file, and a full copy of the license is in the [LICENSE](../LICENSE) file.
 
 There is an automated test which runs a linter that ensures each file has a license statement.
 
@@ -106,6 +107,8 @@ There are currently no tests for the public API.
 ### Linters and Static Analysis [4.v]
 
 `rosidl_typesupport_c` uses and passes all the standard linters and static analysis tools for a C++ package as described in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#linters).
+
+Results of the linting tests can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_c/).
 
 ## Dependencies [5]
 
