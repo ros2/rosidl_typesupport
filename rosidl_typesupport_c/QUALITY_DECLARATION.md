@@ -40,12 +40,12 @@ All installed headers are in the `include` directory of the package, headers in 
 This package requires that all changes occur through a pull request.
 
 ### Contributor Origin [2.ii]
- This package uses DCO as its confirmation of contributor origin policy.
- More information can be found in [CONTRIBUTING](../CONTRIBUTING.md).
+This package uses DCO as its confirmation of contributor origin policy.
+More information can be found in [CONTRIBUTING](../CONTRIBUTING.md).
 
 ### Peer Review Policy [2.iii]
 
- Following the recommended guidelines for ROS Core packages, all pull request have at least 1 peer review.
+Following the recommended guidelines for ROS Core packages, all pull request have at least 1 peer review.
 
 ### Continuous Integration [2.iv]
 
@@ -84,7 +84,6 @@ The copyright holders each provide a statement of copyright in each source code 
 There is an automated test which runs a linter that ensures each file has at least one copyright statement.
 
 Most recent test results can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_c/)
-
 
 ## Testing [4]
 
