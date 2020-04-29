@@ -24,6 +24,15 @@ extern "C"
 {
 #endif
 
+/// Get the service type support handle specific to this identifier.
+/**
+ * If the identifier is the same as this handle's typesupport_identifier, then the handle is
+ * simply returned, otherwise it's loaded from a shared library.
+ *
+ * \param handle Handle to message type support
+ * \param identifier The typesupport identifier to get the handle function for
+ * \return The associated service typesupport handle if found, otherwise NULL
+ */
 ROSIDL_TYPESUPPORT_C_PUBLIC
 const rosidl_service_type_support_t *
 rosidl_typesupport_c__get_service_typesupport_handle_function(
