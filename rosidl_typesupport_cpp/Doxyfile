@@ -5,7 +5,7 @@ PROJECT_NUMBER         = master
 PROJECT_BRIEF          = "ROSIDL C++ Typesupport"
 
 # Use these lines to include the generated logging.hpp (update install path if needed)
-INPUT                  = README.md ./include ./docs
+INPUT                  = README.md ./include ./docs ./QUALITY_DECLARATION.md
 USE_MDFILE_AS_MAINPAGE = README.md
 
 RECURSIVE              = YES
