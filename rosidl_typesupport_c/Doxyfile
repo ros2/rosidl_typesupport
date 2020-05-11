@@ -5,7 +5,7 @@ PROJECT_NUMBER         = master
 PROJECT_BRIEF          = "ROSIDL C Typesupport"
 
 # Use these lines to include the generated logging.hpp (update install path if needed)
-INPUT                  = README.md ./include
+INPUT                  = README.md ./include ./docs ./QUALITY_DECLARATION.md
 USE_MDFILE_AS_MAINPAGE = README.md
 
 RECURSIVE              = YES
@@ -23,7 +23,6 @@ PREDEFINED             = ROSIDL_TYPESUPPORT_C_PUBLIC=
 
 # Tag files that do not exist will produce a warning and cross-project linking will not work.
 TAGFILES += "../../../../doxygen_tag_files/cppreference-doxygen-web.tag.xml=http://en.cppreference.com/w/"
-# TODO(brawner) uncomment when rosidl_runtime_c docs are created
-# TAGFILES += "../../../../doxygen_tag_files/rosidl_runtime_c.tag=http://docs.ros2.org/latest/api/rosidl_runtime_c/"
+TAGFILES += "../../../../doxygen_tag_files/rosidl_runtime_c.tag=http://docs.ros2.org/latest/api/rosidl_runtime_c/"
 # Uncomment to generate tag files for cross-project linking.
-#GENERATE_TAGFILE = "../../../../doxygen_tag_files/rclcpp.tag"
+#GENERATE_TAGFILE = "../../../../doxygen_tag_files/rosidl_typesupport_c.tag"

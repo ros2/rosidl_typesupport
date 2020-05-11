@@ -1,6 +1,6 @@
 This document is a declaration of software quality for the `rosidl_typesupport_c` package, based on the guidelines in [REP-2004](https://www.ros.org/reps/rep-2004.html).
 
-# `rosidl_typesupport_c` Quality Declaration
+# rosidl_typesupport_c Quality Declaration
 
 The package `rosidl_typesupport_c` claims to be in the **Quality Level 4** category.
 
@@ -65,7 +65,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Feature Documentation [3.i]
 
-`rosidl_typesupport_c` does not have any feature documentation and it will need to be added for higher quality levels.
+`rosidl_typesupport_c` has feature documentation and it is publicly [hosted](docs/FEATURES.md).
 
 ### Public API Documentation [3.ii]
 

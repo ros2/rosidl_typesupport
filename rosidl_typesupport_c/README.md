@@ -2,5 +2,10 @@
 
 `rosidl_typesupport_c` provides functionality for getting the associated message or service c typesupport handler functions.
 
-* `include/rosidl_typesupport_c/message_type_support_dispatch.h`: Look up message type support handle functions from available libraries.
-* `include/rosidl_typesupport_c/service_type_support_dispatch.h`: Look up service type support handle functions from available libraries.
+## Features
+
+The features provided by `rosidl_typesupport_c` are described in [FEATURES](docs/FEATURES.md).
+
+## Quality Declaration
+
+This package claims to be in the **Quality Level 4** category, see the [Quality Declaration](./QUALITY_DECLARATION.md) for more details.
