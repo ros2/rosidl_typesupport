@@ -5,6 +5,15 @@
 set(rosidl_typesupport_cpp_LIBRARY_TYPE "@rosidl_typesupport_cpp_LIBRARY_TYPE@")
 
 find_package(ament_cmake_core QUIET REQUIRED)
+find_package(rosidl_typesupport_c QUIET REQUIRED)
+
+get_used_typesupports(_typesupports "rosidl_typesupport_cpp")
+
+# Make sure extension points are registered in order
+find_package(rosidl_generator_cpp QUIET REQUIRED)
+foreach(_typesupport ${_typesupports})
+  find_package(${_typesupport} QUIET REQUIRED)
+endforeach()
 
 ament_register_extension(
   "rosidl_generate_idl_interfaces"
