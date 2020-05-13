@@ -69,7 +69,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Public API Documentation [3.ii]
 
-`rosidl_typesupport_c` does not currently have public API documentation.
+`rosidl_typesupport_c` has documentation of its public API, but it is not yet hosted.
 
 ### License [3.iii]
 
