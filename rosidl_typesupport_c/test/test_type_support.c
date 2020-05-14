@@ -16,8 +16,13 @@
 
 #include "rosidl_typesupport_c/visibility_control.h"
 
-// A declaration is required in order for this to work with Visual Studio
-ROSIDL_TYPESUPPORT_C_PUBLIC
+// If ROSIDL_TYPESUPPORT_CPP_PUBLIC is used, it selects dllimport instead of dllexport, but the
+// function still needs to be defined separately. Windows has gotten picky with its compiler
+// warnings recently.
+#if defined _WIN32 || defined __CYGWIN__
+__declspec(dllexport) void test_type_support();
+#else
 void test_type_support();
+#endif
 
 void test_type_support() {}
