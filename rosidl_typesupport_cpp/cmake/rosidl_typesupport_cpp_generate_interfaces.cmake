@@ -14,8 +14,8 @@
 
 if(NOT rosidl_generator_cpp_FOUND)
   message(FATAL_ERROR
-    "Executing rosidl_typesupport_cpp extension point when rosidl_generator_cpp wasn't found."
-    "Make sure rosidl_generator_cpp is installed.")
+    "'rosidl_generator_cpp' not found when executing "
+    "'rosidl_typesupport_cpp' extension.")
 endif()
 
 set(_output_path
