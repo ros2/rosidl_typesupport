@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.9.1 (2020-05-19)
+------------------
 * Force extension points to be registered in order (`#73 <https://github.com/ros2/rosidl_typesupport/issues/73>`_)
 * Update API documentation and QDs (`#74 <https://github.com/ros2/rosidl_typesupport/issues/74>`_)
 * Completing feature documentation (`#72 <https://github.com/ros2/rosidl_typesupport/issues/72>`_)
