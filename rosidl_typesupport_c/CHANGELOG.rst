@@ -2,6 +2,15 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Force extension points to be registered in order (`#73 <https://github.com/ros2/rosidl_typesupport/issues/73>`_)
+* Update API documentation and quality declarations (`#74 <https://github.com/ros2/rosidl_typesupport/issues/74>`_)
+* Complete feature documentation (`#72 <https://github.com/ros2/rosidl_typesupport/issues/72>`_)
+* Add API documentation for public functions (`#64 <https://github.com/ros2/rosidl_typesupport/issues/64>`_)
+* Add current quality level declarations (`#67 <https://github.com/ros2/rosidl_typesupport/issues/67>`_)
+* Contributors: Ivan Santiago Paunovic, brawner
+
 0.9.0 (2020-04-24)
 ------------------
 * Fix single typesupport build exposing build directory in include dirs (`#71 <https://github.com/ros2/rosidl_typesupport/issues/71>`_)
