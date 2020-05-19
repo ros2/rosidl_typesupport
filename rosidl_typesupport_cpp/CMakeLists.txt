@@ -46,32 +46,46 @@ ament_export_libraries(${PROJECT_NAME})
 ament_export_targets(${PROJECT_NAME})
 
 ament_index_register_resource("rosidl_runtime_packages")
-set(PROJECT_TARGETS ${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 
+  set(TEST_LIB_DIR "${CMAKE_CURRENT_BINARY_DIR}/test_libs")
+
   add_library(rosidl_typesupport_cpp__test_type_support1
     test/test_type_support.cpp)
   target_include_directories(rosidl_typesupport_cpp__test_type_support1 PRIVATE include)
-  ament_export_libraries(rosidl_typesupport_cpp__test_type_support1)
+  add_custom_command(TARGET rosidl_typesupport_cpp__test_type_support1 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:rosidl_typesupport_cpp__test_type_support1>
+    ${TEST_LIB_DIR})
 
   # This same library is added a second type with a new name for additional tests
   add_library(rosidl_typesupport_cpp__test_type_support2
     test/test_type_support.cpp)
   target_include_directories(rosidl_typesupport_cpp__test_type_support2 PRIVATE include)
-  ament_export_libraries(rosidl_typesupport_cpp__test_type_support2)
-  set(PROJECT_TARGETS ${PROJECT_TARGETS} rosidl_typesupport_cpp__test_type_support1 rosidl_typesupport_cpp__test_type_support2)
+  add_custom_command(TARGET rosidl_typesupport_cpp__test_type_support2 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:rosidl_typesupport_cpp__test_type_support2>
+    ${TEST_LIB_DIR})
 
-  ament_add_gtest(test_message_type_support test/test_message_type_support_dispatch.cpp)
+  ament_add_gtest(test_message_type_support test/test_message_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
   if(TARGET test_message_type_support)
     target_link_libraries(test_message_type_support
       ${PROJECT_NAME}
     )
   endif()
 
-  ament_add_gtest(test_service_type_support test/test_service_type_support_dispatch.cpp)
+  ament_add_gtest(test_service_type_support test/test_service_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
   if(TARGET test_service_type_support)
     target_link_libraries(test_service_type_support
       ${PROJECT_NAME}
@@ -79,10 +93,9 @@ if(BUILD_TESTING)
   endif()
 
   # Test type_support_dispatch throws runtime error when trying to load this "library"
-  set(INVALID_LIBRARY_FILE "${CMAKE_CURRENT_BINARY_DIR}/librosidl_typesupport_cpp__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}")
   file(GENERATE
     OUTPUT
-    ${INVALID_LIBRARY_FILE}
+    "${TEST_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}rosidl_typesupport_cpp__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}"
     CONTENT "I'm not a shared library, why would you treat me like one?")
 endif()
 
@@ -109,13 +122,8 @@ install(
   DESTINATION include
 )
 install(
-  TARGETS ${PROJECT_TARGETS} EXPORT ${PROJECT_NAME}
+  TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
 )
-
-if(BUILD_TESTING)
-install(FILES ${INVALID_LIBRARY_FILE}
-        DESTINATION lib)
-endif()

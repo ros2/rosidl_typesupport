@@ -19,7 +19,7 @@
 #include "rosidl_typesupport_cpp/type_support_map.h"
 
 constexpr size_t map_size = 4u;
-constexpr const char package_name[] = "rosidl_typesupport_c";
+constexpr const char package_name[] = "rosidl_typesupport_cpp";
 constexpr const char * identifiers[map_size] = {
   "test_type_support1", "test_type_support2", "test_type_support3", "test_type_support4"
 };
@@ -75,7 +75,7 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
       &type_support,
       "identifier"), &type_support);
 
-  // Identifier is not the same and isn't the rosidl_typesupport_c__typesupport_identifier
+  // Identifier is not the same and isn't the rosidl_typesupport_cpp__typesupport_identifier
   EXPECT_EQ(
     rosidl_typesupport_cpp::get_service_typesupport_handle_function(
       &type_support,
