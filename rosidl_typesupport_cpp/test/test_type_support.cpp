@@ -16,6 +16,11 @@
 
 #include "rosidl_typesupport_cpp/visibility_control.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 // If ROSIDL_TYPESUPPORT_CPP_PUBLIC is used, it selects dllimport instead of dllexport, but the
 // function still needs to be defined separately. Windows has gotten picky with its compiler
 // warnings recently.
@@ -26,3 +31,7 @@ void test_type_support();
 #endif
 
 void test_type_support() {}
+
+#ifdef __cplusplus
+}
+#endif
