@@ -52,6 +52,53 @@ ament_index_register_resource("rosidl_runtime_packages")
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
+
+  set(TEST_LIB_DIR "${CMAKE_CURRENT_BINARY_DIR}/test_libs")
+
+  add_library(rosidl_typesupport_c__test_type_support1
+    test/test_type_support.c)
+  target_include_directories(rosidl_typesupport_c__test_type_support1 PRIVATE include)
+  add_custom_command(TARGET rosidl_typesupport_c__test_type_support1 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:rosidl_typesupport_c__test_type_support1>
+    ${TEST_LIB_DIR})
+
+  # This same library is added a second type with a new name for additional tests
+  add_library(rosidl_typesupport_c__test_type_support2
+    test/test_type_support.c)
+  target_include_directories(rosidl_typesupport_c__test_type_support2 PRIVATE include)
+  add_custom_command(TARGET rosidl_typesupport_c__test_type_support2 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:rosidl_typesupport_c__test_type_support2>
+    ${TEST_LIB_DIR})
+
+  ament_add_gtest(test_message_type_support test/test_message_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
+  if(TARGET test_message_type_support)
+    target_link_libraries(test_message_type_support
+      ${PROJECT_NAME}
+    )
+  endif()
+
+  ament_add_gtest(test_service_type_support test/test_service_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
+  if(TARGET test_service_type_support)
+    target_link_libraries(test_service_type_support
+      ${PROJECT_NAME}
+    )
+  endif()
+
+  # Test type_support_dispatch throws runtime error when trying to load this "library"
+  file(GENERATE
+    OUTPUT
+    "${TEST_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}rosidl_typesupport_c__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}"
+    CONTENT "I'm not a shared library, why would you treat me like one?")
 endif()
 
 if(BUILD_SHARED_LIBS)
