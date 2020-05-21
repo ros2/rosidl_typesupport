@@ -25,7 +25,10 @@ constexpr const char * identifiers[map_size] = {
 };
 
 constexpr const char * symbols[map_size] = {
-  "test_type_support", "test_type_support2", "test_type_support3", "test_type_support4"
+  "test_message_type_support",
+  "test_message_type_support2",
+  "test_message_type_support3",
+  "test_message_type_support4"
 };
 
 rosidl_message_type_support_t get_rosidl_message_type_support(const char * identifier)
@@ -88,10 +91,17 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
   type_support_cpp_identifier.data = &support_map;
 
   // Successfully load library and find symbols
-  EXPECT_NE(
-    rosidl_typesupport_cpp::get_message_typesupport_handle_function(
-      &type_support_cpp_identifier,
-      "test_type_support1"), nullptr);
+  auto * result = rosidl_typesupport_cpp::get_message_typesupport_handle_function(
+    &type_support_cpp_identifier,
+    "test_type_support1");
+  ASSERT_NE(result, nullptr);
+  ASSERT_NE(support_map.data[0], nullptr);
+  auto * clib = static_cast<const rcpputils::SharedLibrary *>(support_map.data[0]);
+  auto * lib = const_cast<rcpputils::SharedLibrary *>(clib);
+  ASSERT_NE(lib, nullptr);
+  EXPECT_TRUE(lib->has_symbol("test_message_type_support"));
+  auto * sym = lib->get_symbol("test_message_type_support");
+  ASSERT_NE(sym, nullptr);
 
   // Loads library, but symbol doesn't exist
   EXPECT_EQ(

@@ -82,7 +82,6 @@ get_typesupport_handle_function(
       }
       void * sym = lib->get_symbol(map->symbol_name[i]);
 
-
       typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);
       const TypeSupport * ts = func();

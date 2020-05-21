@@ -14,6 +14,8 @@
 
 // Provide a symbol so they can be checked with get_typesupport_handle_function()
 
+#include "rosidl_runtime_c/message_type_support_struct.h"
+#include "rosidl_runtime_c/service_type_support_struct.h"
 #include "rosidl_typesupport_cpp/visibility_control.h"
 
 #ifdef __cplusplus
@@ -25,12 +27,24 @@ extern "C"
 // function still needs to be defined separately. Windows has gotten picky with its compiler
 // warnings recently.
 #if defined _WIN32 || defined __CYGWIN__
-__declspec(dllexport) void test_type_support();
+__declspec(dllexport) const rosidl_message_type_support_t * test_message_type_support();
+__declspec(dllexport) const rosidl_service_type_support_t * test_service_type_support();
 #else
-void test_type_support();
+const rosidl_message_type_support_t * test_message_type_support();
+const rosidl_service_type_support_t * test_service_type_support();
 #endif
 
-void test_type_support() {}
+static const rosidl_message_type_support_t message_type_support = {
+  0, 0, 0
+};
+
+static const rosidl_service_type_support_t service_type_support = {
+  0, 0, 0
+};
+
+const rosidl_message_type_support_t * test_message_type_support() {return &message_type_support;}
+
+const rosidl_service_type_support_t * test_service_type_support() {return &service_type_support;}
 
 #ifdef __cplusplus
 }
