@@ -102,6 +102,9 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
   EXPECT_TRUE(lib->has_symbol("test_message_type_support"));
   auto * sym = lib->get_symbol("test_message_type_support");
   ASSERT_NE(sym, nullptr);
+  if (library_array[0] != nullptr) {
+    delete library_array[0];
+  }
 
   // Loads library, but symbol doesn't exist
   EXPECT_EQ(
