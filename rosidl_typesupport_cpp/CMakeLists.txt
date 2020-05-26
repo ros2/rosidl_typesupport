@@ -56,6 +56,9 @@ if(BUILD_TESTING)
   add_library(rosidl_typesupport_cpp__test_type_support1
     test/test_type_support.cpp)
   target_include_directories(rosidl_typesupport_cpp__test_type_support1 PRIVATE include)
+  ament_target_dependencies(rosidl_typesupport_cpp__test_type_support1
+    "rosidl_runtime_c"
+  )
   add_custom_command(TARGET rosidl_typesupport_cpp__test_type_support1 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:rosidl_typesupport_cpp__test_type_support1>
@@ -65,6 +68,9 @@ if(BUILD_TESTING)
   add_library(rosidl_typesupport_cpp__test_type_support2
     test/test_type_support.cpp)
   target_include_directories(rosidl_typesupport_cpp__test_type_support2 PRIVATE include)
+  ament_target_dependencies(rosidl_typesupport_cpp__test_type_support2
+    "rosidl_runtime_c"
+  )
   add_custom_command(TARGET rosidl_typesupport_cpp__test_type_support2 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:rosidl_typesupport_cpp__test_type_support2>
