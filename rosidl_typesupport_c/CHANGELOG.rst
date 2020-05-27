@@ -2,6 +2,12 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.0 (2020-05-26)
+------------------
+* Addresses test failures in release mode (`#75 <https://github.com/ros2/rosidl_typesupport/issues/75>`_)
+* Add tests for type_support functions (`#63 <https://github.com/ros2/rosidl_typesupport/issues/63>`_)
+* Contributors: Stephen Brawner
+
 0.9.2 (2020-05-19)
 ------------------
 
