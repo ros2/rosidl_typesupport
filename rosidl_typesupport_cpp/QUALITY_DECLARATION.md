@@ -117,7 +117,7 @@ Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly
 
 ## Dependencies [5]
 
-### Direct Runtime ROS Dependencies [5.i/5.ii]
+### Direct and Optional Runtime ROS Dependencies [5.i/5.ii]
 
 `rosidl_typesupport_cpp` has the following runtime ROS dependencies:
 * `rcpputils`

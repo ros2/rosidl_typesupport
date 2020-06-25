@@ -91,13 +91,13 @@ Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linu
 
 ### Feature Testing [4.i]
 
-The features of `rosidl_typesupport_interface` are tested, and their tests are located in the test directory.
+The features of `rosidl_typesupport_interface` are tested, and their tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_c/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
 ### Public API Testing [4.ii]
 
-The public API of `rosidl_typesupport_interface` is tested, and the tests are located in the test directory.
+The public API of `rosidl_typesupport_interface` is tested, and the tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_c/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
