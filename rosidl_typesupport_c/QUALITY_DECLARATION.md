@@ -2,9 +2,9 @@ This document is a declaration of software quality for the `rosidl_typesupport_c
 
 # rosidl_typesupport_c Quality Declaration
 
-The package `rosidl_typesupport_c` claims to be in the **Quality Level 4** category.
+The package `rosidl_typesupport_c` claims to be in the **Quality Level 3** category.
 
-Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 4 in REP-2004](https://www.ros.org/reps/rep-2004.html).
+Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 3 in REP-2004](https://www.ros.org/reps/rep-2004.html).
 
 ## Version Policy [1]
 
@@ -14,7 +14,7 @@ Below are the rationales, notes, and caveats for this claim, organized by each r
 
 ### Version Stability [1.ii]
 
-`rosidl_typesupport_c` is not yet at a stable version, i.e. `>= 1.0.0`.
+`rosidl_typesupport_c` is at a stable version, i.e. >= 1.0.0. The current version can be found in its [package.xml](./package.xml), and its change history can be found in its [CHANGELOG](./CHANGELOG.rst).
 
 ### Public API Declaration [1.iii]
 
@@ -30,7 +30,6 @@ All installed headers are in the `include` directory of the package, headers in 
 
 `rosidl_typesupport_c` contains C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
 
-
 ## Change Control Process [2]
 
 `rosidl_typesupport_c` follows the recommended guidelines for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#package-requirements).
@@ -40,6 +39,7 @@ All installed headers are in the `include` directory of the package, headers in 
 This package requires that all changes occur through a pull request.
 
 ### Contributor Origin [2.ii]
+
 This package uses DCO as its confirmation of contributor origin policy.
 More information can be found in [CONTRIBUTING](../CONTRIBUTING.md).
 
@@ -77,23 +77,29 @@ The license for `rosidl_typesupport_c` is Apache 2.0, and a summary is in each s
 
 There is an automated test which runs a linter that ensures each file has a license statement.
 
+Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c/copyright).
+
 ### Copyright Statements [3.iv]
 
 The copyright holders each provide a statement of copyright in each source code file in `rosidl_typesupport_c`.
 
 There is an automated test which runs a linter that ensures each file has at least one copyright statement.
 
-Most recent test results can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_c/)
+Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c/copyright).
 
 ## Testing [4]
 
 ### Feature Testing [4.i]
 
-There are currently no public features undergoing tests.
+The features of `rosidl_typesupport_interface` are tested, and their tests are located in the test directory.
+
+Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
 ### Public API Testing [4.ii]
 
-There are currently no tests for the public API.
+The public API of `rosidl_typesupport_interface` is tested, and the tests are located in the test directory.
+
+Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
 ### Coverage [4.iv]
 
@@ -105,13 +111,14 @@ There are currently no tests for the public API.
 
 ### Linters and Static Analysis [4.v]
 
-`rosidl_typesupport_c` uses and passes all the standard linters and static analysis tools for a C++ package as described in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#linters).
+`rosidl_typesupport_c` uses and passes all the standard linters and static analysis tools for a C package as described in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#linters).
 
-Results of the linting tests can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_c/).
+Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c/).
 
 ## Dependencies [5]
 
 ### Direct Runtime ROS Dependencies [5.i/5.ii]
+
 `rosidl_typesupport_c` has the following runtime ROS dependencies:
 * `rcpputils`
 * `rosidl_runtime_c`
@@ -136,6 +143,8 @@ Currently nightly results can be seen here:
 * [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_c/)
 * [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_c/)
 
-## Vulnerability Disclosure Policy [7.i]
+## Security [7]
+
+### Vulnerability Disclosure Policy [7.i]
 
 This package conforms to the Vulnerability Disclosure Policy in [REP-2006](https://www.ros.org/reps/rep-2006.html).

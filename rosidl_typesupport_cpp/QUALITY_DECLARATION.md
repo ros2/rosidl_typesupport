@@ -2,9 +2,9 @@ This document is a declaration of software quality for the `rosidl_typesupport_c
 
 # rosidl_typesupport_cpp Quality Declaration
 
-The package `rosidl_typesupport_cpp` claims to be in the **Quality Level 4** category.
+The package `rosidl_typesupport_cpp` claims to be in the **Quality Level 3** category.
 
-Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 4 in REP-2004](https://www.ros.org/reps/rep-2004.html).
+Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 3 in REP-2004](https://www.ros.org/reps/rep-2004.html).
 
 ## Version Policy [1]
 
@@ -14,7 +14,7 @@ Below are the rationales, notes, and caveats for this claim, organized by each r
 
 ### Version Stability [1.ii]
 
-`rosidl_typesupport_cpp` is not yet at a stable version, i.e. `>= 1.0.0`.
+`rosidl_typesupport_cpp` is at a stable version, i.e. >= 1.0.0. The current version can be found in its [package.xml](./package.xml), and its change history can be found in its [CHANGELOG](./CHANGELOG.rst).
 
 ### Public API Declaration [1.iii]
 
@@ -28,7 +28,7 @@ All installed headers are in the `include` directory of the package, headers in 
 
 ### ABI Stability Within a Released ROS Distribution [1.v]/[1.vi]
 
-`rosidl_typesupport_cpp` contains C code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
+`rosidl_typesupport_cpp` contains C++ code and therefore must be concerned with ABI stability, and will maintain ABI stability within a ROS distribution.
 
 ## Change Control Process [2]
 
@@ -39,6 +39,7 @@ All installed headers are in the `include` directory of the package, headers in 
 This package requires that all changes occur through a pull request.
 
 ### Contributor Origin [2.ii]
+
 This package uses DCO as its confirmation of contributor origin policy.
 More information can be found in [CONTRIBUTING](../CONTRIBUTING.md).
 
@@ -68,7 +69,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Public API Documentation [3.ii]
 
-`rosidl_typesupport_cpp` has documentation of its public API, but it is not yet hosted.
+`rosidl_typesupport_cpp` has documentation of its public API, but it is not yet publicly hosted.
 
 ### License [3.iii]
 
@@ -76,7 +77,7 @@ The license for `rosidl_typesupport_cpp` is Apache 2.0, and a summary is in each
 
 There is an automated test which runs a linter that ensures each file has a license statement.
 
-Most recent test results can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_cpp/)
+Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp/copyright).
 
 ### Copyright Statements [3.iv]
 
@@ -84,15 +85,21 @@ The copyright holders each provide a statement of copyright in each source code 
 
 There is an automated test which runs a linter that ensures each file has at least one copyright statement.
 
+Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp/copyright).
+
 ## Testing [4]
 
 ### Feature Testing [4.i]
 
-There are currently no public features undergoing tests.
+The features of `rosidl_typesupport_cpp` are tested, and their tests are located in the test directory.
+
+Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp).
 
 ### Public API Testing [4.ii]
 
-There are currently no tests for the public API.
+The public API of `rosidl_typesupport_cpp` is tested, and the tests are located in the test directory.
+
+Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp).
 
 ### Coverage [4.iii]
 
@@ -106,17 +113,20 @@ There are currently no tests for the public API.
 
 `rosidl_typesupport_cpp` uses and passes all the standard linters and static analysis tools for a C++ package as described in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#linters).
 
-The latest linting results can be found [here](http://build.ros2.org/view/Epr/job/Epr__rosidl_typesupport__ubuntu_bionic_amd64/lastBuild/testReport/rosidl_typesupport_cpp/).
+Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp/).
 
 ## Dependencies [5]
 
 ### Direct Runtime ROS Dependencies [5.i/5.ii]
+
 `rosidl_typesupport_cpp` has the following runtime ROS dependencies:
 * `rcpputils`
 * `rosidl_runtime_c`
-* `rosidl_typesupport_cpponnext_c`
+* `rosidl_runtime_cpp`
+* `rosidl_typesupport_c`
+* `rosidl_typesupport_connext_cpp`
 * `rosidl_typesupport_interface`
-* `rosidl_typesupport_introspection_c`
+* `rosidl_typesupport_introspection_cpp`
 
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
@@ -135,6 +145,8 @@ Currently nightly results can be seen here:
 * [mac_osx_release](https://ci.ros2.org/view/nightly/job/nightly_osx_release/lastBuild/testReport/rosidl_typesupport_cpp/)
 * [windows_release](https://ci.ros2.org/view/nightly/job/nightly_win_rel/lastBuild/testReport/rosidl_typesupport_cpp/)
 
-## Vulnerability Disclosure Policy [7.i]
+## Security [7]
+
+### Vulnerability Disclosure Policy [7.i]
 
 This package conforms to the Vulnerability Disclosure Policy in [REP-2006](https://www.ros.org/reps/rep-2006.html).
