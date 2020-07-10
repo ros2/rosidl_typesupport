@@ -69,7 +69,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Public API Documentation [3.ii]
 
-`rosidl_typesupport_cpp` has documentation of its public API, but it is not yet publicly hosted.
+`rosidl_typesupport_cpp` has documentation of its public API, and it is publicly [hosted](http://docs.ros2.org/latest/api/rosidl_typesupport_cpp/index.html).
 
 ### License [3.iii]
 
@@ -91,19 +91,29 @@ Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linu
 
 ### Feature Testing [4.i]
 
-The features of `rosidl_typesupport_cpp` are tested, and their tests are located in the test directory.
+The features of `rosidl_typesupport_cpp` are tested, and their tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_cpp/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp).
 
 ### Public API Testing [4.ii]
 
-The public API of `rosidl_typesupport_cpp` is tested, and the tests are located in the test directory.
+The public API of `rosidl_typesupport_cpp` is tested, and the tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_cpp/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_cpp).
 
 ### Coverage [4.iii]
 
-`rosidl_typesupport_cpp` does not currently track test coverage.
+`rosidl_typesupport_cpp` follows the recommendations for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#code-coverage), and opts to use line coverage instead of branch coverage.
+
+This includes:
+
+- tracking and reporting line coverage statistics
+- achieving and maintaining a reasonable branch line coverage (90-100%)
+- no lines are manually skipped in coverage calculations
+
+Changes are required to make a best effort to keep or increase coverage before being accepted, but decreases are allowed if properly justified and accepted by reviewers.
+
+Current coverage statistics can be viewed [here](https://ci.ros2.org/job/nightly_linux_coverage/917/cobertura/src_ros2_rosidl_typesupport_rosidl_typesupport_cpp_src/). A description of how coverage statistics are calculated is summarized in this page ["ROS 2 Onboarding Guide"](https://index.ros.org/doc/ros2/Contributing/ROS-2-On-boarding-Guide/#note-on-coverage-runs).
 
 ### Performance [4.iv]
 
@@ -120,13 +130,13 @@ Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly
 ### Direct and Optional Runtime ROS Dependencies [5.i/5.ii]
 
 `rosidl_typesupport_cpp` has the following runtime ROS dependencies:
-* `rcpputils`
-* `rosidl_runtime_c`
-* `rosidl_runtime_cpp`
-* `rosidl_typesupport_c`
-* `rosidl_typesupport_connext_cpp`
-* `rosidl_typesupport_interface`
-* `rosidl_typesupport_introspection_cpp`
+* `rcpputils`: [QUALITY DECLARATION](https://github.com/ros2/rcpputils/tree/master/QUALITY_DECLARATION.md)
+* `rosidl_runtime_c`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_runtime_c/QUALITY_DECLARATION.md)
+* `rosidl_runtime_cpp`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_runtime_cpp/QUALITY_DECLARATION.md)
+* `rosidl_typesupport_c`: [QUALITY DECLARATION](../rosidl_typesupport_c/QUALITY_DECLARATION.md)
+* `rosidl_typesupport_connext_cpp`: No Quality Declaration
+* `rosidl_typesupport_interface`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_typesupport_interface/QUALITY_DECLARATION.md)
+* `rosidl_typesupport_introspection_cpp`: No Quality Declaration
 
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
