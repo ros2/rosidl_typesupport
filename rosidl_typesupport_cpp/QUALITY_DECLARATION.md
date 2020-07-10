@@ -134,9 +134,7 @@ Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly
 * `rosidl_runtime_c`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_runtime_c/QUALITY_DECLARATION.md)
 * `rosidl_runtime_cpp`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_runtime_cpp/QUALITY_DECLARATION.md)
 * `rosidl_typesupport_c`: [QUALITY DECLARATION](../rosidl_typesupport_c/QUALITY_DECLARATION.md)
-* `rosidl_typesupport_connext_cpp`: No Quality Declaration
 * `rosidl_typesupport_interface`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_typesupport_interface/QUALITY_DECLARATION.md)
-* `rosidl_typesupport_introspection_cpp`: No Quality Declaration
 
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
