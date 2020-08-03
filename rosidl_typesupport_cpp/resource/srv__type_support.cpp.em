@@ -1,4 +1,4 @@
-@# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
+@# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
 @{
 TEMPLATE(
     'msg__type_support.cpp.em',
@@ -32,7 +32,7 @@ header_files.append('rosidl_typesupport_cpp/service_type_support.hpp')
 if len(type_supports) != 1:
     header_files += [
         'rosidl_typesupport_cpp/service_type_support_dispatch.hpp',
-        'rosidl_typesupport_cpp/type_support_map.h',
+        'rosidl_typesupport_c/type_support_map.h',
     ]
 header_files.append('rosidl_typesupport_cpp/visibility_control.h')
 if len(type_supports) != 1:
