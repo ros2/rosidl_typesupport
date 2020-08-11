@@ -18,6 +18,9 @@
 // Keep this file not to break API. It was no more than
 // a copy of rosidl_typesupport_c/type_support_map.h
 
+#warning rosidl_typesupport_cpp/type_support_map.h header is deprecated \
+in favor of rosidl_typesupport_c/type_support_map.h.
+
 #include "rosidl_typesupport_c/type_support_map.h"
 
 #endif  // ROSIDL_TYPESUPPORT_CPP__TYPE_SUPPORT_MAP_H_
