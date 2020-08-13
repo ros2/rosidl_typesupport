@@ -19,7 +19,7 @@
 // a copy of rosidl_typesupport_c/type_support_map.h
 
 #warning rosidl_typesupport_cpp/type_support_map.h header is deprecated \
-in favor of rosidl_typesupport_c/type_support_map.h.
+  in favor of rosidl_typesupport_c/type_support_map.h.
 
 #include "rosidl_typesupport_c/type_support_map.h"
 
