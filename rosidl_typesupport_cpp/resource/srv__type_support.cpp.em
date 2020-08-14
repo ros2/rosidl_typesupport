@@ -1,4 +1,4 @@
-@# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
+@# Included from rosidl_typesupport_c/resource/idl__type_support.cpp.em
 @{
 TEMPLATE(
     'msg__type_support.cpp.em',
