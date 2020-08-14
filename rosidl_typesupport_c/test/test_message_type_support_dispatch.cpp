@@ -110,10 +110,10 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
       "test_type_support2"), nullptr);
 
   // Library file exists, but loading shared library fails
-  EXPECT_THROW(
+  EXPECT_EQ(
     rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support_c_identifier,
-      "test_type_support3"), std::runtime_error);
+      "test_type_support3"), nullptr);
 
   // Library doesn't exist
   EXPECT_EQ(
