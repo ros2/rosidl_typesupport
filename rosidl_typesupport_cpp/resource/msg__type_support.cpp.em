@@ -15,8 +15,8 @@ if len(type_supports) != 1:
 header_files.append('rosidl_typesupport_cpp/message_type_support.hpp')
 if len(type_supports) != 1:
     header_files += [
-        'rosidl_typesupport_cpp/message_type_support_dispatch.hpp',
         'rosidl_typesupport_c/type_support_map.h',
+        'rosidl_typesupport_cpp/message_type_support_dispatch.hpp',
     ]
 header_files.append('rosidl_typesupport_cpp/visibility_control.h')
 if len(type_supports) != 1:
