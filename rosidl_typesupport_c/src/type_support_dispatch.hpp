@@ -26,6 +26,7 @@
 
 #include "rcpputils/find_library.hpp"
 #include "rcpputils/shared_library.hpp"
+#include "rcutils/error_handling.h"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
@@ -59,17 +60,20 @@ get_typesupport_handle_function(
           map->package_name, identifier);
         std::string library_path = rcpputils::find_library_path(library_name);
         if (library_path.empty()) {
-          fprintf(stderr, "Failed to find library '%s'\n", library_name);
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Failed to find library '%s'\n", library_name);
           return nullptr;
         }
 
         try {
           lib = new rcpputils::SharedLibrary(library_path.c_str());
         } catch (const std::runtime_error & e) {
-          fprintf(stderr, "Could not load library %s: %s\n", library_path.c_str(), e.what());
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Could not load library %s: %s\n", library_path.c_str(), e.what());
           return nullptr;
         } catch (const std::bad_alloc & e) {
-          fprintf(stderr, "Could not load library %s: %s\n", library_path.c_str(), e.what());
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Could not load library %s: %s\n", library_path.c_str(), e.what());
           return nullptr;
         }
         map->data[i] = lib;
@@ -77,7 +81,8 @@ get_typesupport_handle_function(
       auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
       lib = const_cast<rcpputils::SharedLibrary *>(clib);
       if (!lib->has_symbol(map->symbol_name[i])) {
-        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
+        RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+          "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
         return nullptr;
       }
       void * sym = lib->get_symbol(map->symbol_name[i]);
@@ -88,6 +93,9 @@ get_typesupport_handle_function(
       return ts;
     }
   }
+  RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+    "Handle's typesupport identifier (%s) is not supported by this library\n",
+    handle->typesupport_identifier);
   return nullptr;
 }
 

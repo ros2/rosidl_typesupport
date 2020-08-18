@@ -14,6 +14,7 @@
 
 #include <gtest/gtest.h>
 #include "rcpputils/shared_library.hpp"
+#include "rcutils/error_handling.h"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/message_type_support_dispatch.h"
 #include "rosidl_typesupport_c/type_support_map.h"
@@ -83,6 +84,8 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
     rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support,
       "different_identifier"), nullptr);
+  EXPECT_TRUE(rcutils_error_is_set());
+  rcutils_reset_error();
 
   rosidl_message_type_support_t type_support_c_identifier =
     get_rosidl_message_type_support(rosidl_typesupport_c__typesupport_identifier);
@@ -108,16 +111,22 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
     rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support_c_identifier,
       "test_type_support2"), nullptr);
+  EXPECT_TRUE(rcutils_error_is_set());
+  rcutils_reset_error();
 
   // Library file exists, but loading shared library fails
   EXPECT_EQ(
     rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support_c_identifier,
       "test_type_support3"), nullptr);
+  EXPECT_TRUE(rcutils_error_is_set());
+  rcutils_reset_error();
 
   // Library doesn't exist
   EXPECT_EQ(
     rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support_c_identifier,
       "test_type_support4"), nullptr);
+  EXPECT_TRUE(rcutils_error_is_set());
+  rcutils_reset_error();
 }
