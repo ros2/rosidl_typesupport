@@ -142,12 +142,12 @@ TEST(TestMessageTypeSupportDispatch, get_message_typesupport_maybe_fail_test)
 
   RCUTILS_FAULT_INJECTION_TEST(
   {
-    try {
-      auto * result = rosidl_typesupport_c__get_message_typesupport_handle_function(
-        &type_support_c_identifier,
-        "test_type_support1");
-      EXPECT_NE(result, nullptr);
-    } catch (...) {
+    auto * result = rosidl_typesupport_c__get_message_typesupport_handle_function(
+      &type_support_c_identifier,
+      "test_type_support1");
+    if (nullptr == result) {
+      EXPECT_TRUE(rcutils_error_is_set());
+      rcutils_reset_error();
     }
   });
 }
