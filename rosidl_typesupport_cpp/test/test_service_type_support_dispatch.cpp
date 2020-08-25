@@ -123,7 +123,7 @@ TEST(TestServiceTypeSupportDispatch, get_handle_function) {
       "test_type_support4"), nullptr);
 }
 
-TEST(TestServiceTypeSupportDispatch, maybe_fail_test)
+TEST(TestServiceTypeSupportDispatch, get_service_typesupport_maybe_fail_test)
 {
   rosidl_service_type_support_t type_support_cpp_identifier =
     get_rosidl_service_type_support(rosidl_typesupport_cpp::typesupport_identifier);

@@ -126,7 +126,7 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
       "test_type_support4"), nullptr);
 }
 
-TEST(TestMessageTypeSupportDispatch, maybe_fail_test)
+TEST(TestMessageTypeSupportDispatch, get_message_typesupport_maybe_fail_test)
 {
   rosidl_message_type_support_t type_support_cpp_identifier =
     get_rosidl_message_type_support(rosidl_typesupport_cpp::typesupport_identifier);
