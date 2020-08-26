@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <gtest/gtest.h>
+#include <rcutils/testing/fault_injection.h>
 #include "rcpputils/shared_library.hpp"
 #include "rcutils/error_handling.h"
 #include "rosidl_typesupport_c/identifier.h"
@@ -129,4 +130,24 @@ TEST(TestServiceTypeSupportDispatch, get_handle_function) {
       "test_type_support4"), nullptr);
   EXPECT_TRUE(rcutils_error_is_set());
   rcutils_reset_error();
+}
+
+TEST(TestServiceTypeSupportDispatch, get_service_typesupport_maybe_fail_test)
+{
+  rosidl_service_type_support_t type_support_c_identifier =
+    get_rosidl_service_type_support(rosidl_typesupport_c__typesupport_identifier);
+  rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
+  type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
+  type_support_c_identifier.data = &support_map;
+
+  RCUTILS_FAULT_INJECTION_TEST(
+  {
+    auto * result = rosidl_typesupport_c__get_service_typesupport_handle_function(
+      &type_support_c_identifier,
+      "test_type_support1");
+    if (nullptr == result) {
+      EXPECT_TRUE(rcutils_error_is_set());
+      rcutils_reset_error();
+    }
+  });
 }

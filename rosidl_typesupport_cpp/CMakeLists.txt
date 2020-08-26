@@ -85,6 +85,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_message_type_support
       ${PROJECT_NAME}
     )
+    target_compile_definitions(test_message_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
   ament_add_gtest(test_service_type_support test/test_service_type_support_dispatch.cpp
@@ -96,6 +97,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_service_type_support
       ${PROJECT_NAME}
     )
+    target_compile_definitions(test_service_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
   # Test type_support_dispatch throws runtime error when trying to load this "library"
