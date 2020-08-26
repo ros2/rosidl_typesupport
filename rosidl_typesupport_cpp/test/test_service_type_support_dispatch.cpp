@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <gtest/gtest.h>
+#include "rcutils/testing/fault_injection.h"
 #include "rcpputils/shared_library.hpp"
 #include "rosidl_typesupport_cpp/identifier.hpp"
 #include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
@@ -120,4 +121,26 @@ TEST(TestServiceTypeSupportDispatch, get_handle_function) {
     rosidl_typesupport_cpp::get_service_typesupport_handle_function(
       &type_support_cpp_identifier,
       "test_type_support4"), nullptr);
+}
+
+TEST(TestServiceTypeSupportDispatch, get_service_typesupport_maybe_fail_test)
+{
+  rosidl_service_type_support_t type_support_cpp_identifier =
+    get_rosidl_service_type_support(rosidl_typesupport_cpp::typesupport_identifier);
+  rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
+  type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
+  type_support_cpp_identifier.data = &support_map;
+
+  RCUTILS_FAULT_INJECTION_TEST(
+  {
+    // load library and find symbols
+    try {
+      auto * result = rosidl_typesupport_cpp::get_service_typesupport_handle_function(
+        &type_support_cpp_identifier,
+        "test_type_support1");
+      EXPECT_NE(result, nullptr);
+    } catch (const std::runtime_error &) {
+    } catch (...) {
+    }
+  });
 }
