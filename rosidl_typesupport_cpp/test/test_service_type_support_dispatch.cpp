@@ -139,6 +139,7 @@ TEST(TestServiceTypeSupportDispatch, get_service_typesupport_maybe_fail_test)
         &type_support_cpp_identifier,
         "test_type_support1");
       EXPECT_NE(result, nullptr);
+    } catch (const std::runtime_error &) {
     } catch (...) {
     }
   });

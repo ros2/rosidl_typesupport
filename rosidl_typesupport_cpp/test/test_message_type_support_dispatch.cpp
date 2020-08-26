@@ -142,7 +142,7 @@ TEST(TestMessageTypeSupportDispatch, get_message_typesupport_maybe_fail_test)
         &type_support_cpp_identifier,
         "test_type_support1");
       EXPECT_NE(result, nullptr);
-    } catch (const std::runtime_error & e) {
+    } catch (const std::runtime_error &) {
     } catch (...) {
       ADD_FAILURE() << "Unexpected exception type in fault injection test";
     }
