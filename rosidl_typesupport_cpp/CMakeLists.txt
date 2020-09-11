@@ -14,6 +14,7 @@ endif()
 find_package(ament_cmake_ros REQUIRED)
 find_package(rcpputils REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
+find_package(rosidl_typesupport_c REQUIRED)
 
 ament_export_dependencies(rcpputils)
 ament_export_dependencies(rosidl_runtime_c)
@@ -41,6 +42,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 ament_target_dependencies(${PROJECT_NAME}
   "rcpputils"
   "rosidl_runtime_c"
+  "rosidl_typesupport_c"
 )
 ament_export_libraries(${PROJECT_NAME})
 ament_export_targets(${PROJECT_NAME})
