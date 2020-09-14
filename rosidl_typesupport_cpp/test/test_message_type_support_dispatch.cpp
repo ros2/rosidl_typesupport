@@ -14,9 +14,9 @@
 
 #include <gtest/gtest.h>
 #include "rcpputils/shared_library.hpp"
+#include "rosidl_typesupport_c/type_support_map.h"
 #include "rosidl_typesupport_cpp/identifier.hpp"
 #include "rosidl_typesupport_cpp/message_type_support_dispatch.hpp"
-#include "rosidl_typesupport_cpp/type_support_map.h"
 
 constexpr size_t map_size = 4u;
 constexpr const char package_name[] = "rosidl_typesupport_cpp";
