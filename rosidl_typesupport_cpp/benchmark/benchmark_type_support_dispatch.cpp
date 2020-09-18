@@ -64,6 +64,8 @@ BENCHMARK_DEFINE_F(PerformanceTest, message_typesupport_handle_function)(benchma
   type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
   type_support_cpp_identifier.data = &support_map;
 
+  reset_heap_counters();
+
   for (auto _ : st) {
     // Successfully load library and find symbols
     auto * result = rosidl_typesupport_cpp::get_message_typesupport_handle_function(
@@ -83,6 +85,8 @@ BENCHMARK_DEFINE_F(PerformanceTest, service_typesupport_handle_function)(benchma
   rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
   type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
   type_support_cpp_identifier.data = &support_map;
+
+  reset_heap_counters();
 
   for (auto _ : st) {
     // Successfully load library and find symbols
