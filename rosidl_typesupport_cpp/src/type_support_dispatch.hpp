@@ -51,13 +51,21 @@ get_typesupport_handle_function(
       rcpputils::SharedLibrary * lib = nullptr;
 
       if (!map->data[i]) {
-        char library_name[1024];
-        snprintf(
-          library_name, 1023, "%s__%s",
-          map->package_name, identifier);
-        std::string library_path = rcpputils::find_library_path(library_name);
+        std::string library_name{map->package_name};
+        library_name += "__";
+        library_name += identifier;
+
+        std::string library_path;
+        try {
+          library_path = rcpputils::find_library_path(library_name);
+        } catch (const std::runtime_error & e) {
+          const std::string message =
+            "Failed to find library '" + library_name + "' due to " + e.what();
+          throw std::runtime_error(message);
+        }
+
         if (library_path.empty()) {
-          fprintf(stderr, "Failed to find library '%s'\n", library_name);
+          fprintf(stderr, "Failed to find library '%s'\n", library_name.c_str());
           return nullptr;
         }
 
