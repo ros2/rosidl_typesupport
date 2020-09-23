@@ -113,7 +113,7 @@ if(BUILD_TESTING)
     "${TEST_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}rosidl_typesupport_cpp__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}"
     CONTENT "I'm not a shared library, why would you treat me like one?")
 
-  add_performance_test(benchmark_type_support_dispatch benchmark/benchmark_type_support_dispatch.cpp
+  add_performance_test(benchmark_type_support_dispatch test/benchmark/benchmark_type_support_dispatch.cpp
     APPEND_ENV
     "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"

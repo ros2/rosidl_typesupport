@@ -13,9 +13,9 @@
 // limitations under the License.
 
 #include "rcpputils/shared_library.hpp"
-#include "rosidl_typesupport_c/identifier.h"
-#include "rosidl_typesupport_c/message_type_support_dispatch.h"
-#include "rosidl_typesupport_c/service_type_support_dispatch.h"
+#include "rosidl_typesupport_cpp/identifier.hpp"
+#include "rosidl_typesupport_cpp/message_type_support_dispatch.hpp"
+#include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
 #include "rosidl_typesupport_c/type_support_map.h"
 
 #include "performance_test_fixture/performance_test_fixture.hpp"
@@ -23,7 +23,7 @@
 using performance_test_fixture::PerformanceTest;
 
 constexpr size_t map_size = 4u;
-constexpr const char package_name[] = "rosidl_typesupport_c";
+constexpr const char package_name[] = "rosidl_typesupport_cpp";
 constexpr const char * identifiers[map_size] = {
   "test_type_support1", "test_type_support2", "test_type_support3", "test_type_support4"
 };
@@ -56,46 +56,44 @@ type_support_map_t get_typesupport_map(void ** library_array)
   };
 }
 
-BENCHMARK_DEFINE_F(PerformanceTest, message_typesupport_handle_function)(benchmark::State & st)
+BENCHMARK_F(PerformanceTest, message_typesupport_handle_function)(benchmark::State & st)
 {
-  rosidl_message_type_support_t type_support_c_identifier =
-    get_rosidl_message_type_support(rosidl_typesupport_c__typesupport_identifier);
+  rosidl_message_type_support_t type_support_cpp_identifier =
+    get_rosidl_message_type_support(rosidl_typesupport_cpp::typesupport_identifier);
   rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
   type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
-  type_support_c_identifier.data = &support_map;
+  type_support_cpp_identifier.data = &support_map;
 
   reset_heap_counters();
 
   for (auto _ : st) {
     // Successfully load library and find symbols
-    auto * result = rosidl_typesupport_c__get_message_typesupport_handle_function(
-      &type_support_c_identifier,
+    auto * result = rosidl_typesupport_cpp::get_message_typesupport_handle_function(
+      &type_support_cpp_identifier,
       "test_type_support1");
     if (nullptr == result) {
-      st.SkipWithError("rosidl_typesupport_c__get_message_typesupport_handle_function failed");
+      st.SkipWithError("rosidl_typesupport_cpp::get_message_typesupport_handle_function failed");
     }
   }
 }
-BENCHMARK_REGISTER_F(PerformanceTest, message_typesupport_handle_function);
 
-BENCHMARK_DEFINE_F(PerformanceTest, service_typesupport_handle_function)(benchmark::State & st)
+BENCHMARK_F(PerformanceTest, service_typesupport_handle_function)(benchmark::State & st)
 {
-  rosidl_service_type_support_t type_support_c_identifier =
-    get_rosidl_service_type_support(rosidl_typesupport_c__typesupport_identifier);
+  rosidl_service_type_support_t type_support_cpp_identifier =
+    get_rosidl_service_type_support(rosidl_typesupport_cpp::typesupport_identifier);
   rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
   type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
-  type_support_c_identifier.data = &support_map;
+  type_support_cpp_identifier.data = &support_map;
 
   reset_heap_counters();
 
   for (auto _ : st) {
     // Successfully load library and find symbols
-    auto * result = rosidl_typesupport_c__get_service_typesupport_handle_function(
-      &type_support_c_identifier,
+    auto * result = rosidl_typesupport_cpp::get_service_typesupport_handle_function(
+      &type_support_cpp_identifier,
       "test_type_support1");
     if (nullptr == result) {
-      st.SkipWithError("rosidl_typesupport_c__get_service_typesupport_handle_function failed");
+      st.SkipWithError("rosidl_typesupport_cpp::get_service_typesupport_handle_function failed");
     }
   }
 }
-BENCHMARK_REGISTER_F(PerformanceTest, service_typesupport_handle_function);
