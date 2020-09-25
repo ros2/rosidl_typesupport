@@ -55,6 +55,11 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 
+  find_package(performance_test_fixture REQUIRED)
+  # Give cppcheck hints about macro definitions coming from outside this package
+  get_target_property(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS
+    performance_test_fixture::performance_test_fixture INTERFACE_INCLUDE_DIRECTORIES)
+
   set(TEST_LIB_DIR "${CMAKE_CURRENT_BINARY_DIR}/test_libs")
 
   add_library(rosidl_typesupport_c__test_type_support1
@@ -109,6 +114,16 @@ if(BUILD_TESTING)
     OUTPUT
     "${TEST_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}rosidl_typesupport_c__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}"
     CONTENT "I'm not a shared library, why would you treat me like one?")
+
+  add_performance_test(benchmark_type_support_dispatch test/benchmark/benchmark_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
+  if(TARGET benchmark_type_support_dispatch)
+    target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
+    ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
+  endif()
 endif()
 
 if(BUILD_SHARED_LIBS)
