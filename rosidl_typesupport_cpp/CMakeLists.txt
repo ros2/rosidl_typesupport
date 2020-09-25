@@ -119,7 +119,6 @@ if(BUILD_TESTING)
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
   if(TARGET benchmark_type_support_dispatch)
-    target_include_directories(benchmark_type_support_dispatch PUBLIC include)
     target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
     ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
   endif()

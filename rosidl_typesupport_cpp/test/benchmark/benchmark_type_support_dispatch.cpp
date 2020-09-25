@@ -74,6 +74,13 @@ BENCHMARK_F(PerformanceTest, message_typesupport_handle_function)(benchmark::Sta
     if (nullptr == result) {
       st.SkipWithError("rosidl_typesupport_cpp::get_message_typesupport_handle_function failed");
     }
+    // Unload for the next iteration
+    for (size_t i = 0; i < map_size; i++) {
+      if (library_array[i] != nullptr) {
+        delete library_array[i];
+        library_array[i] = nullptr;
+      }
+    }
   }
 }
 
@@ -94,6 +101,13 @@ BENCHMARK_F(PerformanceTest, service_typesupport_handle_function)(benchmark::Sta
       "test_type_support1");
     if (nullptr == result) {
       st.SkipWithError("rosidl_typesupport_cpp::get_service_typesupport_handle_function failed");
+    }
+    // Unload for the next iteration
+    for (size_t i = 0; i < map_size; i++) {
+      if (library_array[i] != nullptr) {
+        delete library_array[i];
+        library_array[i] = nullptr;
+      }
     }
   }
 }
