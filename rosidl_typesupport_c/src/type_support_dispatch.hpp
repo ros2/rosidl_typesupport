@@ -91,7 +91,7 @@ get_typesupport_handle_function(
       auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
       lib = const_cast<rcpputils::SharedLibrary *>(clib);
 
-      void * sym;
+      void * sym = nullptr;
 
       try {
         if (!lib->has_symbol(map->symbol_name[i])) {
@@ -99,7 +99,7 @@ get_typesupport_handle_function(
             "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
           return nullptr;
         }
-         sym = lib->get_symbol(map->symbol_name[i]);
+        sym = lib->get_symbol(map->symbol_name[i]);
       } catch (const std::exception & e) {
         RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
           "Failed to get symbol '%s' in library: %s\n",
