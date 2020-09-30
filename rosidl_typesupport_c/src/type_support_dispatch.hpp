@@ -90,12 +90,22 @@ get_typesupport_handle_function(
       }
       auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
       lib = const_cast<rcpputils::SharedLibrary *>(clib);
-      if (!lib->has_symbol(map->symbol_name[i])) {
+
+      void * sym = nullptr;
+
+      try {
+        if (!lib->has_symbol(map->symbol_name[i])) {
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
+          return nullptr;
+        }
+        sym = lib->get_symbol(map->symbol_name[i]);
+      } catch (const std::exception & e) {
         RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-          "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
+          "Failed to get symbol '%s' in library: %s\n",
+          map->symbol_name[i], e.what());
         return nullptr;
       }
-      void * sym = lib->get_symbol(map->symbol_name[i]);
 
       typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);
