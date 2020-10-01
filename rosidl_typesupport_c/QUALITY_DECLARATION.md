@@ -2,7 +2,7 @@ This document is a declaration of software quality for the `rosidl_typesupport_c
 
 # rosidl_typesupport_c Quality Declaration
 
-The package `rosidl_typesupport_c` claims to be in the **Quality Level 3** category.
+The package `rosidl_typesupport_c` claims to be in the **Quality Level 2** category.
 
 Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 3 in REP-2004](https://www.ros.org/reps/rep-2004.html).
 
@@ -117,7 +117,7 @@ Current coverage statistics can be viewed [here](https://ci.ros2.org/job/nightly
 
 ### Performance [4.iv]
 
-`rosidl_typesupport_c` does not currently have performance tests.
+Most recent performance test results can be found [here](http://build.ros2.org/view/Rci/job/Rci__benchmark_ubuntu_focal_amd64/BenchmarkTable/).
 
 ### Linters and Static Analysis [4.v]
 
