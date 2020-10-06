@@ -4,8 +4,10 @@
   <name>rosidl_typesupport_cpp</name>
   <version>1.0.0</version>
   <description>Generate the type support for C++ messages.</description>
-  <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
+  <maintainer email="clalancette@openrobotics.org">Chris Lalancette</maintainer>
+  <maintainer email="sloretz@openrobotics.org">Share Loretz</maintainer>
   <license>Apache License 2.0</license>
+  <author email="dthomas@osrfoundation.org">Dirk Thomas</author>
 
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
