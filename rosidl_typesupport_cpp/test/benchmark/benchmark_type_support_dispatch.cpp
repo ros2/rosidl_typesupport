@@ -16,7 +16,7 @@
 #include "rosidl_typesupport_cpp/identifier.hpp"
 #include "rosidl_typesupport_cpp/message_type_support_dispatch.hpp"
 #include "rosidl_typesupport_cpp/service_type_support_dispatch.hpp"
-#include "rosidl_typesupport_c/type_support_map.h"
+#include "rosidl_typesupport_cpp/type_support_map.h"
 
 #include "performance_test_fixture/performance_test_fixture.hpp"
 

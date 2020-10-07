@@ -119,6 +119,7 @@ if(BUILD_TESTING)
   if(TARGET benchmark_type_support_dispatch)
     target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
     ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
+    target_include_directories(benchmark_type_support_dispatch PRIVATE include)
   endif()
 endif()
 
