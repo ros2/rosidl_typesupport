@@ -53,6 +53,11 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 
+  find_package(performance_test_fixture REQUIRED)
+  # Give cppcheck hints about macro definitions coming from outside this package
+  get_target_property(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS
+    performance_test_fixture::performance_test_fixture INTERFACE_INCLUDE_DIRECTORIES)
+
   set(TEST_LIB_DIR "${CMAKE_CURRENT_BINARY_DIR}/test_libs")
 
   add_library(rosidl_typesupport_cpp__test_type_support1
@@ -87,6 +92,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_message_type_support
       ${PROJECT_NAME}
     )
+    target_compile_definitions(test_message_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
   ament_add_gtest(test_service_type_support test/test_service_type_support_dispatch.cpp
@@ -98,6 +104,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_service_type_support
       ${PROJECT_NAME}
     )
+    target_compile_definitions(test_service_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
   # Test type_support_dispatch throws runtime error when trying to load this "library"
@@ -105,6 +112,17 @@ if(BUILD_TESTING)
     OUTPUT
     "${TEST_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}rosidl_typesupport_cpp__test_type_support3${CMAKE_SHARED_LIBRARY_SUFFIX}"
     CONTENT "I'm not a shared library, why would you treat me like one?")
+
+  add_performance_test(benchmark_type_support_dispatch test/benchmark/benchmark_type_support_dispatch.cpp
+    APPEND_ENV
+    "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
+    "PATH=${TEST_LIB_DIR}")
+  if(TARGET benchmark_type_support_dispatch)
+    target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
+    ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
+    target_include_directories(benchmark_type_support_dispatch PRIVATE include)
+  endif()
 endif()
 
 if(BUILD_SHARED_LIBS)
