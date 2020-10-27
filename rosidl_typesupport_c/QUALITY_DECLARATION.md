@@ -91,13 +91,13 @@ Most recent test results can be found [here](http://ci.ros2.org/job/nightly_linu
 
 ### Feature Testing [4.i]
 
-The features of `rosidl_typesupport_c` are tested, and their tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_c/test).
+The features of `rosidl_typesupport_c` are tested, and their tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/foxy/rosidl_typesupport_c/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
 ### Public API Testing [4.ii]
 
-The public API of `rosidl_typesupport_c` is tested, and the tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/master/rosidl_typesupport_c/test).
+The public API of `rosidl_typesupport_c` is tested, and the tests are located in the [test directory](https://github.com/ros2/rosidl_typesupport/tree/foxy/rosidl_typesupport_c/test).
 
 Most recent test results can be found [here](https://ci.ros2.org/job/nightly_linux_release/lastBuild/testReport/rosidl_typesupport_c).
 
@@ -117,7 +117,7 @@ Current coverage statistics can be viewed [here](https://ci.ros2.org/job/nightly
 
 ### Performance [4.iv]
 
-Most recent performance test results can be found [here](http://build.ros2.org/view/Rci/job/Rci__benchmark_ubuntu_focal_amd64/BenchmarkTable/).
+Most recent performance test results can be found [here](http://build.ros2.org/view/Fci/job/Fci__benchmark_ubuntu_focal_amd64/BenchmarkTable/).
 
 ### Linters and Static Analysis [4.v]
 
@@ -130,9 +130,9 @@ Results of the linting tests can be found [here](https://ci.ros2.org/job/nightly
 ### Direct Runtime ROS Dependencies [5.i/5.ii]
 
 `rosidl_typesupport_c` has the following runtime ROS dependencies:
-* `rcpputils`: [QUALITY DECLARATION](https://github.com/ros2/rcpputils/tree/master/QUALITY_DECLARATION.md)
-* `rosidl_runtime_c`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_runtime_c/QUALITY_DECLARATION.md)
-* `rosidl_typesupport_interface`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/master/rosidl_typesupport_interface/QUALITY_DECLARATION.md)
+* `rcpputils`: [QUALITY DECLARATION](https://github.com/ros2/rcpputils/tree/foxy/QUALITY_DECLARATION.md)
+* `rosidl_runtime_c`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/foxy/rosidl_runtime_c/QUALITY_DECLARATION.md)
+* `rosidl_typesupport_interface`: [QUALITY DECLARATION](https://github.com/ros2/rosidl/tree/foxy/rosidl_typesupport_interface/QUALITY_DECLARATION.md)
 
 It has "buildtool" dependencies, which do not affect the resulting quality of the package, because they do not contribute to the public library API.
 It also has several test dependencies, which do not affect the resulting quality of the package, because they are only used to build and run the test code.
