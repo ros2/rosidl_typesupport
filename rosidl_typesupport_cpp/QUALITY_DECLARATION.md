@@ -2,9 +2,9 @@ This document is a declaration of software quality for the `rosidl_typesupport_c
 
 # rosidl_typesupport_cpp Quality Declaration
 
-The package `rosidl_typesupport_cpp` claims to be in the **Quality Level 3** category.
+The package `rosidl_typesupport_cpp` claims to be in the **Quality Level 2** category.
 
-Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 3 in REP-2004](https://www.ros.org/reps/rep-2004.html).
+Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Requirements for Quality Level 2 in REP-2004](https://www.ros.org/reps/rep-2004.html).
 
 ## Version Policy [1]
 
