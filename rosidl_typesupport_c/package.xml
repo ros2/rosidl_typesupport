@@ -30,8 +30,10 @@
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
-  <test_depend>mimick_vendor</test_depend>
+  <test_depend>rcpputils</test_depend>
+  <test_depend>rcutils</test_depend>
   <test_depend>performance_test_fixture</test_depend>
+  <test_depend>test_mocking_utils</test_depend>
 
   <group_depend>rosidl_typesupport_c_packages</group_depend>
 

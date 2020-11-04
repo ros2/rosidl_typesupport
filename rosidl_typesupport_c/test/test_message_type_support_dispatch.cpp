@@ -20,7 +20,7 @@
 #include "rosidl_typesupport_c/message_type_support_dispatch.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
-#include "./mocking_utils/patch.hpp"
+#include "test_mocking_utils/patch.hpp"
 
 constexpr size_t map_size = 4u;
 constexpr const char package_name[] = "rosidl_typesupport_c";

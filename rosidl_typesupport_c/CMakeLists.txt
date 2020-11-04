@@ -56,6 +56,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 
   find_package(performance_test_fixture REQUIRED)
+  find_package(test_mocking_utils)
   # Give cppcheck hints about macro definitions coming from outside this package
   get_target_property(ament_cmake_cppcheck_ADDITIONAL_INCLUDE_DIRS
     performance_test_fixture::performance_test_fixture INTERFACE_INCLUDE_DIRECTORIES)
@@ -91,10 +92,8 @@ if(BUILD_TESTING)
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
   if(TARGET test_message_type_support)
-    target_link_libraries(test_message_type_support
-      ${PROJECT_NAME}
-      mimick
-    )
+    ament_target_dependencies(test_message_type_support rcpputils rcutils test_mocking_utils)
+    target_link_libraries(test_message_type_support ${PROJECT_NAME})
     target_compile_definitions(test_message_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
@@ -104,10 +103,8 @@ if(BUILD_TESTING)
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
   if(TARGET test_service_type_support)
-    target_link_libraries(test_service_type_support
-      ${PROJECT_NAME}
-      mimick
-    )
+    ament_target_dependencies(test_service_type_support rcpputils rcutils test_mocking_utils)
+    target_link_libraries(test_service_type_support ${PROJECT_NAME})
     target_compile_definitions(test_service_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
 
