@@ -20,6 +20,8 @@
 #include "rosidl_typesupport_c/service_type_support_dispatch.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
+#include "./mocking_utils/patch.hpp"
+
 constexpr size_t map_size = 4u;
 constexpr const char package_name[] = "rosidl_typesupport_c";
 constexpr const char * identifiers[map_size] = {
@@ -93,6 +95,15 @@ TEST(TestServiceTypeSupportDispatch, get_handle_function) {
   rcpputils::SharedLibrary * library_array[map_size] = {nullptr, nullptr, nullptr};
   type_support_map_t support_map = get_typesupport_map(reinterpret_cast<void **>(&library_array));
   type_support_c_identifier.data = &support_map;
+
+  {
+    // rcutils_get_symbol fails (after rcutils_has_symbol succeeds)
+    auto mock = mocking_utils::patch_and_return("lib:rcpputils", rcutils_get_symbol, nullptr);
+    EXPECT_EQ(
+      rosidl_typesupport_c__get_service_typesupport_handle_function(
+        &type_support_c_identifier,
+        "test_type_support1"), nullptr);
+  }
 
   // Successfully load library and find symbols
   auto * result = rosidl_typesupport_c__get_service_typesupport_handle_function(
