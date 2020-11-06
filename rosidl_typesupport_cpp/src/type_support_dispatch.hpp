@@ -25,7 +25,7 @@
 
 #include "rcpputils/find_library.hpp"
 #include "rcpputils/shared_library.hpp"
-#include "rosidl_typesupport_cpp/type_support_map.h"
+#include "rosidl_typesupport_c/type_support_map.h"
 
 namespace rosidl_typesupport_cpp
 {
