@@ -8,4 +8,4 @@ The features provided by `rosidl_typesupport_c` are described in [FEATURES](docs
 
 ## Quality Declaration
 
-This package claims to be in the **Quality Level 2** category, see the [Quality Declaration](./QUALITY_DECLARATION.md) for more details.
+This package claims to be in the **Quality Level 1** category, see the [Quality Declaration](./QUALITY_DECLARATION.md) for more details.
