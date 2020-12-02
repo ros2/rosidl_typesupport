@@ -14,8 +14,6 @@
 
 #include <gtest/gtest.h>
 
-#include <cassert>
-
 #include "rcpputils/shared_library.hpp"
 #include "rcutils/error_handling.h"
 #include "rcutils/testing/fault_injection.h"
