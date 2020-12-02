@@ -13,9 +13,10 @@
 // limitations under the License.
 
 #include <gtest/gtest.h>
-#include <rcutils/testing/fault_injection.h>
+
 #include "rcpputils/shared_library.hpp"
 #include "rcutils/error_handling.h"
+#include "rcutils/testing/fault_injection.h"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/message_type_support_dispatch.h"
 #include "rosidl_typesupport_c/type_support_map.h"
@@ -113,7 +114,8 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
   ASSERT_NE(support_map.data[0], nullptr);
   auto * clib = static_cast<const rcpputils::SharedLibrary *>(support_map.data[0]);
   auto * lib = const_cast<rcpputils::SharedLibrary *>(clib);
-  ASSERT_NE(lib, nullptr);
+  ASSERT_TRUE(nullptr != lib);
+
   EXPECT_TRUE(lib->has_symbol("test_message_type_support"));
   auto * sym = lib->get_symbol("test_message_type_support");
   ASSERT_NE(sym, nullptr);
