@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.8.1 (2020-12-04)
+------------------
+* Make Poco optional again (`#54 <https://github.com/ros2/rosidl_typesupport/issues/54>`_) (`#57 <https://github.com/ros2/rosidl_typesupport/issues/57>`_)
+* Contributors: Sean Kelly
+
 0.8.0 (2019-09-26)
 ------------------
 
