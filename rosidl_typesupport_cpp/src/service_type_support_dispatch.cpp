@@ -21,7 +21,7 @@ namespace rosidl_typesupport_cpp
 
 const rosidl_service_type_support_t *
 get_service_typesupport_handle_function(
-  const rosidl_service_type_support_t * handle, const char * identifier)
+  const rosidl_service_type_support_t * handle, const char * identifier) noexcept
 {
   return rosidl_typesupport_cpp::get_typesupport_handle_function<
     rosidl_service_type_support_t>(handle, identifier);

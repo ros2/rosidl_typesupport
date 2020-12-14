@@ -20,11 +20,12 @@
 #include <cstring>
 #include <memory>
 #include <stdexcept>
-
 #include <string>
 
 #include "rcpputils/find_library.hpp"
 #include "rcpputils/shared_library.hpp"
+#include "rcutils/error_handling.h"
+#include "rcutils/snprintf.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
 namespace rosidl_typesupport_cpp
@@ -35,7 +36,7 @@ extern const char * typesupport_identifier;
 template<typename TypeSupport>
 const TypeSupport *
 get_typesupport_handle_function(
-  const TypeSupport * handle, const char * identifier)
+  const TypeSupport * handle, const char * identifier) noexcept
 {
   if (strcmp(handle->typesupport_identifier, identifier) == 0) {
     return handle;
@@ -51,44 +52,62 @@ get_typesupport_handle_function(
       rcpputils::SharedLibrary * lib = nullptr;
 
       if (!map->data[i]) {
-        std::string library_name{map->package_name};
-        library_name += "__";
-        library_name += identifier;
+        char library_name[1024];
+        int ret = rcutils_snprintf(
+          library_name, 1023, "%s__%s",
+          map->package_name, identifier);
+        if (ret < 0) {
+          RCUTILS_SET_ERROR_MSG("Failed to format library name");
+          return nullptr;
+        }
 
         std::string library_path;
         try {
           library_path = rcpputils::find_library_path(library_name);
         } catch (const std::runtime_error & e) {
-          const std::string message =
-            "Failed to find library '" + library_name + "' due to " + e.what();
-          throw std::runtime_error(message);
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Failed to find library '%s' due to %s",
+            library_name, e.what());
+          return nullptr;
         }
 
         if (library_path.empty()) {
-          fprintf(stderr, "Failed to find library '%s'\n", library_name.c_str());
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Failed to find library '%s'", library_name);
           return nullptr;
         }
 
         try {
           lib = new rcpputils::SharedLibrary(library_path.c_str());
         } catch (const std::runtime_error & e) {
-          throw std::runtime_error(
-                  "Could not load library " + library_path + ": " +
-                  std::string(e.what()));
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Could not load library %s: %s", library_name, e.what());
+          return nullptr;
         } catch (const std::bad_alloc & e) {
-          throw std::runtime_error(
-                  "Could not load library " + library_path + ": " +
-                  std::string(e.what()));
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Could not load library %s: %s", library_name, e.what());
+          return nullptr;
         }
         map->data[i] = lib;
       }
       auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
       lib = const_cast<rcpputils::SharedLibrary *>(clib);
-      if (!lib->has_symbol(map->symbol_name[i])) {
-        fprintf(stderr, "Failed to find symbol '%s' in library\n", map->symbol_name[i]);
+
+      void * sym = nullptr;
+
+      try {
+        if (!lib->has_symbol(map->symbol_name[i])) {
+          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+            "Failed to find symbol '%s' in library", map->symbol_name[i]);
+          return nullptr;
+        }
+        sym = lib->get_symbol(map->symbol_name[i]);
+      } catch (const std::exception & e) {
+        RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+          "Failed to get symbol '%s' in library: %s",
+          map->symbol_name[i], e.what());
         return nullptr;
       }
-      void * sym = lib->get_symbol(map->symbol_name[i]);
 
       typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);
@@ -96,6 +115,9 @@ get_typesupport_handle_function(
       return ts;
     }
   }
+  RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
+    "Handle's typesupport identifier (%s) is not supported by this library",
+    handle->typesupport_identifier);
   return nullptr;
 }
 
