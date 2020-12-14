@@ -35,7 +35,7 @@ namespace rosidl_typesupport_cpp
 ROSIDL_TYPESUPPORT_CPP_PUBLIC
 const rosidl_message_type_support_t *
 get_message_typesupport_handle_function(
-  const rosidl_message_type_support_t * handle, const char * identifier);
+  const rosidl_message_type_support_t * handle, const char * identifier) noexcept;
 
 }  // namespace rosidl_typesupport_cpp
 

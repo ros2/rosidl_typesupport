@@ -36,7 +36,7 @@ extern const char * typesupport_identifier;
 template<typename TypeSupport>
 const TypeSupport *
 get_typesupport_handle_function(
-  const TypeSupport * handle, const char * identifier)
+  const TypeSupport * handle, const char * identifier) noexcept
 {
   if (strcmp(handle->typesupport_identifier, identifier) == 0) {
     return handle;
