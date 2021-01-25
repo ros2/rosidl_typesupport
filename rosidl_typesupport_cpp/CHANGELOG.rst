@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.1 (2021-01-25)
+------------------
 * Remove type_support_dispatch.cpp files. (`#101 <https://github.com/ros2/rosidl_typesupport/issues/101>`_)
 * Defer path resolution of rosidl typesupport libraries to dynamic linker. (`#98 <https://github.com/ros2/rosidl_typesupport/issues/98>`_)
 * Ensure typesupport handle functions do not throw. (`#99 <https://github.com/ros2/rosidl_typesupport/issues/99>`_)

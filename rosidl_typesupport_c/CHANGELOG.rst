@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.1 (2021-01-25)
+------------------
 * Typo typesupport_identidentifier (`#103 <https://github.com/ros2/rosidl_typesupport/issues/103>`_)
 * Remove type_support_dispatch.cpp files. (`#101 <https://github.com/ros2/rosidl_typesupport/issues/101>`_)
 * Defer path resolution of rosidl typesupport libraries to dynamic linker. (`#98 <https://github.com/ros2/rosidl_typesupport/issues/98>`_)
