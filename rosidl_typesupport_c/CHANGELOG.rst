@@ -2,6 +2,14 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Typo typesupport_identidentifier (`#103 <https://github.com/ros2/rosidl_typesupport/issues/103>`_)
+* Remove type_support_dispatch.cpp files. (`#101 <https://github.com/ros2/rosidl_typesupport/issues/101>`_)
+* Defer path resolution of rosidl typesupport libraries to dynamic linker. (`#98 <https://github.com/ros2/rosidl_typesupport/issues/98>`_)
+* Ensure typesupport handle functions do not throw. (`#99 <https://github.com/ros2/rosidl_typesupport/issues/99>`_)
+* Contributors: Chris Lalancette, Michel Hidalgo, Shane Loretz
+
 1.1.0 (2020-12-08)
 ------------------
 * Explicitly check lib pointer for null (`#95 <https://github.com/ros2/rosidl_typesupport/issues/95>`_)
