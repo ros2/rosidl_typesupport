@@ -21,7 +21,7 @@ def main(argv=sys.argv[1:]):
         help='The typesupports to be used')
     args = parser.parse_args(argv)
 
-    return generate_cpp(args.generator_arguments_file, args.typesupports)
+    generate_cpp(args.generator_arguments_file, args.typesupports)
 
 
 if __name__ == '__main__':

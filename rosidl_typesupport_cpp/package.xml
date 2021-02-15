@@ -27,6 +27,7 @@
   <build_export_depend>rosidl_runtime_c</build_export_depend>
   <build_export_depend>rosidl_runtime_cpp</build_export_depend>
 
+  <exec_depend>rosidl_cli</exec_depend>
   <exec_depend>rosidl_typesupport_interface</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
