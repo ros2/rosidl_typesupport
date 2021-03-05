@@ -19,7 +19,6 @@
   Bloom does not support group_depend so entries below duplicate the group rosidl_typesupport_c_packages.
   This ensures that binary packages have support for all of these rmw impl. enabled.
   -->
-  <build_depend>rosidl_typesupport_connext_c</build_depend>
   <build_depend>rosidl_typesupport_introspection_c</build_depend>
   <!-- end of group rosidl_typesupport_c_packages for bloom -->
 
