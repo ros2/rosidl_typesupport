@@ -34,6 +34,8 @@ class GenerateCTypesupport(GenerateCommandExtension):
         include_paths,
         output_path
     ):
+        generated_files = []
+
         package_share_path = \
             get_package_share_directory('rosidl_typesupport_c')
 
@@ -56,6 +58,23 @@ class GenerateCTypesupport(GenerateCommandExtension):
                 output_path=output_path / 'tmp',
             ))
 
+        # Generate visibility control file
+        visibility_control_file_template_path = \
+            'rosidl_typesupport_c__visibility_control.h.in'
+        visibility_control_file_template_path = \
+            templates_path / visibility_control_file_template_path
+        visibility_control_file_path = \
+            'rosidl_typesupport_c__visibility_control.h'
+        visibility_control_file_path = \
+            output_path / 'msg' / visibility_control_file_path
+
+        generate_visibility_control_file(
+            package_name=package_name,
+            template_path=visibility_control_file_template_path,
+            output_path=visibility_control_file_path
+        )
+        generated_files.append(visibility_control_file_path)
+
         # Generate typesupport code
         typesupport_implementations = list(
             get_resources('rosidl_typesupport_c'))
@@ -67,7 +86,9 @@ class GenerateCTypesupport(GenerateCommandExtension):
             templates_path=templates_path,
             output_path=output_path
         ) as path_to_arguments_file:
-            return generate_c(
+            generated_files.extend(generate_c(
                 path_to_arguments_file,
                 typesupport_implementations
-            )
+            ))
+
+        return generated_files
