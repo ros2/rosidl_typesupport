@@ -25,6 +25,6 @@ def generate_c(generator_arguments_file, type_supports):
     mapping = {
         'idl__type_support.cpp.em': '%s__type_support.cpp',
     }
-    generate_files(
+    return generate_files(
         generator_arguments_file, mapping,
         additional_context={'type_supports': type_supports})
