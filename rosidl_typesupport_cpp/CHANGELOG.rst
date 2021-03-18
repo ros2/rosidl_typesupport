@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Expose C++ typesupport generation via rosidl generate CLI (`#104 <https://github.com/ros2/rosidl_typesupport/issues/104>`_)
+* Contributors: Michel Hidalgo
+
 1.1.1 (2021-01-25)
 ------------------
 * Remove type_support_dispatch.cpp files. (`#101 <https://github.com/ros2/rosidl_typesupport/issues/101>`_)

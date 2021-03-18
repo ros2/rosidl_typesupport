@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Expose C typesupport generation via rosidl generate CLI (`#105 <https://github.com/ros2/rosidl_typesupport/issues/105>`_)
+* Contributors: Michel Hidalgo
+
 1.1.1 (2021-01-25)
 ------------------
 * Typo typesupport_identidentifier (`#103 <https://github.com/ros2/rosidl_typesupport/issues/103>`_)
