@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.0 (2021-03-25)
+------------------
 * Remove dependencies from Connext type support (`#106 <https://github.com/ros2/rosidl_typesupport/issues/106>`_)
 * Contributors: Andrea Sorbini
 
