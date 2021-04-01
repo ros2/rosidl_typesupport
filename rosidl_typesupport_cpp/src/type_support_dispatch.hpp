@@ -108,9 +108,12 @@ get_typesupport_handle_function(
       return ts;
     }
   }
-  RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-    "Handle's typesupport identifier (%s) is not supported by this library",
+
+  RCUTILS_LOG_DEBUG_NAMED(
+    "rosidl_typesupport_cpp",
+    "type support `%s` is not used by this library",
     handle->typesupport_identifier);
+
   return nullptr;
 }
 
