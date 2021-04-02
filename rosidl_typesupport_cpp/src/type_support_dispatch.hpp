@@ -25,6 +25,7 @@
 #include "rcpputils/shared_library.hpp"
 #include "rcutils/error_handling.h"
 #include "rcutils/snprintf.h"
+#include "rcutils/logging_macros.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
 namespace rosidl_typesupport_cpp
