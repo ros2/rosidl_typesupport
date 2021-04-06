@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updating quality declaration links (re: `ros2/docs.ros2.org#52 <https://github.com/ros2/docs.ros2.org/issues/52>`_) (`#108 <https://github.com/ros2/rosidl_typesupport/issues/108>`_)
+* Contributors: shonigmann
+
 1.2.0 (2021-03-25)
 ------------------
 * Remove dependencies from Connext type support (`#106 <https://github.com/ros2/rosidl_typesupport/issues/106>`_)
