@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.1 (2021-04-06)
+------------------
 * updating quality declaration links (re: `ros2/docs.ros2.org#52 <https://github.com/ros2/docs.ros2.org/issues/52>`_) (`#108 <https://github.com/ros2/rosidl_typesupport/issues/108>`_)
 * Contributors: shonigmann
 
