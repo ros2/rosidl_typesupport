@@ -15,6 +15,8 @@
 #ifndef TYPE_SUPPORT_DISPATCH_HPP_
 #define TYPE_SUPPORT_DISPATCH_HPP_
 
+#ifndef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
@@ -24,6 +26,9 @@
 #include <string>
 
 #include "rcpputils/shared_library.hpp"
+
+#endif  // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+
 #include "rcutils/error_handling.h"
 #include "rcutils/snprintf.h"
 #include "rosidl_typesupport_c/identifier.h"
@@ -50,6 +55,8 @@ get_typesupport_handle_function(
       if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
         continue;
       }
+      typedef const TypeSupport * (* funcSignature)(void);
+#ifndef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
       rcpputils::SharedLibrary * lib = nullptr;
 
       if (!map->data[i]) {
@@ -103,9 +110,10 @@ get_typesupport_handle_function(
           map->symbol_name[i], e.what());
         return nullptr;
       }
-
-      typedef const TypeSupport * (* funcSignature)(void);
       funcSignature func = reinterpret_cast<funcSignature>(sym);
+#else
+      funcSignature func = reinterpret_cast<funcSignature>(map->data[i]);
+#endif  // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
       const TypeSupport * ts = func();
       return ts;
     }

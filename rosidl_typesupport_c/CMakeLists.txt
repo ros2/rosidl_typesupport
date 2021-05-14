@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(rosidl_typesupport_c)
 
+option(ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT "Enable static typesupport" OFF)
+
 # Default to C11
 if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 11)
@@ -16,13 +18,17 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_ros REQUIRED)
-find_package(rcpputils REQUIRED)
 find_package(rcutils REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
+if(NOT ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT)
+  find_package(rcpputils REQUIRED)
+endif()
 
-ament_export_dependencies(rcpputils)
 ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(rosidl_typesupport_interface)
+if(NOT ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT)
+  ament_export_dependencies(rcpputils)
+endif()
 
 ament_export_include_directories(include)
 
@@ -36,15 +42,23 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL")
 endif()
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+    $<$<BOOL:${ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT}>:ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT>
+)
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>")
 
 ament_target_dependencies(${PROJECT_NAME}
-  "rcpputils"
   "rcutils"
   "rosidl_runtime_c"
 )
+if(NOT ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT)
+  ament_target_dependencies(${PROJECT_NAME}
+    "rcpputils"
+  )
+endif()
 ament_export_libraries(${PROJECT_NAME})
 ament_export_targets(${PROJECT_NAME})
 
