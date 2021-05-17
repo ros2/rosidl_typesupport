@@ -2,7 +2,19 @@ cmake_minimum_required(VERSION 3.5)
 
 project(rosidl_typesupport_c)
 
-option(ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT "Enable static typesupport" OFF)
+if(BUILD_SHARED_LIBS)
+  set(${PROJECT_NAME}_LIBRARY_TYPE "SHARED")
+else()
+  set(${PROJECT_NAME}_LIBRARY_TYPE "STATIC")
+endif()
+
+if(rosidl_typesupport_c_LIBRARY_TYPE STREQUAL "STATIC"
+  AND NOT BUILD_TESTING
+)
+  set(ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT ON)
+else()
+  set(ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT OFF)
+endif()
 
 # Default to C11
 if(NOT CMAKE_C_STANDARD)
@@ -139,12 +151,6 @@ if(BUILD_TESTING)
     target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
     ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
   endif()
-endif()
-
-if(BUILD_SHARED_LIBS)
-  set(${PROJECT_NAME}_LIBRARY_TYPE "SHARED")
-else()
-  set(${PROJECT_NAME}_LIBRARY_TYPE "STATIC")
 endif()
 
 ament_package(
