@@ -14,15 +14,19 @@
 
 import pathlib
 
+from ament_index_python import get_resources
 from rosidl_cli.command.generate.api import generate
 
 TEST_DIR = str(pathlib.Path(__file__).parent)
 
 
 def test_cli_extension_for_smoke(tmp_path):
+    ts = 'cpp[typesupport_implementations:{}]'.format(
+        list(get_resources('rosidl_typesupport_cpp'))
+    )
     generate(
         package_name='rosidl_typesupport_cpp',
         interface_files=[TEST_DIR + ':msg/Test.msg'],
-        typesupports=['cpp'],
+        typesupports=[ts],
         output_path=tmp_path
     )

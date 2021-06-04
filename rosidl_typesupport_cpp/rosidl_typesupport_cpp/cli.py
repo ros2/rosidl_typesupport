@@ -26,6 +26,13 @@ from rosidl_typesupport_cpp import generate_cpp
 
 class GenerateCppTypesupport(GenerateCommandExtension):
 
+    def __init__(self, name, *, typesupport_implementations=None):
+        super().__init__(name)
+        if typesupport_implementations is None:
+            typesupport_implementations = list(
+                get_resources('rosidl_typesupport_cpp'))
+        self.__typesupport_implementations = typesupport_implementations
+
     def generate(
         self,
         package_name,
@@ -56,9 +63,6 @@ class GenerateCppTypesupport(GenerateCommandExtension):
             ))
 
         # Generate typesupport code
-        typesupport_implementations = list(
-            get_resources('rosidl_typesupport_cpp'))
-
         with legacy_generator_arguments_file(
             package_name=package_name,
             interface_files=idl_interface_files,
@@ -68,5 +72,5 @@ class GenerateCppTypesupport(GenerateCommandExtension):
         ) as path_to_arguments_file:
             return generate_cpp(
                 path_to_arguments_file,
-                typesupport_implementations
+                self.__typesupport_implementations
             )
