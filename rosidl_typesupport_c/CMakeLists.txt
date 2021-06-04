@@ -125,6 +125,9 @@ if(BUILD_TESTING)
     target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
     ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
   endif()
+
+  find_package(ament_cmake_pytest REQUIRED)
+  ament_add_pytest_test(test_cli_extension test/test_cli_extension.py)
 endif()
 
 if(BUILD_SHARED_LIBS)
