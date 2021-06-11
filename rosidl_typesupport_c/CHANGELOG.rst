@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.3.0 (2021-06-11)
+------------------
+* Fix C and C++ typesupports CLI extensions (`#111 <https://github.com/ros2/rosidl_typesupport/issues/111>`_)
+* Contributors: Michel Hidalgo
+
 1.2.1 (2021-04-06)
 ------------------
 * updating quality declaration links (re: `ros2/docs.ros2.org#52 <https://github.com/ros2/docs.ros2.org/issues/52>`_) (`#108 <https://github.com/ros2/rosidl_typesupport/issues/108>`_)
