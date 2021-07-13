@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import pathlib
 
 from ament_index_python import get_package_share_directory
 from ament_index_python import get_resources
 
 from rosidl_cli.command.generate.extensions import GenerateCommandExtension
-from rosidl_cli.command.generate.helpers import legacy_generator_arguments_file
+from rosidl_cli.command.helpers import legacy_generator_arguments_file
 from rosidl_cli.command.translate.api import translate
 
 from rosidl_typesupport_cpp import generate_cpp
@@ -33,10 +33,10 @@ class GenerateCppTypesupport(GenerateCommandExtension):
         include_paths,
         output_path
     ):
-        package_share_path = \
-            get_package_share_directory('rosidl_typesupport_cpp')
+        package_share_path = pathlib.Path(
+            get_package_share_directory('rosidl_typesupport_cpp'))
 
-        templates_path = os.path.join(package_share_path, 'resource')
+        templates_path = package_share_path / 'resource'
 
         # Normalize interface definition format to .idl
         idl_interface_files = []
