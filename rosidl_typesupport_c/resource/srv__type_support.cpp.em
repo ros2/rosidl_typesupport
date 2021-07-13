@@ -84,6 +84,26 @@ typedef struct _@(service.namespaced_type.name)_type_support_data_t
   void * data[@(len(type_supports))];
 } _@(service.namespaced_type.name)_type_support_data_t;
 
+#ifdef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+@[for type_support in sorted(type_supports)]@
+rosidl_service_type_support_t * ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))();
+@[end for]@
+#ifdef __cplusplus
+}
+#endif
+
+static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespaced_type.name)_service_typesupport_data = {
+  {
+@[for type_support in sorted(type_supports)]@
+    (void*) ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name)),
+@[end for]@
+  }
+};
+#else
 static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespaced_type.name)_service_typesupport_data = {
   {
 @[for type_support in sorted(type_supports)]@
@@ -91,6 +111,7 @@ static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespace
 @[end for]@
   }
 };
+#endif // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
 
 static const type_support_map_t _@(service.namespaced_type.name)_service_typesupport_map = {
   @(len(type_supports)),
