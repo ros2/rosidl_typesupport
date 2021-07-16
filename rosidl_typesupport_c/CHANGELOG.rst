@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.4.0 (2021-07-16)
+------------------
 * Support available typesupport specification in CLI extensions (`#112 <https://github.com/ros2/rosidl_typesupport/issues/112>`_)
 * Bundle and ensure the exportation of rosidl generated targets (`#113 <https://github.com/ros2/rosidl_typesupport/issues/113>`_)
 * Contributors: Michel Hidalgo
