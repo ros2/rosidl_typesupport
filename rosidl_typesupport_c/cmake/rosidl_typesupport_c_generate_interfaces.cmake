@@ -118,15 +118,19 @@ target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
 if(NOT typesupports MATCHES ";")
+  set(SINGLE_TYPE_SUPPORT ON)
   target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${typesupports}>")
   target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
+  set(SINGLE_TYPE_SUPPORT OFF)
   if("${rosidl_typesupport_c_LIBRARY_TYPE}" STREQUAL "STATIC")
-    message(FATAL_ERROR "Multiple typesupports [${typesupports}] but static "
-      "linking was requested")
+    target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+      PRIVATE
+      ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+    )
   endif()
 endif()
 
@@ -150,15 +154,33 @@ add_dependencies(
   ${rosidl_generate_interfaces_TARGET}
   ${rosidl_generate_interfaces_TARGET}${_target_suffix}
 )
+add_dependencies(
+  ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c
+  ${rosidl_generate_interfaces_TARGET}__rosidl_typesupport_c
+)
 
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
-  install(
-    TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    EXPORT ${rosidl_generate_interfaces_TARGET}
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-  )
+  if(SINGLE_TYPE_SUPPORT)
+    install(
+      TARGETS
+        ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+        ${rosidl_generate_interfaces_TARGET}__${typesupports}
+      EXPORT ${rosidl_generate_interfaces_TARGET}
+      ARCHIVE DESTINATION lib
+      LIBRARY DESTINATION lib
+      RUNTIME DESTINATION bin
+    )
+  else()
+    install(
+      TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+      EXPORT ${rosidl_generate_interfaces_TARGET}
+      ARCHIVE DESTINATION lib
+      LIBRARY DESTINATION lib
+      RUNTIME DESTINATION bin
+    )
+  endif()
+  
   ament_export_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix})
 endif()
 
