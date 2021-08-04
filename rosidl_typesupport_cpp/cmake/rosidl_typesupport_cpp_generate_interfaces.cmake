@@ -144,12 +144,13 @@ add_dependencies(
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
   install(
     TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    EXPORT ${rosidl_generate_interfaces_TARGET}
+    EXPORT ${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
   )
   ament_export_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix})
+  ament_export_targets(${rosidl_generate_interfaces_TARGET}${_target_suffix})
 endif()
 
 if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
