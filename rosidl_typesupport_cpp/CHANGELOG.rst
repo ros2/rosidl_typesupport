@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Revert "Bundle and ensure the exportation of rosidl generated targets" (`#116 <https://github.com/ros2/rosidl_typesupport/issues/116>`_)
+* Contributors: Michel Hidalgo
+
 1.4.0 (2021-07-16)
 ------------------
 * Support available typesupport specification in CLI extensions (`#112 <https://github.com/ros2/rosidl_typesupport/issues/112>`_)
