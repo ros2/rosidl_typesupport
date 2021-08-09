@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.4.1 (2021-08-09)
+------------------
 * Revert "Bundle and ensure the exportation of rosidl generated targets" (`#116 <https://github.com/ros2/rosidl_typesupport/issues/116>`_)
 * Contributors: Michel Hidalgo
 
