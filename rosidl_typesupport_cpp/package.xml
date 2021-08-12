@@ -11,6 +11,8 @@
 
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
 
+  <buildtool_export_depend>python3</buildtool_export_depend>
+
   <depend>rcpputils</depend>
   <build_depend>rosidl_runtime_c</build_depend>
   <build_depend>rosidl_typesupport_c</build_depend>

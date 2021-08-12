@@ -68,10 +68,13 @@ rosidl_write_generator_arguments(
   TARGET_DEPENDENCIES ${target_dependencies}
 )
 
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
 get_used_typesupports(typesupports "rosidl_typesupport_cpp")
 add_custom_command(
   OUTPUT ${_generated_sources}
-  COMMAND ${PYTHON_EXECUTABLE} ${rosidl_typesupport_cpp_BIN}
+  COMMAND Python3::Interpreter
+  ARGS ${rosidl_typesupport_cpp_BIN}
   --generator-arguments-file "${generator_arguments_file}"
   --typesupports ${typesupports}
   DEPENDS ${target_dependencies}
