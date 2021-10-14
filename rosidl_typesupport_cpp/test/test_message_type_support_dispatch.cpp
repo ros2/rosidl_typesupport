@@ -102,7 +102,7 @@ TEST(TestMessageTypeSupportDispatch, get_handle_function) {
   ASSERT_NE(support_map.data[0], nullptr);
   auto * clib = static_cast<const rcpputils::SharedLibrary *>(support_map.data[0]);
   auto * lib = const_cast<rcpputils::SharedLibrary *>(clib);
-  ASSERT_TRUE(nullptr != lib);
+  ASSERT_NE(lib, nullptr);
 
   EXPECT_TRUE(lib->has_symbol("test_message_type_support"));
   auto * sym = lib->get_symbol("test_message_type_support");
