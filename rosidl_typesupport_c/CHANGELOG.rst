@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.4.2 (2022-01-13)
+------------------
+* Use FindPython3 (`#118 <https://github.com/ros2/rosidl_typesupport/issues/118>`_)
+* Contributors: Shane Loretz
+
 1.4.1 (2021-08-09)
 ------------------
 * Revert "Bundle and ensure the exportation of rosidl generated targets" (`#116 <https://github.com/ros2/rosidl_typesupport/issues/116>`_)

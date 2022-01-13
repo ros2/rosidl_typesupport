@@ -2,6 +2,12 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.4.2 (2022-01-13)
+------------------
+* Make sure to check typesupport handles against nullptr properly (`#119 <https://github.com/ros2/rosidl_typesupport/issues/119>`_)
+* Use FindPython3 (`#118 <https://github.com/ros2/rosidl_typesupport/issues/118>`_)
+* Contributors: Chris Lalancette, Shane Loretz
+
 1.4.1 (2021-08-09)
 ------------------
 * Revert "Bundle and ensure the exportation of rosidl generated targets" (`#116 <https://github.com/ros2/rosidl_typesupport/issues/116>`_)
