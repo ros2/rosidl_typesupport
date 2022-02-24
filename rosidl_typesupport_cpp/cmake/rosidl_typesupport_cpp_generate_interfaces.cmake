@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if(NOT rosidl_generator_cpp_FOUND)
+if(NOT TARGET ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
   message(FATAL_ERROR
-    "'rosidl_generator_cpp' not found when executing "
+    "The 'rosidl_generator_cpp' extension must be executed before the "
     "'rosidl_typesupport_cpp' extension.")
 endif()
 
@@ -89,10 +89,8 @@ if(rosidl_generate_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES OUTPUT_NAME "${rosidl_generate_interfaces_LIBRARY_NAME}${_target_suffix}")
 endif()
-if(WIN32)
-  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
-endif()
+target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  PRIVATE "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL")
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTIES CXX_STANDARD 14)
 
@@ -100,11 +98,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES COMPILE_OPTIONS -Wall -Wextra -Wpedantic)
 endif()
-target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  PUBLIC
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>"
-  "$<INSTALL_INTERFACE:include>"
-)
 
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
@@ -121,27 +114,26 @@ else()
   endif()
 endif()
 
-ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  "rosidl_runtime_c"
-  "rosidl_runtime_cpp"
-  "rosidl_typesupport_cpp"
-  "rosidl_typesupport_interface")
+# Depend on the target created by rosidl_generator_cpp
+target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PUBLIC
+  ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
+
+target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PRIVATE
+  rosidl_runtime_c::rosidl_runtime_c
+  rosidl_runtime_cpp::rosidl_runtime_cpp
+  rosidl_typesupport_cpp::rosidl_typesupport_cpp
+  rosidl_typesupport_c::rosidl_typesupport_c
+  rosidl_typesupport_interface::rosidl_typesupport_interface)
+
 foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
-  ament_target_dependencies(
-    ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    ${_pkg_name})
-  if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
-    ament_export_dependencies(${_pkg_name})
-  endif()
+  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PUBLIC
+    ${${_pkg_name}_TARGETS${_target_suffix}})
 endforeach()
 
+# Make top level generation target depend on this library
 add_dependencies(
   ${rosidl_generate_interfaces_TARGET}
   ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-)
-add_dependencies(
-  ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  ${rosidl_generate_interfaces_TARGET}__cpp
 )
 
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
@@ -152,32 +144,43 @@ if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
   )
+
+  # Export old-style CMake variables
   ament_export_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix})
+
+  # Export modern CMake targets
   ament_export_targets(${rosidl_generate_interfaces_TARGET}${_target_suffix})
+  rosidl_export_typesupport_targets(${_target_suffix}
+    ${rosidl_generate_interfaces_TARGET}${_target_suffix})
+
+  ament_export_dependencies(
+    "rosidl_runtime_c"
+    "rosidl_runtime_cpp"
+    "rosidl_typesupport_c"
+    "rosidl_typesupport_cpp"
+    "rosidl_typesupport_interface")
 endif()
 
 if(BUILD_TESTING AND rosidl_generate_interfaces_ADD_LINTER_TESTS)
-  if(NOT _generated_sources STREQUAL "")
-    find_package(ament_cmake_cppcheck REQUIRED)
-    ament_cppcheck(
-      TESTNAME "cppcheck_rosidl_typesupport_cpp"
-      "${_output_path}")
+  find_package(ament_cmake_cppcheck REQUIRED)
+  ament_cppcheck(
+    TESTNAME "cppcheck_rosidl_typesupport_cpp"
+    "${_output_path}")
 
-    find_package(ament_cmake_cpplint REQUIRED)
-    get_filename_component(_cpplint_root "${_output_path}" DIRECTORY)
-    ament_cpplint(
-      TESTNAME "cpplint_rosidl_typesupport_cpp"
-      # the generated code might contain longer lines for templated types
-      MAX_LINE_LENGTH 999
-      ROOT "${_cpplint_root}"
-      "${_output_path}")
+  find_package(ament_cmake_cpplint REQUIRED)
+  get_filename_component(_cpplint_root "${_output_path}" DIRECTORY)
+  ament_cpplint(
+    TESTNAME "cpplint_rosidl_typesupport_cpp"
+    # the generated code might contain longer lines for templated types
+    MAX_LINE_LENGTH 999
+    ROOT "${_cpplint_root}"
+    "${_output_path}")
 
-    find_package(ament_cmake_uncrustify REQUIRED)
-    ament_uncrustify(
-      TESTNAME "uncrustify_rosidl_typesupport_cpp"
-      # the generated code might contain longer lines for templated types
-      # a value of zero tells uncrustify to ignore line length
-      MAX_LINE_LENGTH 0
-      "${_output_path}")
-  endif()
+  find_package(ament_cmake_uncrustify REQUIRED)
+  ament_uncrustify(
+    TESTNAME "uncrustify_rosidl_typesupport_cpp"
+    # the generated code might contain longer lines for templated types
+    # a value of zero tells uncrustify to ignore line length
+    MAX_LINE_LENGTH 0
+    "${_output_path}")
 endif()
