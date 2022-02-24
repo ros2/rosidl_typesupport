@@ -20,6 +20,7 @@ find_package(rcpputils REQUIRED)
 find_package(rcutils REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
 
+ament_export_dependencies(rcutils)
 ament_export_dependencies(rcpputils)
 ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(rosidl_typesupport_interface)
@@ -38,11 +39,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 
-ament_target_dependencies(${PROJECT_NAME}
-  "rcpputils"
-  "rcutils"
-  "rosidl_runtime_c"
-)
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  rosidl_runtime_c::rosidl_runtime_c)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+  rcpputils::rcpputils
+  rcutils::rcutils)
 
 # Export old-style CMake variables
 ament_export_include_directories("include/${PROJECT_NAME}")
@@ -66,10 +67,7 @@ if(BUILD_TESTING)
 
   add_library(rosidl_typesupport_c__test_type_support1
     test/test_type_support.c)
-  target_include_directories(rosidl_typesupport_c__test_type_support1 PRIVATE include)
-  ament_target_dependencies(rosidl_typesupport_c__test_type_support1
-    "rosidl_runtime_c"
-  )
+  target_link_libraries(rosidl_typesupport_c__test_type_support1 ${PROJECT_NAME})
   add_custom_command(TARGET rosidl_typesupport_c__test_type_support1 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:rosidl_typesupport_c__test_type_support1>
@@ -78,10 +76,7 @@ if(BUILD_TESTING)
   # This same library is added a second type with a new name for additional tests
   add_library(rosidl_typesupport_c__test_type_support2
     test/test_type_support.c)
-  target_include_directories(rosidl_typesupport_c__test_type_support2 PRIVATE include)
-  ament_target_dependencies(rosidl_typesupport_c__test_type_support2
-    "rosidl_runtime_c"
-  )
+  target_link_libraries(rosidl_typesupport_c__test_type_support2 ${PROJECT_NAME})
   add_custom_command(TARGET rosidl_typesupport_c__test_type_support2 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
     $<TARGET_FILE:rosidl_typesupport_c__test_type_support2>
@@ -96,6 +91,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_message_type_support
       ${PROJECT_NAME}
       mimick
+      rcpputils::rcpputils
     )
     target_compile_definitions(test_message_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
@@ -109,6 +105,7 @@ if(BUILD_TESTING)
     target_link_libraries(test_service_type_support
       ${PROJECT_NAME}
       mimick
+      rcpputils::rcpputils
     )
     target_compile_definitions(test_service_type_support PUBLIC RCUTILS_ENABLE_FAULT_INJECTION)
   endif()
@@ -125,8 +122,9 @@ if(BUILD_TESTING)
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
   if(TARGET benchmark_type_support_dispatch)
-    target_link_libraries(benchmark_type_support_dispatch ${PROJECT_NAME})
-    ament_target_dependencies(benchmark_type_support_dispatch rcpputils)
+    target_link_libraries(benchmark_type_support_dispatch
+      ${PROJECT_NAME}
+      rcpputils::rcpputils)
   endif()
 
   find_package(ament_cmake_pytest REQUIRED)
