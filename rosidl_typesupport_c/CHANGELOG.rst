@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Install headers to include/${PROJECT_NAME} (`#121 <https://github.com/ros2/rosidl_typesupport/issues/121>`_)
+* Contributors: Shane Loretz
+
 1.4.2 (2022-01-13)
 ------------------
 * Use FindPython3 (`#118 <https://github.com/ros2/rosidl_typesupport/issues/118>`_)

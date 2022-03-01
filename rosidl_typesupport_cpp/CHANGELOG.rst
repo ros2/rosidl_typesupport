@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Install headers to include/${PROJECT_NAME} (`#121 <https://github.com/ros2/rosidl_typesupport/issues/121>`_)
+* Contributors: Shane Loretz
+
 1.4.2 (2022-01-13)
 ------------------
 * Make sure to check typesupport handles against nullptr properly (`#119 <https://github.com/ros2/rosidl_typesupport/issues/119>`_)
