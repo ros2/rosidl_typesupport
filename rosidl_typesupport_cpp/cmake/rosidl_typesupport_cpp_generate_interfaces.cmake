@@ -127,9 +127,9 @@ ament_target_dependencies(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   "rosidl_typesupport_cpp"
   "rosidl_typesupport_interface")
 foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
-  ament_target_dependencies(
+  target_link_libraries(
     ${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    ${_pkg_name})
+    ${_pkg_name}::${_pkg_name}${_target_suffix})
   if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     ament_export_dependencies(${_pkg_name})
   endif()
