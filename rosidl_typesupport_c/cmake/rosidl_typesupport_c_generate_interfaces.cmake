@@ -94,8 +94,8 @@ if(rosidl_generate_interfaces_LIBRARY_NAME)
 endif()
 
 # The visibility header macros for symbols defined by this package are created by rosidl_generator_c
-target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  PRIVATE "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
+set_property(TARGET ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  PROPERTY DEFINE_SYMBOL "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
 
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTIES CXX_STANDARD 14)
