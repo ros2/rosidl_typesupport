@@ -18,7 +18,6 @@ from ament_index_python import get_package_share_directory
 from ament_index_python import get_resources
 
 from rosidl_cli.command.generate.extensions import GenerateCommandExtension
-from rosidl_cli.command.helpers import generate_visibility_control_file
 from rosidl_cli.command.helpers import legacy_generator_arguments_file
 from rosidl_cli.command.translate.api import translate
 
@@ -64,23 +63,6 @@ class GenerateCTypesupport(GenerateCommandExtension):
                 output_format='idl',
                 output_path=output_path / 'tmp',
             ))
-
-        # Generate visibility control file
-        visibility_control_file_template_path = \
-            'rosidl_typesupport_c__visibility_control.h.in'
-        visibility_control_file_template_path = \
-            templates_path / visibility_control_file_template_path
-        visibility_control_file_path = \
-            'rosidl_typesupport_c__visibility_control.h'
-        visibility_control_file_path = \
-            output_path / 'msg' / visibility_control_file_path
-
-        generate_visibility_control_file(
-            package_name=package_name,
-            template_path=visibility_control_file_template_path,
-            output_path=visibility_control_file_path
-        )
-        generated_files.append(visibility_control_file_path)
 
         # Generate typesupport code
         with legacy_generator_arguments_file(

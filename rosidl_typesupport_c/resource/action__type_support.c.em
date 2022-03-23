@@ -35,7 +35,6 @@ extern "C"
 {
 #endif
 
-ROSIDL_TYPESUPPORT_C_EXPORT_@(package_name)
 const rosidl_action_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__ACTION_SYMBOL_NAME(
   rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(interface_path.stem))()

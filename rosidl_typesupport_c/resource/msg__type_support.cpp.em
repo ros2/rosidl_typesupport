@@ -8,8 +8,8 @@ include_base = '/'.join(include_parts)
 header_files = [
     'cstddef',
     'rosidl_runtime_c/message_type_support_struct.h',
-    package_name + '/msg/rosidl_typesupport_c__visibility_control.h',
     include_base + '__struct.h',
+    include_base + '__type_support.h',
 ]
 if len(type_supports) != 1:
     header_files += [
@@ -125,7 +125,6 @@ extern "C"
 {
 #endif
 
-ROSIDL_TYPESUPPORT_C_EXPORT_@(package_name)
 const rosidl_message_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__MESSAGE_SYMBOL_NAME(rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(message.structure.namespaced_type.name))() {
 @[if len(type_supports) != 1]@
