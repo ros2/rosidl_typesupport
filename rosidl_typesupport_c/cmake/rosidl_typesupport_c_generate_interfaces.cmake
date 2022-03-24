@@ -107,7 +107,7 @@ endif()
 # if only a single typesupport is used this package will directly reference it
 # therefore it needs to link against the selected typesupport
 if(NOT typesupports MATCHES ";")
-  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PRIVATE
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
   if("${rosidl_typesupport_c_LIBRARY_TYPE}" STREQUAL "STATIC")
