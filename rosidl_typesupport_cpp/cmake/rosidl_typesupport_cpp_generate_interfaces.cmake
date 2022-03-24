@@ -105,7 +105,7 @@ if(NOT typesupports MATCHES ";")
   target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${typesupports}>")
-  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PRIVATE
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
   if("${rosidl_typesupport_cpp_LIBRARY_TYPE}" STREQUAL "STATIC")
