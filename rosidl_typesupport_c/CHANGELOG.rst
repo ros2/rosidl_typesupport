@@ -2,6 +2,12 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2022-03-30)
+------------------
+* Use target_link_libraries(... PRIVATE ...) in single typesupport case (`#124 <https://github.com/ros2/rosidl_typesupport/issues/124>`_)
+* rosidl CMake cleanup in rosidl_typesupport_c (`#123 <https://github.com/ros2/rosidl_typesupport/issues/123>`_)
+* Contributors: Shane Loretz
+
 1.5.0 (2022-03-01)
 ------------------
 * Install headers to include/${PROJECT_NAME} (`#121 <https://github.com/ros2/rosidl_typesupport/issues/121>`_)
