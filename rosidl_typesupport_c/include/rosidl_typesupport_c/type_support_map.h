@@ -15,7 +15,9 @@
 #ifndef ROSIDL_TYPESUPPORT_C__TYPE_SUPPORT_MAP_H_
 #define ROSIDL_TYPESUPPORT_C__TYPE_SUPPORT_MAP_H_
 
+#ifdef __cplusplus
 #include <cstddef>
+#endif
 
 #ifdef __cplusplus
 extern "C"
