@@ -1,4 +1,11 @@
 @# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
+#include "rosidl_runtime_c/service_type_support_struct.h"
+@[def dbg_print(p)]
+@{    import sys}
+@{    print('-------------TEMPLATE DBG---------------', file=sys.stderr);}
+@{    print(str(p), file=sys.stderr);}
+@{    print('-------------TEMPLATE DBG END--------------', file=sys.stderr);}
+@[end def]
 @{
 TEMPLATE(
     'msg__type_support.cpp.em',
@@ -76,7 +83,6 @@ typedef struct _@(service.namespaced_type.name)_type_support_symbol_names_t
 {
   const char * symbol_name[@(len(type_supports))];
 } _@(service.namespaced_type.name)_type_support_symbol_names_t;
-
 #define STRINGIFY_(s) #s
 #define STRINGIFY(s) STRINGIFY_(s)
 
@@ -109,11 +115,65 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+// todo: this needs to be templated probably
+#ifndef SRV_INTRO_INIT
+#define SRV_INTRO_INIT
+
+
+void *
+rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_create
+(
+    const rosidl_service_introspection_info_t * info, // include the rosidl_runtime file
+    void * request_message,
+    void * response_message)
+{
+  auto event_msg = std::make_shared<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>();  // shared_ptr in extern C?
+  auto info_msg = std::make_shared<service_msgs::msg::ServiceEventInfo>();
+  auto time_msg = builtin_interfaces::msg::Time();
+
+  time_msg.sec = info->stamp_sec;
+  time_msg.nanosec = info->stamp_nanosec;
+  info_msg->set__stamp(time_msg);
+
+  info_msg->set__event_type(info->event_type);
+  event_msg->info.set__sequence_number(info->sequence_number);
+
+  std::array<uint8_t, 16> client_id;
+  std::move(std::begin(info->client_id), std::end(info->client_id), client_id.begin());
+  info_msg->client_id.set__uuid(client_id);
+
+  if (nullptr == request_message) {
+    event_msg->response.push_back(*reinterpret_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Response *> (response_message));
+  } else if (nullptr == response_message) {
+    event_msg->request.push_back(*reinterpret_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Request *> (request_message)); } else { // raise an error here
+  }
+
+  return event_msg.get(); 
+}
+
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
-  ::rosidl_typesupport_cpp::typesupport_identifier,
-  reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
-  ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
+  .typesupport_identifier = ::rosidl_typesupport_cpp::typesupport_identifier,
+  .data = reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
+  .func = ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
+  .introspection_message_create_handle  = rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_create,
+  .introspection_message_fini_handle = +[](void* message){},
+  .event_typesupport = ::rosidl_typesupport_cpp::get_message_type_support_handle<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>(),
 };
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif 
+
+
 
 }  // namespace rosidl_typesupport_cpp
 @[  for ns in reversed(service.namespaced_type.namespaces)]@
@@ -151,5 +211,9 @@ get_service_type_support_handle<@('::'.join([package_name] + list(interface_path
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))();
 @[end if]@
 }
+
+
+
+
 
 }  // namespace rosidl_typesupport_cpp
