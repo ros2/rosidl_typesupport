@@ -23,6 +23,14 @@ TEMPLATE(
 }@
 
 @{
+TEMPLATE(
+    'msg__type_support.cpp.em',
+    package_name=package_name, interface_path=interface_path,
+    message=service.event_message, include_directives=include_directives,
+    type_supports=type_supports)
+}@
+
+@{
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
@@ -122,48 +130,69 @@ extern "C"
 {
 #endif
 
-// todo: this needs to be templated probably
-#ifndef SRV_INTRO_INIT
-#define SRV_INTRO_INIT
-
+// TODO: Import postfixes
+@{event_type = '::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + '_Event'}
 
 void *
 rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_create
 (
-    const rosidl_service_introspection_info_t * info, // include the rosidl_runtime file
+    const rosidl_service_introspection_info_t * info,
+    rcutils_allocator_t * allocator,
     void * request_message,
-    void * response_message)
+    void * response_message,
+    bool enable_message_payload)
 {
-  auto event_msg = std::make_shared<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>();  // shared_ptr in extern C?
-  auto info_msg = std::make_shared<service_msgs::msg::ServiceEventInfo>();
-  auto time_msg = builtin_interfaces::msg::Time();
+  auto * event_msg = static_cast<@event_type *>(allocator->zero_allocate(1, sizeof(@event_type), allocator->state));
+  if (nullptr == event_msg) {
+    return NULL;
+  }
+  event_msg = new(event_msg) @(event_type)(); 
 
-  time_msg.sec = info->stamp_sec;
-  time_msg.nanosec = info->stamp_nanosec;
-  info_msg->set__stamp(time_msg);
-
-  info_msg->set__event_type(info->event_type);
+  event_msg->info.set__event_type(info->event_type);
   event_msg->info.set__sequence_number(info->sequence_number);
+  event_msg->info.stamp.set__sec(info->stamp_sec);
+  event_msg->info.stamp.set__nanosec(info->stamp_nanosec);
 
   std::array<uint8_t, 16> client_id;
   std::move(std::begin(info->client_id), std::end(info->client_id), client_id.begin());
-  info_msg->client_id.set__uuid(client_id);
+  event_msg->info.client_id.set__uuid(client_id);
 
-  if (nullptr == request_message) {
-    event_msg->response.push_back(*reinterpret_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Response *> (response_message));
-  } else if (nullptr == response_message) {
-    event_msg->request.push_back(*reinterpret_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Request *> (request_message)); } else { // raise an error here
+  if (enable_message_payload) {
+    if (nullptr == request_message) {
+      event_msg->response.push_back(*static_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Response *> (response_message));
+    } else if (nullptr == response_message) {
+      event_msg->request.push_back(*static_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Request *> (request_message)); }
+      else {
+        // raise an error here?
+    }
   }
 
-  return event_msg.get(); 
+  return event_msg;
 }
+
+#include <memory>
+
+bool
+rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_destroy(
+void* event_msg,
+rcutils_allocator_t * allocator
+)
+{
+  auto * event_msg_ = static_cast<@event_type *>(event_msg);
+  // event_msg_->@('::'.join([package_name, *interface_path.parents[0].parts]) + '::~' + service.namespaced_type.name + '_Event')();
+  // std::destroy_at(event_msg_); // Why can't I compile with c++17?
+  event_msg_->~@(service.namespaced_type.name)_Event();
+  allocator->deallocate(event_msg, allocator->state);
+  return true;
+}
+
 
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
   .typesupport_identifier = ::rosidl_typesupport_cpp::typesupport_identifier,
   .data = reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
   .func = ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
   .introspection_message_create_handle  = rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_create,
-  .introspection_message_fini_handle = +[](void* message){},
+  .introspection_message_destroy_handle = rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_destroy,
   .event_typesupport = ::rosidl_typesupport_cpp::get_message_type_support_handle<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>(),
 };
 
@@ -171,7 +200,6 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
 }
 #endif
 
-#endif 
 
 
 
