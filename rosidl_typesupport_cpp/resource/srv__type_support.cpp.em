@@ -1,11 +1,5 @@
 @# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
 #include "rosidl_runtime_c/service_type_support_struct.h"
-@[def dbg_print(p)]
-@{    import sys}
-@{    print('-------------TEMPLATE DBG---------------', file=sys.stderr);}
-@{    print(str(p), file=sys.stderr);}
-@{    print('-------------TEMPLATE DBG END--------------', file=sys.stderr);}
-@[end def]
 @{
 TEMPLATE(
     'msg__type_support.cpp.em',
