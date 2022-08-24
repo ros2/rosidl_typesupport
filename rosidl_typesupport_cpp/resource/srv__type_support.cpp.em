@@ -26,6 +26,9 @@ TEMPLATE(
 
 @{
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
+from rosidl_parser.definition import SERVICE_REQUEST_MESSAGE_SUFFIX
+from rosidl_parser.definition import SERVICE_RESPONSE_MESSAGE_SUFFIX
+from rosidl_parser.definition import SERVICE_EVENT_MESSAGE_SUFFIX
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
@@ -124,16 +127,15 @@ extern "C"
 {
 #endif
 
-// TODO: Import postfixes
-@{event_type = '::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + '_Event'}
+@{event_type = '::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}
 
 void *
 rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_create
 (
     const rosidl_service_introspection_info_t * info,
     rcutils_allocator_t * allocator,
-    void * request_message,
-    void * response_message,
+    const void * request_message,
+    const void * response_message,
     bool enable_message_payload)
 {
   auto * event_msg = static_cast<@event_type *>(allocator->zero_allocate(1, sizeof(@event_type), allocator->state));
@@ -153,11 +155,11 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
 
   if (enable_message_payload) {
     if (nullptr == request_message) {
-      event_msg->response.push_back(*static_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Response *> (response_message));
+      event_msg->response.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX) *> (response_message));
     } else if (nullptr == response_message) {
-      event_msg->request.push_back(*static_cast<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Request *> (request_message)); }
+      event_msg->request.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX) *> (request_message)); }
       else {
-        // raise an error here?
+        throw std::invalid_argument("request_message and response_message cannot be both non-null");
     }
   }
 
