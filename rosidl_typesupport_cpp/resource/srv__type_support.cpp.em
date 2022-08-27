@@ -166,17 +166,12 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
   return event_msg;
 }
 
-#include <memory>
-
 bool
 rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_introspection_message_destroy(
 void* event_msg,
-rcutils_allocator_t * allocator
-)
+rcutils_allocator_t * allocator)
 {
   auto * event_msg_ = static_cast<@event_type *>(event_msg);
-  // event_msg_->@('::'.join([package_name, *interface_path.parents[0].parts]) + '::~' + service.namespaced_type.name + '_Event')();
-  // std::destroy_at(event_msg_); // Why can't I compile with c++17?
   event_msg_->~@(service.namespaced_type.name)_Event();
   allocator->deallocate(event_msg, allocator->state);
   return true;
