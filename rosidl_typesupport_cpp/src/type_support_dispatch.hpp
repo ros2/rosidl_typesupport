@@ -108,7 +108,6 @@ get_typesupport_handle_function(
       return ts;
     }
   }
-  rcutils_reset_error();
   RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
     "Handle's typesupport identifier (%s) is not supported by this library",
     handle->typesupport_identifier);
