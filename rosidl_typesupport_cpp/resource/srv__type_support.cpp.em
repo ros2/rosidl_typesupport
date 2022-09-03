@@ -138,7 +138,7 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
     const void * response_message,
     bool enable_message_payload)
 {
-  auto * event_msg = static_cast<@event_type *>(allocator->zero_allocate(1, sizeof(@event_type), allocator->state));
+  auto * event_msg = static_cast<@event_type *>(allocator->allocate(sizeof(@event_type), allocator->state));
   if (nullptr == event_msg) {
     return NULL;
   }
@@ -153,14 +153,16 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
   std::move(std::begin(info->client_id), std::end(info->client_id), client_id.begin());
   event_msg->info.client_id.set__uuid(client_id);
 
-  if (enable_message_payload) {
-    if (nullptr == request_message) {
-      event_msg->response.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX) *> (response_message));
-    } else if (nullptr == response_message) {
-      event_msg->request.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX) *> (request_message)); }
-      else {
-        throw std::invalid_argument("request_message and response_message cannot be both non-null");
-    }
+  if (!enable_message_payload) {
+    return event_msg;
+  }
+  if (nullptr == request_message) {
+    event_msg->response.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX) *> (response_message));
+  }
+  if (nullptr == response_message) {
+    event_msg->request.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX) *> (request_message)); }
+    else {
+      throw std::invalid_argument("request_message and response_message cannot be both non-null");
   }
 
   return event_msg;
