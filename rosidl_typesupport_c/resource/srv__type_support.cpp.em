@@ -125,7 +125,7 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
 @{response_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX}@
 
 
-void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__service_introspection_message__create (
+void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__create (
     const rosidl_service_introspection_info_t * info,
     rcutils_allocator_t * allocator,
     const void * request_message,
@@ -170,7 +170,7 @@ void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0
   return event_msg;
 }
 
-bool rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__service_introspection_message__destroy (
+bool rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy (
   void * event_msg,
   rcutils_allocator_t * allocator
 )
@@ -189,8 +189,8 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   .typesupport_identifier = rosidl_typesupport_c__typesupport_identifier,
   .data = reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
   .func = rosidl_typesupport_c__get_service_typesupport_handle_function,
-  .introspection_message_create_handle = rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__service_introspection_message__create,
-  .introspection_message_destroy_handle = rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__service_introspection_message__destroy,
+  .event_message_create_handle = rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__create,
+  .event_message_destroy_handle = rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy,
   .event_typesupport = &@(service.namespaced_type.name)_Event_message_type_support_handle
 };
 
