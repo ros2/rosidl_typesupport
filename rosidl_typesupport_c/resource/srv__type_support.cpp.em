@@ -132,7 +132,7 @@ void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0
     const void * response_message,
     bool enable_message_payload)
 {
-  auto * event_msg = static_cast<@event_type *>(allocator->zero_allocate(1, sizeof(@event_type), allocator->state));
+  auto * event_msg = static_cast<@event_type *>(allocator->allocate(sizeof(@event_type), allocator->state));
   if (!@(event_type)__init(event_msg)) {
     allocator->deallocate(event_msg, allocator->state);
     return NULL;
@@ -146,24 +146,25 @@ void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0
     event_msg->info.client_id.uuid[i] = info->client_id[i];
   }
 
-  if (enable_message_payload) {
-    if (NULL == request_message) {
-      event_msg->response.capacity = 1;
-      event_msg->response.size = 1;
-      event_msg->response.data = static_cast<@response_type *>(allocator->zero_allocate(1, sizeof(@response_type), allocator->state));
-      if (! @(response_type)__copy((@response_type *) response_message, &event_msg->response.data[0])) {
-        return NULL;
-      }
+  if (!enable_message_payload) {
+      return event_msg;
+  }
+
+  if (request_message) {
+    event_msg->response.capacity = 1;
+    event_msg->response.size = 1;
+    event_msg->response.data = static_cast<@response_type *>(allocator->allocate(sizeof(@response_type), allocator->state));
+    if (! @(response_type)__copy((@response_type *) response_message, &event_msg->response.data[0])) {
+      allocator->deallocate(event_msg, allocator->state);
+      return NULL;
     }
-    else if (NULL == response_message) {
-      event_msg->request.capacity = 1;
-      event_msg->request.size = 1;
-      event_msg->request.data = static_cast<@request_type *>(allocator->zero_allocate(1, sizeof(@request_type), allocator->state));
-      if (! @(request_type)__copy((@request_type *) request_message, &event_msg->request.data[0])){
-        return NULL;
-      }
-    } else {
-      // set error?
+  }
+  if (response_message) {
+    event_msg->request.capacity = 1;
+    event_msg->request.size = 1;
+    event_msg->request.data = static_cast<@request_type *>(allocator->allocate(sizeof(@request_type), allocator->state));
+    if (! @(request_type)__copy((@request_type *) request_message, &event_msg->request.data[0])){
+      allocator->deallocate(event_msg, allocator->state);
       return NULL;
     }
   }
@@ -178,9 +179,16 @@ bool rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].
   if (NULL == event_msg) {
     return false;
   }
+  auto * _event_msg = static_cast<@event_type *>(event_msg);
 
-  @(event_type)__fini((@event_type *) event_msg);
-  allocator->deallocate(event_msg, allocator->state);
+  @(event_type)__fini((@event_type *) _event_msg);
+  if (_event_msg->request.data){
+    allocator->deallocate(_event_msg->request.data, allocator->state);
+  }
+  if (_event_msg->response.data){
+    allocator->deallocate(_event_msg->response.data, allocator->state);
+  }
+  allocator->deallocate(_event_msg, allocator->state);
   return true;
 }
 
