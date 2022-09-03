@@ -120,13 +120,6 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
-
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 @{event_type = '::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}
 
 void *
@@ -188,13 +181,6 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   .event_message_destroy_handle = rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_event_message_destroy,
   .event_typesupport = ::rosidl_typesupport_cpp::get_message_type_support_handle<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>(),
 };
-
-#ifdef __cplusplus
-}
-#endif
-
-
-
 
 }  // namespace rosidl_typesupport_cpp
 @[  for ns in reversed(service.namespaced_type.namespaces)]@
