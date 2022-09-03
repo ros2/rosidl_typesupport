@@ -60,12 +60,12 @@ TEST(test_service_typesupport, basic_types_cpp_to_cpp)
   resp.bool_value = true;
   resp.string_value = "hello world";
 
-  auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->introspection_message_create_handle(
+  auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->event_message_create_handle(
     &info, &allocator, nullptr, nullptr, true));
   EXPECT_EQ(event, nullptr);
-  ASSERT_TRUE(srv_ts->introspection_message_destroy_handle(event, &allocator));
+  ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
 
-  event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->introspection_message_create_handle(
+  event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->event_message_create_handle(
     &info, &allocator, static_cast<const void *>(&req), nullptr, true));
 
   EXPECT_EQ(event->info.sequence_number, info.sequence_number);
@@ -75,12 +75,13 @@ TEST(test_service_typesupport, basic_types_cpp_to_cpp)
   for (int i = 0; i < 16; ++i) {
     EXPECT_EQ(event->info.client_id.uuid[i], info.client_id[i]);
   }
+  ASSERT_EQ(event->request.size(), 1U);
+  EXPECT_EQ(event->response.size(), 0U);
   EXPECT_EQ(event->request[0].int16_value, -1);
   EXPECT_EQ(event->request[0].uint16_value, 123);
-  EXPECT_EQ(event->response.size(), 0U);
-  ASSERT_TRUE(srv_ts->introspection_message_destroy_handle(event, &allocator));
+  ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
 
-  event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->introspection_message_create_handle(
+  event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(srv_ts->event_message_create_handle(
       &info, &allocator, nullptr, static_cast<const void *>(&resp), true));
 
   EXPECT_EQ(event->info.sequence_number, info.sequence_number);
@@ -90,9 +91,11 @@ TEST(test_service_typesupport, basic_types_cpp_to_cpp)
   for (int i = 0; i < 16; ++i) {
     EXPECT_EQ(event->info.client_id.uuid[i], info.client_id[i]);
   }
-  EXPECT_EQ(event->request[0].bool_value, true);
-  EXPECT_STREQ(event->request[0].string_value.data(), "hello world");
-  ASSERT_TRUE(srv_ts->introspection_message_destroy_handle(event, &allocator));
+  ASSERT_EQ(event->response.size(), 1U);
+  ASSERT_EQ(event->request.size(), 0U);
+  EXPECT_EQ(event->response[0].bool_value, true);
+  EXPECT_STREQ(event->response[0].string_value.data(), "hello world");
+  ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
 }
 
 /* TODO(ihasdapie): As above but use c typesupports instead of cpp ones
