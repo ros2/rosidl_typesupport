@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Replace rosidl_cmake imports with rosidl_pycommon (`#126 <https://github.com/ros2/rosidl_typesupport/issues/126>`_)
+* Contributors: Jacob Perron
+
 2.1.0 (2022-05-04)
 ------------------
 
