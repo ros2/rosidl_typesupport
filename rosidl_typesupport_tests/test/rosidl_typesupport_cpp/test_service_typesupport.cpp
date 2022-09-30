@@ -169,8 +169,4 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   }
 }
 
-/* TODO(ihasdapie): As above but use c typesupports instead of cpp ones
- */
-/* TEST(test_service_typesupport, basic_types_c_to_cpp)
-{
-} */
+// TODO(jacobperron): Add test for action service
