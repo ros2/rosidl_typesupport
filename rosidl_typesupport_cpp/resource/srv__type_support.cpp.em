@@ -131,11 +131,18 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
     const void * response_message,
     bool enable_message_payload)
 {
-  auto * event_msg = static_cast<@event_type *>(allocator->allocate(sizeof(@event_type), allocator->state));
-  if (nullptr == event_msg) {
+  if (nullptr == info) {
+    throw std::invalid_argument("service introspection info struct cannot be null");
     return NULL;
   }
-  event_msg = new(event_msg) @(event_type)(); 
+  if (nullptr == allocator) {
+    throw std::invalid_argument("allocator cannot be null");
+  }
+  auto * event_msg = static_cast<@event_type *>(allocator->allocate(sizeof(@event_type), allocator->state));
+  if (nullptr == event_msg) {
+    throw std::invalid_argument("allocation failed for service event message");
+  }
+  event_msg = new(event_msg) @(event_type)();
 
   event_msg->info.set__event_type(info->event_type);
   event_msg->info.set__sequence_number(info->sequence_number);
@@ -146,16 +153,15 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
   std::move(std::begin(info->client_id), std::end(info->client_id), client_id.begin());
   event_msg->info.client_id.set__uuid(client_id);
 
+  // TODO(jacobperron): consider removing this argument and let users pass nullptr for both request and response messages
   if (!enable_message_payload) {
     return event_msg;
   }
-  if (nullptr == request_message) {
-    event_msg->response.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX) *> (response_message));
+  if (nullptr != request_message) {
+    event_msg->request.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX) *> (request_message));
   }
-  if (nullptr == response_message) {
-    event_msg->request.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX) *> (request_message)); }
-    else {
-      throw std::invalid_argument("request_message and response_message cannot be both non-null");
+  if (nullptr != response_message) {
+    event_msg->response.push_back(*static_cast<const @('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX) *> (response_message));
   }
 
   return event_msg;
