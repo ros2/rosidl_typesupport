@@ -125,12 +125,13 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
 @{response_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX}@
 
 
-void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__create (
-    const rosidl_service_introspection_info_t * info,
-    rcutils_allocator_t * allocator,
-    const void * request_message,
-    const void * response_message,
-    bool enable_message_payload)
+void *
+rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__create(
+  const rosidl_service_introspection_info_t * info,
+  rcutils_allocator_t * allocator,
+  const void * request_message,
+  const void * response_message,
+  bool enable_message_payload)
 {
   auto * event_msg = static_cast<@event_type *>(allocator->allocate(sizeof(@event_type), allocator->state));
   if (!@(event_type)__init(event_msg)) {
@@ -171,10 +172,10 @@ void * rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0
   return event_msg;
 }
 
-bool rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy (
+bool
+rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy(
   void * event_msg,
-  rcutils_allocator_t * allocator
-)
+  rcutils_allocator_t * allocator)
 { 
   if (NULL == event_msg) {
     return false;
@@ -192,7 +193,6 @@ bool rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].
   return true;
 }
 
-
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
   .typesupport_identifier = rosidl_typesupport_c__typesupport_identifier,
   .data = reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
@@ -201,8 +201,6 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   .event_message_destroy_handle = rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy,
   .event_typesupport = &@(service.namespaced_type.name)_Event_message_type_support_handle
 };
-
-
 
 }  // namespace rosidl_typesupport_c
 @[  for ns in reversed(service.namespaced_type.namespaces)]@

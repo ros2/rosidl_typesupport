@@ -39,8 +39,7 @@ if(BUILD_TESTING)
   ament_add_gtest(test_service_typesupport_cpp
     test/rosidl_typesupport_cpp/test_service_typesupport.cpp
     APPEND_LIBRARY_DIRS "${CMAKE_CURRENT_BINARY_DIR}"
-
-    )
+  )
 
   target_include_directories(test_service_typesupport_cpp PRIVATE test
     rosidl_typesupport_cpp)
@@ -52,7 +51,7 @@ if(BUILD_TESTING)
     "${cpp_generator_target}"
     "${cpp_typesupport_target}"
     rosidl_runtime_cpp::rosidl_runtime_cpp
-    )
+  )
     # ament_target_dependencies(test_service_typesupport_cpp
     #   "rosidl_runtime_cpp"
     #   "rosidl_typesupport_cpp")

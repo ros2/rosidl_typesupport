@@ -123,17 +123,15 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
 @{event_type = '::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}
 
 void *
-rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_event_message_create
-(
-    const rosidl_service_introspection_info_t * info,
-    rcutils_allocator_t * allocator,
-    const void * request_message,
-    const void * response_message,
-    bool enable_message_payload)
+rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_event_message_create(
+  const rosidl_service_introspection_info_t * info,
+  rcutils_allocator_t * allocator,
+  const void * request_message,
+  const void * response_message,
+  bool enable_message_payload)
 {
   if (nullptr == info) {
     throw std::invalid_argument("service introspection info struct cannot be null");
-    return NULL;
   }
   if (nullptr == allocator) {
     throw std::invalid_argument("allocator cannot be null");
@@ -169,8 +167,8 @@ rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.names
 
 bool
 rosidl_@('_'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_event_message_destroy(
-void* event_msg,
-rcutils_allocator_t * allocator)
+  void* event_msg,
+  rcutils_allocator_t * allocator)
 {
   auto * event_msg_ = static_cast<@event_type *>(event_msg);
   event_msg_->~@(service.namespaced_type.name)_Event();
@@ -224,9 +222,5 @@ get_service_type_support_handle<@('::'.join([package_name] + list(interface_path
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))();
 @[end if]@
 }
-
-
-
-
 
 }  // namespace rosidl_typesupport_cpp

@@ -14,24 +14,18 @@
 
 #include <gtest/gtest.h>
 
-#include "rosidl_typesupport_cpp/service_type_support.hpp"
-#include "rosidl_typesupport_cpp/message_type_support.hpp"
 #include "rcutils/allocator.h"
 
+#include "rosidl_typesupport_cpp/message_type_support.hpp"
 #include "rosidl_typesupport_cpp/service_type_support.hpp"
 
 #include "rosidl_typesupport_tests/srv/basic_types.hpp"
-
-#include "builtin_interfaces/msg/time.h"
-#include "unique_identifier_msgs/msg/uuid.h"
-#include "service_msgs/msg/service_event_info.h"
-#include "rosidl_runtime_c/service_type_support_struct.h"
 
 TEST(test_service_typesupport, event_message_create_and_destroy_invalid_arguments)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_service_type_support_t * srv_ts =
-    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();
+    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();  // NOLINT
 
   rosidl_service_introspection_info_t valid_info;
 
@@ -53,10 +47,10 @@ TEST(test_service_typesupport, basic_types_event_message_create)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_service_type_support_t * srv_ts =
-    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();
+    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();  // NOLINT
 
   const rosidl_message_type_support_t * msg_ts =
-    rosidl_typesupport_cpp::get_message_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes_Event>();
+    rosidl_typesupport_cpp::get_message_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes_Event>();  // NOLINT
 
   EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_cpp");
   EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
@@ -95,7 +89,6 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->response.size(), 0U);
 
     ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
-
   }
 
   // request argument set, null response argument
