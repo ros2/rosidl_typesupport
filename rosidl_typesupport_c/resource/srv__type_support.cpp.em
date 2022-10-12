@@ -118,12 +118,10 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
-
 @#TODO(ihasdapie): Import Postfixes
 @{event_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}@
 @{request_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX}@
 @{response_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX}@
-
 
 void *
 rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__create(
@@ -148,14 +146,14 @@ rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts
   }
 
   if (!enable_message_payload) {
-      return event_msg;
+    return event_msg;
   }
 
   if (request_message) {
     event_msg->response.capacity = 1;
     event_msg->response.size = 1;
     event_msg->response.data = static_cast<@response_type *>(allocator->allocate(sizeof(@response_type), allocator->state));
-    if (! @(response_type)__copy((@response_type *) response_message, &event_msg->response.data[0])) {
+    if (!@(response_type)__copy(reinterpret_cast<const @response_type *>(response_message), &event_msg->response.data[0])) {
       allocator->deallocate(event_msg, allocator->state);
       return NULL;
     }
@@ -164,7 +162,7 @@ rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts
     event_msg->request.capacity = 1;
     event_msg->request.size = 1;
     event_msg->request.data = static_cast<@request_type *>(allocator->allocate(sizeof(@request_type), allocator->state));
-    if (! @(request_type)__copy((@request_type *) request_message, &event_msg->request.data[0])){
+    if (!@(request_type)__copy(reinterpret_cast<const @request_type *>(request_message), &event_msg->request.data[0])) {
       allocator->deallocate(event_msg, allocator->state);
       return NULL;
     }
@@ -176,17 +174,17 @@ bool
 rosidl_typesupport_c_@('__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))__event_message__destroy(
   void * event_msg,
   rcutils_allocator_t * allocator)
-{ 
+{
   if (NULL == event_msg) {
     return false;
   }
   auto * _event_msg = static_cast<@event_type *>(event_msg);
 
-  @(event_type)__fini((@event_type *) _event_msg);
-  if (_event_msg->request.data){
+  @(event_type)__fini(reinterpret_cast<@event_type *>(_event_msg));
+  if (_event_msg->request.data) {
     allocator->deallocate(_event_msg->request.data, allocator->state);
   }
-  if (_event_msg->response.data){
+  if (_event_msg->response.data) {
     allocator->deallocate(_event_msg->response.data, allocator->state);
   }
   allocator->deallocate(_event_msg, allocator->state);
