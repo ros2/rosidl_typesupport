@@ -118,7 +118,6 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
-@#TODO(ihasdapie): Import Postfixes
 @{event_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}@
 @{request_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX}@
 @{response_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX}@
