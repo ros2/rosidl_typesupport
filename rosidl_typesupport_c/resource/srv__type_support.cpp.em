@@ -25,9 +25,6 @@ TEMPLATE(
 
 @{
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
-from rosidl_parser.definition import SERVICE_REQUEST_MESSAGE_SUFFIX
-from rosidl_parser.definition import SERVICE_RESPONSE_MESSAGE_SUFFIX
-from rosidl_parser.definition import SERVICE_EVENT_MESSAGE_SUFFIX
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
@@ -117,10 +114,6 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_symbol_names.symbol_name[0],
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
-
-@{event_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_EVENT_MESSAGE_SUFFIX}@
-@{request_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_REQUEST_MESSAGE_SUFFIX}@
-@{response_type = '__'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]) + SERVICE_RESPONSE_MESSAGE_SUFFIX}@
 
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
   .typesupport_identifier = rosidl_typesupport_c__typesupport_identifier,
