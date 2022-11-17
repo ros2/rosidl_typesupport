@@ -32,11 +32,11 @@ include_base = '/'.join(include_parts)
 header_files = [
     'cstddef',
     'rosidl_runtime_c/service_type_support_struct.h',
+    'rosidl_typesupport_cpp/service_type_support.hpp',
     include_base + '__struct.hpp',
 ]
 if len(type_supports) != 1:
     header_files.append('rosidl_typesupport_cpp/identifier.hpp')
-header_files.append('rosidl_typesupport_cpp/service_type_support.hpp')
 if len(type_supports) != 1:
     header_files += [
         'rosidl_typesupport_c/type_support_map.h',
