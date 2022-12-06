@@ -121,12 +121,12 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   .func = rosidl_typesupport_c__get_service_typesupport_handle_function,
   .event_message_create_handle = ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_CREATE_EVENT_MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c,
-    @(',\n  '.join(service.namespaced_type.namespaced_name()))
-  ),
+    @(',\n    '.join(service.namespaced_type.namespaced_name()))
+    ),
   .event_message_destroy_handle = ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_DESTROY_EVENT_MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c,
-    @(',\n  '.join(service.namespaced_type.namespaced_name()))
-  ),
+    @(',\n    '.join(service.namespaced_type.namespaced_name()))
+    ),
   .event_typesupport = &@(service.namespaced_type.name)_Event_message_type_support_handle
 };
 
