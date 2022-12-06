@@ -32,13 +32,13 @@ TEST(test_service_typesupport, event_message_create_and_destroy_invalid_argument
   // null info
   {
     EXPECT_THROW(
-      srv_ts->event_message_create_handle(nullptr, &allocator, nullptr, nullptr, true),
+      srv_ts->event_message_create_handle(nullptr, &allocator, nullptr, nullptr),
       std::invalid_argument);
   }
   // null allocator
   {
     EXPECT_THROW(
-      srv_ts->event_message_create_handle(&valid_info, nullptr, nullptr, nullptr, true),
+      srv_ts->event_message_create_handle(&valid_info, nullptr, nullptr, nullptr),
       std::invalid_argument);
   }
 }
@@ -76,7 +76,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   // null request and response arguments
   {
     auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle(&expected_info, &allocator, nullptr, nullptr, true));
+      srv_ts->event_message_create_handle(&expected_info, &allocator, nullptr, nullptr));
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
     EXPECT_EQ(event->info.event_type, expected_info.event_type);
@@ -98,8 +98,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
         &expected_info,
         &allocator,
         static_cast<const void *>(&expected_request),
-        nullptr,
-        true));
+        nullptr));
 
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
@@ -123,8 +122,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
         &expected_info,
         &allocator,
         nullptr,
-        static_cast<const void *>(&expected_response),
-        true));
+        static_cast<const void *>(&expected_response)));
 
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
@@ -148,8 +146,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
         &expected_info,
         &allocator,
         static_cast<const void *>(&expected_request),
-        static_cast<const void *>(&expected_response),
-        true));
+        static_cast<const void *>(&expected_response)));
 
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
