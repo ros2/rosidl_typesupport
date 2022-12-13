@@ -117,12 +117,12 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
 };
 
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
-  .typesupport_identifier = ::rosidl_typesupport_cpp::typesupport_identifier,
-  .data = reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
-  .func = ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
-  .event_message_create_handle = &::rosidl_typesupport_cpp::service_create_event_message<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))>,
-  .event_message_destroy_handle = &::rosidl_typesupport_cpp::service_destroy_event_message<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))>,
-  .event_typesupport = ::rosidl_typesupport_cpp::get_message_type_support_handle<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>(),
+  ::rosidl_typesupport_cpp::typesupport_identifier,
+  reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
+  ::rosidl_typesupport_cpp::get_service_typesupport_handle_function,
+  &::rosidl_typesupport_cpp::service_create_event_message<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))>,
+  &::rosidl_typesupport_cpp::service_destroy_event_message<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))>,
+  ::rosidl_typesupport_cpp::get_message_type_support_handle<@('::'.join([package_name, *interface_path.parents[0].parts, service.namespaced_type.name]))_Event>(),
 };
 
 }  // namespace rosidl_typesupport_cpp
