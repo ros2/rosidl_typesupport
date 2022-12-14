@@ -122,11 +122,11 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_CREATE_EVENT_MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c,
     @(',\n    '.join(service.namespaced_type.namespaced_name()))
-    ),
+  ),
   ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_DESTROY_EVENT_MESSAGE_SYMBOL_NAME(
     rosidl_typesupport_c,
     @(',\n    '.join(service.namespaced_type.namespaced_name()))
-    ),
+  ),
   &@(service.namespaced_type.name)_Event_message_type_support_handle
 };
 
