@@ -127,7 +127,7 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
     rosidl_typesupport_c,
     @(',\n    '.join(service.namespaced_type.namespaced_name()))
     ),
-  .event_typesupport = &@(service.namespaced_type.name)_Event_message_type_support_handle
+  &@(service.namespaced_type.name)_Event_message_type_support_handle
 };
 
 }  // namespace rosidl_typesupport_c
