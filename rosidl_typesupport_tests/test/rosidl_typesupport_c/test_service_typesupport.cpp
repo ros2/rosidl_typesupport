@@ -16,47 +16,41 @@
 
 #include "rcutils/allocator.h"
 
-#include "rosidl_typesupport_cpp/message_type_support.hpp"
-#include "rosidl_typesupport_cpp/service_type_support.hpp"
+#include "rosidl_runtime_c/string_functions.h"
 
-#include "rosidl_typesupport_tests/action/fibonacci.hpp"
-#include "rosidl_typesupport_tests/srv/basic_types.hpp"
+#include "rosidl_typesupport_tests/action/fibonacci.h"
+#include "rosidl_typesupport_tests/srv/basic_types.h"
 
 TEST(test_service_typesupport, event_message_create_and_destroy_invalid_arguments)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_service_type_support_t * srv_ts =
-    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();  // NOLINT
+    rosidl_typesupport_c__get_service_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes();  // NOLINT
 
   rosidl_service_introspection_info_t valid_info;
 
   // null info
-  {
-    EXPECT_THROW(
-      srv_ts->event_message_create_handle_function(nullptr, &allocator, nullptr, nullptr),
-      std::invalid_argument);
-  }
+  EXPECT_EQ(
+    nullptr,
+    srv_ts->event_message_create_handle_function(nullptr, &allocator, nullptr, nullptr));
   // null allocator
-  {
-    EXPECT_THROW(
-      srv_ts->event_message_create_handle_function(&valid_info, nullptr, nullptr, nullptr),
-      std::invalid_argument);
-  }
+  EXPECT_EQ(
+    nullptr,
+    srv_ts->event_message_create_handle_function(&valid_info, nullptr, nullptr, nullptr));
 }
 
 TEST(test_service_typesupport, basic_types_event_message_create)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_service_type_support_t * srv_ts =
-    rosidl_typesupport_cpp::get_service_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes>();  // NOLINT
+    rosidl_typesupport_c__get_service_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes();  // NOLINT
 
   const rosidl_message_type_support_t * msg_ts =
-    rosidl_typesupport_cpp::get_message_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes_Event>();  // NOLINT
+    rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes_Event();  // NOLINT
 
-  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_c");
 
-  // typesupports are static so this comparison *should* be valid?
   EXPECT_EQ(srv_ts->event_typesupport, msg_ts);
 
   rosidl_service_introspection_info_t expected_info;
@@ -67,17 +61,19 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   auto uuid = std::array<uint8_t, 16>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
   std::copy(uuid.begin(), uuid.end(), expected_info.client_id);
 
-  auto expected_request = rosidl_typesupport_tests::srv::BasicTypes_Request();
+  rosidl_typesupport_tests__srv__BasicTypes_Request expected_request;
+  rosidl_typesupport_tests__srv__BasicTypes_Request__init(&expected_request);
   expected_request.int16_value = -1;
   expected_request.uint16_value = 123;
-  auto expected_response = rosidl_typesupport_tests::srv::BasicTypes_Response();
+  rosidl_typesupport_tests__srv__BasicTypes_Response expected_response;
+  rosidl_typesupport_tests__srv__BasicTypes_Response__init(&expected_response);
   expected_response.bool_value = true;
-  expected_response.string_value = "hello world";
+  rosidl_runtime_c__String__assign(&expected_response.string_value, "hello world");
 
   // null request and response arguments
   {
-    auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle_function(&expected_info, &allocator, nullptr, nullptr));
+    auto * event = static_cast<rosidl_typesupport_tests__srv__BasicTypes_Event *>(
+      srv_ts->event_message_create_handle_function(&expected_info, &allocator, nullptr, nullptr));  // NOLINT
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
     EXPECT_EQ(event->info.event_type, expected_info.event_type);
@@ -86,21 +82,20 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     for (int i = 0; i < 16; ++i) {
       EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
     }
-    EXPECT_EQ(event->request.size(), 0U);
-    EXPECT_EQ(event->response.size(), 0U);
+    EXPECT_EQ(event->request.size, 0U);
+    EXPECT_EQ(event->response.size, 0U);
 
     ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // request argument set, null response argument
   {
-    auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
+    auto * event = static_cast<rosidl_typesupport_tests__srv__BasicTypes_Event *>(
       srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
         static_cast<const void *>(&expected_request),
         nullptr));
-
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
     EXPECT_EQ(event->info.event_type, expected_info.event_type);
@@ -109,16 +104,16 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     for (int i = 0; i < 16; ++i) {
       EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
     }
-    ASSERT_EQ(event->request.size(), 1U);
-    EXPECT_EQ(event->response.size(), 0U);
-    EXPECT_EQ(event->request[0].int16_value, expected_request.int16_value);
-    EXPECT_EQ(event->request[0].uint16_value, expected_request.uint16_value);
+    ASSERT_EQ(event->request.size, 1U);
+    EXPECT_EQ(event->response.size, 0U);
+    EXPECT_EQ(event->request.data[0].int16_value, expected_request.int16_value);
+    EXPECT_EQ(event->request.data[0].uint16_value, expected_request.uint16_value);
     ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // response argument set, null request argument
   {
-    auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
+    auto * event = static_cast<rosidl_typesupport_tests__srv__BasicTypes_Event *>(
       srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
@@ -133,16 +128,18 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     for (int i = 0; i < 16; ++i) {
       EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
     }
-    EXPECT_EQ(event->request.size(), 0U);
-    ASSERT_EQ(event->response.size(), 1U);
-    EXPECT_EQ(event->response[0].bool_value, expected_response.bool_value);
-    EXPECT_EQ(event->response[0].string_value, expected_response.string_value);
+    EXPECT_EQ(event->request.size, 0U);
+    ASSERT_EQ(event->response.size, 1U);
+    EXPECT_EQ(event->response.data[0].bool_value, expected_response.bool_value);
+    EXPECT_TRUE(
+      rosidl_runtime_c__String__are_equal(
+        &event->response.data[0].string_value, &expected_response.string_value));
     ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // both request and response arguments set
   {
-    auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
+    auto * event = static_cast<rosidl_typesupport_tests__srv__BasicTypes_Event *>(
       srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
@@ -157,12 +154,14 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     for (int i = 0; i < 16; ++i) {
       EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
     }
-    ASSERT_EQ(event->request.size(), 1U);
-    EXPECT_EQ(event->request[0].int16_value, expected_request.int16_value);
-    EXPECT_EQ(event->request[0].uint16_value, expected_request.uint16_value);
-    ASSERT_EQ(event->response.size(), 1U);
-    EXPECT_EQ(event->response[0].bool_value, expected_response.bool_value);
-    EXPECT_EQ(event->response[0].string_value, expected_response.string_value);
+    ASSERT_EQ(event->request.size, 1U);
+    EXPECT_EQ(event->request.data[0].int16_value, expected_request.int16_value);
+    EXPECT_EQ(event->request.data[0].uint16_value, expected_request.uint16_value);
+    ASSERT_EQ(event->response.size, 1U);
+    EXPECT_EQ(event->response.data[0].bool_value, expected_response.bool_value);
+    EXPECT_TRUE(
+      rosidl_runtime_c__String__are_equal(
+        &event->response.data[0].string_value, &expected_response.string_value));
     ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 }
@@ -171,13 +170,11 @@ TEST(test_service_typesupport, fibonacci_action_services_event)
 {
   // rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_message_type_support_t * send_goal_event_msg_ts =
-    rosidl_typesupport_cpp::get_message_type_support_handle<
-    rosidl_typesupport_tests::action::Fibonacci_SendGoal::Event>();
+    rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_SendGoal_Event();  // NOLINT
   const rosidl_message_type_support_t * get_result_event_msg_ts =
-    rosidl_typesupport_cpp::get_message_type_support_handle<
-    rosidl_typesupport_tests::action::Fibonacci_GetResult::Event>();
+    rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_GetResult_Event();  // NOLINT
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
-  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
 }

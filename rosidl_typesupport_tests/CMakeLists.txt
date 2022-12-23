@@ -23,6 +23,7 @@ if(BUILD_TESTING)
   )
 
   rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+  rosidl_get_typesupport_target(c_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_c")
 
   ament_add_gtest(test_service_typesupport_cpp
     test/rosidl_typesupport_cpp/test_service_typesupport.cpp
@@ -31,7 +32,12 @@ if(BUILD_TESTING)
     "${cpp_typesupport_target}"
   )
 
-  # TODO(jacobperron): Add tests for rosidl_typesupport_c
+  ament_add_gtest(test_service_typesupport_c
+    test/rosidl_typesupport_c/test_service_typesupport.cpp
+  )
+  target_link_libraries(test_service_typesupport_c
+    "${c_typesupport_target}"
+  )
 endif()
 
 ament_package()
