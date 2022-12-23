@@ -32,13 +32,13 @@ TEST(test_service_typesupport, event_message_create_and_destroy_invalid_argument
   // null info
   {
     EXPECT_THROW(
-      srv_ts->event_message_create_handle(nullptr, &allocator, nullptr, nullptr),
+      srv_ts->event_message_create_handle_function(nullptr, &allocator, nullptr, nullptr),
       std::invalid_argument);
   }
   // null allocator
   {
     EXPECT_THROW(
-      srv_ts->event_message_create_handle(&valid_info, nullptr, nullptr, nullptr),
+      srv_ts->event_message_create_handle_function(&valid_info, nullptr, nullptr, nullptr),
       std::invalid_argument);
   }
 }
@@ -76,7 +76,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   // null request and response arguments
   {
     auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle(&expected_info, &allocator, nullptr, nullptr));
+      srv_ts->event_message_create_handle_function(&expected_info, &allocator, nullptr, nullptr));
     ASSERT_NE(event, nullptr);
     EXPECT_EQ(event->info.sequence_number, expected_info.sequence_number);
     EXPECT_EQ(event->info.event_type, expected_info.event_type);
@@ -88,13 +88,13 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->request.size(), 0U);
     EXPECT_EQ(event->response.size(), 0U);
 
-    ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
+    ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // request argument set, null response argument
   {
     auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle(
+      srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
         static_cast<const void *>(&expected_request),
@@ -112,13 +112,13 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->response.size(), 0U);
     EXPECT_EQ(event->request[0].int16_value, expected_request.int16_value);
     EXPECT_EQ(event->request[0].uint16_value, expected_request.uint16_value);
-    ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
+    ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // response argument set, null request argument
   {
     auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle(
+      srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
         nullptr,
@@ -136,13 +136,13 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     ASSERT_EQ(event->response.size(), 1U);
     EXPECT_EQ(event->response[0].bool_value, expected_response.bool_value);
     EXPECT_EQ(event->response[0].string_value, expected_response.string_value);
-    ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
+    ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 
   // both request and response arguments set
   {
     auto * event = static_cast<rosidl_typesupport_tests::srv::BasicTypes_Event *>(
-      srv_ts->event_message_create_handle(
+      srv_ts->event_message_create_handle_function(
         &expected_info,
         &allocator,
         static_cast<const void *>(&expected_request),
@@ -162,7 +162,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     ASSERT_EQ(event->response.size(), 1U);
     EXPECT_EQ(event->response[0].bool_value, expected_response.bool_value);
     EXPECT_EQ(event->response[0].string_value, expected_response.string_value);
-    ASSERT_TRUE(srv_ts->event_message_destroy_handle(event, &allocator));
+    ASSERT_TRUE(srv_ts->event_message_destroy_handle_function(event, &allocator));
   }
 }
 
