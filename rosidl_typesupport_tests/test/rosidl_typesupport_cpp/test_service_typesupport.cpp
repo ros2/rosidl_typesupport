@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #include <algorithm>
 #include <array>
+#include <stdexcept>
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include "rcutils/allocator.h"
 
@@ -173,7 +173,6 @@ TEST(test_service_typesupport, basic_types_event_message_create)
 
 TEST(test_service_typesupport, fibonacci_action_services_event)
 {
-  // rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_message_type_support_t * send_goal_event_msg_ts =
     rosidl_typesupport_cpp::get_message_type_support_handle<
     rosidl_typesupport_tests::action::Fibonacci_SendGoal::Event>();

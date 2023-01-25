@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <array>
 
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include "rcutils/allocator.h"
 
@@ -171,7 +171,6 @@ TEST(test_service_typesupport, basic_types_event_message_create)
 
 TEST(test_service_typesupport, fibonacci_action_services_event)
 {
-  // rcutils_allocator_t allocator = rcutils_get_default_allocator();
   const rosidl_message_type_support_t * send_goal_event_msg_ts =
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_SendGoal_Event();  // NOLINT
   const rosidl_message_type_support_t * get_result_event_msg_ts =
