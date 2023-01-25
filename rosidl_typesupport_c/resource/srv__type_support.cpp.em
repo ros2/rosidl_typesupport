@@ -43,7 +43,6 @@ if len(type_supports) != 1:
 header_files.append('rosidl_typesupport_interface/macros.h')
 header_files.append('service_msgs/msg/service_event_info.h')
 header_files.append('builtin_interfaces/msg/time.h')
-header_files.append('unique_identifier_msgs/msg/uuid.h')
 }@
 @[for header_file in header_files]@
 @[    if header_file in include_directives]@

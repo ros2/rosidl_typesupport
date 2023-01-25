@@ -61,8 +61,8 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   expected_info.event_type = 2;
   expected_info.stamp_nanosec = 123;
   expected_info.stamp_sec = 123;
-  auto uuid = std::array<uint8_t, 16>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-  std::copy(uuid.begin(), uuid.end(), expected_info.client_id);
+  auto gid = std::array<uint8_t, 16>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+  std::copy(gid.begin(), gid.end(), expected_info.client_gid);
 
   rosidl_typesupport_tests__srv__BasicTypes_Request expected_request;
   rosidl_typesupport_tests__srv__BasicTypes_Request__init(&expected_request);
@@ -83,7 +83,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->info.stamp.nanosec, expected_info.stamp_nanosec);
     EXPECT_EQ(event->info.stamp.sec, expected_info.stamp_sec);
     for (int i = 0; i < 16; ++i) {
-      EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
+      EXPECT_EQ(event->info.client_gid[i], expected_info.client_gid[i]);
     }
     EXPECT_EQ(event->request.size, 0U);
     EXPECT_EQ(event->response.size, 0U);
@@ -105,7 +105,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->info.stamp.nanosec, expected_info.stamp_nanosec);
     EXPECT_EQ(event->info.stamp.sec, expected_info.stamp_sec);
     for (int i = 0; i < 16; ++i) {
-      EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
+      EXPECT_EQ(event->info.client_gid[i], expected_info.client_gid[i]);
     }
     ASSERT_EQ(event->request.size, 1U);
     EXPECT_EQ(event->response.size, 0U);
@@ -129,7 +129,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->info.stamp.nanosec, expected_info.stamp_nanosec);
     EXPECT_EQ(event->info.stamp.sec, expected_info.stamp_sec);
     for (int i = 0; i < 16; ++i) {
-      EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
+      EXPECT_EQ(event->info.client_gid[i], expected_info.client_gid[i]);
     }
     EXPECT_EQ(event->request.size, 0U);
     ASSERT_EQ(event->response.size, 1U);
@@ -155,7 +155,7 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     EXPECT_EQ(event->info.stamp.nanosec, expected_info.stamp_nanosec);
     EXPECT_EQ(event->info.stamp.sec, expected_info.stamp_sec);
     for (int i = 0; i < 16; ++i) {
-      EXPECT_EQ(event->info.client_id.uuid[i], expected_info.client_id[i]);
+      EXPECT_EQ(event->info.client_gid[i], expected_info.client_gid[i]);
     }
     ASSERT_EQ(event->request.size, 1U);
     EXPECT_EQ(event->request.data[0].int16_value, expected_request.int16_value);
