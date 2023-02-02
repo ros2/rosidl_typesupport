@@ -1,0 +1,43 @@
+cmake_minimum_required(VERSION 3.8)
+project(rosidl_typesupport_tests)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+find_package(ament_cmake REQUIRED)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+  find_package(rosidl_cmake REQUIRED)
+  find_package(ament_cmake_gtest REQUIRED)
+  find_package(test_interface_files REQUIRED)
+  find_package(rcutils REQUIRED)
+
+  rosidl_generate_interfaces(${PROJECT_NAME}
+    ${test_interface_files_MSG_FILES}
+    ${test_interface_files_SRV_FILES}
+    ${test_interface_files_ACTION_FILES}
+    SKIP_INSTALL
+  )
+
+  rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+  rosidl_get_typesupport_target(c_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_c")
+
+  ament_add_gtest(test_service_typesupport_cpp
+    test/rosidl_typesupport_cpp/test_service_typesupport.cpp
+  )
+  target_link_libraries(test_service_typesupport_cpp
+    "${cpp_typesupport_target}"
+  )
+
+  ament_add_gtest(test_service_typesupport_c
+    test/rosidl_typesupport_c/test_service_typesupport.cpp
+  )
+  target_link_libraries(test_service_typesupport_c
+    "${c_typesupport_target}"
+  )
+endif()
+
+ament_package()

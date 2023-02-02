@@ -10,6 +10,7 @@ header_files = [
     'rosidl_runtime_c/message_type_support_struct.h',
     include_base + '__struct.h',
     include_base + '__type_support.h',
+    include_base + '__functions.h',
 ]
 if len(type_supports) != 1:
     header_files += [
