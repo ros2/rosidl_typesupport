@@ -15,6 +15,7 @@
   <test_depend>ament_cmake_gtest</test_depend>
   <test_depend>rcutils</test_depend>
   <test_depend>rosidl_cmake</test_depend>
+  <test_depend>rosidl_generator_cpp</test_depend>
   <test_depend>rosidl_typesupport_c</test_depend>
   <test_depend>rosidl_typesupport_cpp</test_depend>
   <test_depend>test_interface_files</test_depend>

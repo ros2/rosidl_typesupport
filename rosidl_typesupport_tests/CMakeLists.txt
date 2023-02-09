@@ -14,6 +14,7 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(test_interface_files REQUIRED)
   find_package(rcutils REQUIRED)
+  find_package(rosidl_generator_cpp REQUIRED)
 
   rosidl_generate_interfaces(${PROJECT_NAME}
     ${test_interface_files_MSG_FILES}
