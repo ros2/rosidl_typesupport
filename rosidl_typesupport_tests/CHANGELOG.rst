@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.0 (2023-02-13)
+------------------
 * Make rosidl_typesupport_tests depend on rosidl_generator_cpp. (`#132 <https://github.com/ros2/rosidl_typesupport/issues/132>`_)
 * Service introspection (`#127 <https://github.com/ros2/rosidl_typesupport/issues/127>`_)
 * Contributors: Brian, Chris Lalancette
