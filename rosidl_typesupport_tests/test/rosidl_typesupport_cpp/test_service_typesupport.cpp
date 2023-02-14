@@ -181,6 +181,6 @@ TEST(test_service_typesupport, fibonacci_action_services_event)
     rosidl_typesupport_tests::action::Fibonacci_GetResult::Event>();
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
-  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_introspection_cpp");
+  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_introspection_cpp");
 }
