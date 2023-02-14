@@ -57,8 +57,8 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   const rosidl_message_type_support_t * msg_ts =
     rosidl_typesupport_cpp::get_message_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes_Event>();  // NOLINT
 
-  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_introspection_cpp");
+  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_introspection_cpp");
 
   // typesupports are static so this comparison *should* be valid?
   EXPECT_EQ(srv_ts->event_typesupport, msg_ts);

@@ -177,6 +177,6 @@ TEST(test_service_typesupport, fibonacci_action_services_event)
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_GetResult_Event();  // NOLINT
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
-  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
-  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_introspection_c");
+  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_introspection_c");
 }
