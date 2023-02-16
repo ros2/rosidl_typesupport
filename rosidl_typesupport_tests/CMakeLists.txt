@@ -16,6 +16,7 @@ if(BUILD_TESTING)
   find_package(rcutils REQUIRED)
   find_package(rosidl_generator_cpp REQUIRED)
   find_package(rmw REQUIRED)
+  find_package(rmw_implementation REQUIRED)
 
   rosidl_generate_interfaces(${PROJECT_NAME}
     ${test_interface_files_MSG_FILES}
