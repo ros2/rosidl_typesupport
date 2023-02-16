@@ -15,6 +15,7 @@ if(BUILD_TESTING)
   find_package(test_interface_files REQUIRED)
   find_package(rcutils REQUIRED)
   find_package(rosidl_generator_cpp REQUIRED)
+  find_package(rmw REQUIRED)
 
   rosidl_generate_interfaces(${PROJECT_NAME}
     ${test_interface_files_MSG_FILES}
@@ -39,6 +40,9 @@ if(BUILD_TESTING)
   target_link_libraries(test_service_typesupport_c
     "${c_typesupport_target}"
   )
+
+  ament_target_dependencies(test_service_typesupport_cpp rmw)
+  ament_target_dependencies(test_service_typesupport_c rmw)
 endif()
 
 ament_package()

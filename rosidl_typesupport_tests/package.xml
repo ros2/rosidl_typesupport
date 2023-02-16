@@ -21,6 +21,7 @@
   <test_depend>test_interface_files</test_depend>
   <test_depend>service_msgs</test_depend>
   <test_depend>action_msgs</test_depend>
+  <test_depend>rmw</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
