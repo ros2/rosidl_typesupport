@@ -8,15 +8,16 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-  find_package(rosidl_cmake REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
-  find_package(test_interface_files REQUIRED)
+  find_package(ament_lint_auto REQUIRED)
   find_package(rcutils REQUIRED)
-  find_package(rosidl_generator_cpp REQUIRED)
   find_package(rmw REQUIRED)
   find_package(rmw_implementation REQUIRED)
+  find_package(rosidl_cmake REQUIRED)
+  find_package(rosidl_generator_cpp REQUIRED)
+  find_package(test_interface_files REQUIRED)
+
+  ament_lint_auto_find_test_dependencies()
 
   rosidl_generate_interfaces(${PROJECT_NAME}
     ${test_interface_files_MSG_FILES}
@@ -33,6 +34,8 @@ if(BUILD_TESTING)
   )
   target_link_libraries(test_service_typesupport_cpp
     "${cpp_typesupport_target}"
+    rmw::rmw
+    rmw_implementation::rmw_implementation
   )
 
   ament_add_gtest(test_service_typesupport_c
@@ -40,15 +43,8 @@ if(BUILD_TESTING)
   )
   target_link_libraries(test_service_typesupport_c
     "${c_typesupport_target}"
-  )
-
-  ament_target_dependencies(test_service_typesupport_cpp
-    rmw
-    rmw_implementation
-  )
-  ament_target_dependencies(test_service_typesupport_c
-    rmw
-    rmw_implementation
+    rmw::rmw
+    rmw_implementation::rmw_implementation
   )
 endif()
 
