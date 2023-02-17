@@ -42,8 +42,14 @@ if(BUILD_TESTING)
     "${c_typesupport_target}"
   )
 
-  ament_target_dependencies(test_service_typesupport_cpp rmw)
-  ament_target_dependencies(test_service_typesupport_c rmw)
+  ament_target_dependencies(test_service_typesupport_cpp
+    rmw
+    rmw_implementation
+  )
+  ament_target_dependencies(test_service_typesupport_c
+    rmw
+    rmw_implementation
+  )
 endif()
 
 ament_package()
