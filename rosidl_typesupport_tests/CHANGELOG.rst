@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.3.1 (2023-02-24)
+------------------
 * Fix Typesupport Introspection tests (`#133 <https://github.com/ros2/rosidl_typesupport/issues/133>`_)
 * Contributors: Cristóbal Arroyo
 
