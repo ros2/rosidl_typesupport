@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix Typesupport Introspection tests (`#133 <https://github.com/ros2/rosidl_typesupport/issues/133>`_)
+* Contributors: Cristóbal Arroyo
+
 2.3.0 (2023-02-13)
 ------------------
 * Make rosidl_typesupport_tests depend on rosidl_generator_cpp. (`#132 <https://github.com/ros2/rosidl_typesupport/issues/132>`_)

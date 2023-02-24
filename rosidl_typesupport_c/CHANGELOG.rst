@@ -2,6 +2,9 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.3.0 (2023-02-13)
 ------------------
 * Service introspection (`#127 <https://github.com/ros2/rosidl_typesupport/issues/127>`_)
