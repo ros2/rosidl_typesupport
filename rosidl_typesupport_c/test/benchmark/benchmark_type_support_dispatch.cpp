@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "rcpputils/shared_library.hpp"
+#include "rcutils/macros.h"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/message_type_support_dispatch.h"
 #include "rosidl_typesupport_c/service_type_support_dispatch.h"
@@ -67,6 +68,7 @@ BENCHMARK_F(PerformanceTest, message_typesupport_handle_function)(benchmark::Sta
   reset_heap_counters();
 
   for (auto _ : st) {
+    RCUTILS_UNUSED(_);
     // Successfully load library and find symbols
     auto * result = rosidl_typesupport_c__get_message_typesupport_handle_function(
       &type_support_c_identifier,
@@ -95,6 +97,7 @@ BENCHMARK_F(PerformanceTest, service_typesupport_handle_function)(benchmark::Sta
   reset_heap_counters();
 
   for (auto _ : st) {
+    RCUTILS_UNUSED(_);
     // Successfully load library and find symbols
     auto * result = rosidl_typesupport_c__get_service_typesupport_handle_function(
       &type_support_c_identifier,
