@@ -39,7 +39,7 @@ static const rosidl_message_type_support_t message_type_support = {
 };
 
 static const rosidl_service_type_support_t service_type_support = {
-  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+  nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
 };
 
 const rosidl_message_type_support_t * test_message_type_support() {return &message_type_support;}
