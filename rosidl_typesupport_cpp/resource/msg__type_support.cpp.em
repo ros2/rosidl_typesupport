@@ -1,5 +1,6 @@
 @# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
 @{
+from rosidl_generator_type_description import TYPE_HASH_VAR
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
@@ -97,7 +98,7 @@ static const rosidl_message_type_support_t @(message.structure.namespaced_type.n
   ::rosidl_typesupport_cpp::typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   ::rosidl_typesupport_cpp::get_message_typesupport_handle_function,
-  &@('::'.join(message.structure.namespaced_type.namespaced_name()))::TYPE_VERSION_HASH,
+  &@('::'.join(message.structure.namespaced_type.namespaced_name()))::@(TYPE_HASH_VAR),
 };
 
 }  // namespace rosidl_typesupport_cpp
