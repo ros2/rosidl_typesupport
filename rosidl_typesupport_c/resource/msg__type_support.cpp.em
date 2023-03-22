@@ -1,5 +1,6 @@
 @# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
 @{
+from rosidl_generator_c import idl_structure_type_to_c_typename
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
@@ -97,6 +98,7 @@ static const rosidl_message_type_support_t @(message.structure.namespaced_type.n
   rosidl_typesupport_c__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   rosidl_typesupport_c__get_message_typesupport_handle_function,
+  &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__TYPE_VERSION_HASH,
 };
 
 }  // namespace rosidl_typesupport_c
