@@ -99,6 +99,7 @@ static const rosidl_message_type_support_t @(message.structure.namespaced_type.n
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   ::rosidl_typesupport_cpp::get_message_typesupport_handle_function,
   &@('::'.join(message.structure.namespaced_type.namespaced_name()))::@(TYPE_HASH_VAR),
+  nullptr, // TODO(ek)
 };
 
 }  // namespace rosidl_typesupport_cpp

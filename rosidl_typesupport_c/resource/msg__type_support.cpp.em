@@ -1,6 +1,7 @@
 @# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
 @{
 from rosidl_generator_c import idl_structure_type_to_c_typename
+from rosidl_generator_type_description import TYPE_DESCRIPTION_VAR
 from rosidl_generator_type_description import TYPE_HASH_VAR
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
@@ -95,11 +96,18 @@ static const type_support_map_t _@(message.structure.namespaced_type.name)_messa
   &_@(message.structure.namespaced_type.name)_message_typesupport_data.data[0],
 };
 
+static const rosidl_runtime_c__type_description__TypeDescription *
+_@(message.structure.namespaced_type.name)__get_type_description()
+{
+  return &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(TYPE_DESCRIPTION_VAR);
+}
+
 static const rosidl_message_type_support_t @(message.structure.namespaced_type.name)_message_type_support_handle = {
   rosidl_typesupport_c__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   rosidl_typesupport_c__get_message_typesupport_handle_function,
   &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(TYPE_HASH_VAR),
+  &_@(message.structure.namespaced_type.name)__get_type_description,
 };
 
 }  // namespace rosidl_typesupport_c
