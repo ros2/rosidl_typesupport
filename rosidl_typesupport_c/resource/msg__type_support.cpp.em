@@ -96,18 +96,12 @@ static const type_support_map_t _@(message.structure.namespaced_type.name)_messa
   &_@(message.structure.namespaced_type.name)_message_typesupport_data.data[0],
 };
 
-static const rosidl_runtime_c__type_description__TypeDescription *
-_@(message.structure.namespaced_type.name)__get_type_description()
-{
-  return &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(TYPE_DESCRIPTION_VAR);
-}
-
 static const rosidl_message_type_support_t @(message.structure.namespaced_type.name)_message_type_support_handle = {
   rosidl_typesupport_c__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),
   rosidl_typesupport_c__get_message_typesupport_handle_function,
   &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(TYPE_HASH_VAR),
-  &_@(message.structure.namespaced_type.name)__get_type_description,
+  &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(TYPE_DESCRIPTION_VAR),
 };
 
 }  // namespace rosidl_typesupport_c
