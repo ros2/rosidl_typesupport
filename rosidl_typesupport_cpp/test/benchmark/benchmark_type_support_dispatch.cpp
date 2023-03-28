@@ -38,13 +38,14 @@ constexpr const char * symbols[map_size] = {
 
 rosidl_message_type_support_t get_rosidl_message_type_support(const char * identifier)
 {
-  return {identifier, nullptr, nullptr, nullptr, nullptr};
+  return {identifier, nullptr, nullptr, nullptr, nullptr, nullptr};
 }
 
 rosidl_service_type_support_t get_rosidl_service_type_support(const char * identifier)
 {
   return {
-    identifier, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
+    identifier,
+    nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
   };
 }
 

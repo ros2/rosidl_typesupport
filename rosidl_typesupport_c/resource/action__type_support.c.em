@@ -1,6 +1,7 @@
 @# Included from rosidl_typesupport_c/resource/idl__type_support.c.em
 @{
 from rosidl_generator_c import idl_structure_type_to_c_typename
+from rosidl_generator_type_description import RAW_SOURCE_VAR
 from rosidl_generator_type_description import TYPE_DESCRIPTION_VAR
 from rosidl_generator_type_description import TYPE_HASH_VAR
 from rosidl_parser.definition import ACTION_FEEDBACK_MESSAGE_SUFFIX
@@ -36,6 +37,7 @@ static rosidl_action_type_support_t _@('__'.join([package_name] + list(interface
   NULL, NULL, NULL, NULL, NULL,
   &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(TYPE_HASH_VAR),
   &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(TYPE_DESCRIPTION_VAR),
+  &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(RAW_SOURCE_VAR),
 };
 
 #ifdef __cplusplus

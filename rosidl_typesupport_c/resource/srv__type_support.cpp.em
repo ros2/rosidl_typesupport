@@ -25,6 +25,7 @@ TEMPLATE(
 
 @{
 from rosidl_generator_c import idl_structure_type_to_c_typename
+from rosidl_generator_type_description import RAW_SOURCE_VAR
 from rosidl_generator_type_description import TYPE_DESCRIPTION_VAR
 from rosidl_generator_type_description import TYPE_HASH_VAR
 from rosidl_parser.definition import SERVICE_EVENT_MESSAGE_SUFFIX
@@ -137,6 +138,7 @@ static const rosidl_service_type_support_t @(service.namespaced_type.name)_servi
   ),
   &@(idl_structure_type_to_c_typename(service.namespaced_type))__@(TYPE_HASH_VAR),
   &@(idl_structure_type_to_c_typename(service.namespaced_type))__@(TYPE_DESCRIPTION_VAR),
+  &@(idl_structure_type_to_c_typename(service.namespaced_type))__@(RAW_SOURCE_VAR),
 };
 
 }  // namespace rosidl_typesupport_c
