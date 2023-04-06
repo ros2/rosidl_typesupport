@@ -1,5 +1,9 @@
 @# Included from rosidl_typesupport_cpp/resource/idl__type_support.cpp.em
 @{
+from rosidl_generator_c import idl_structure_type_to_c_typename
+from rosidl_generator_type_description import GET_DESCRIPTION_FUNC
+from rosidl_generator_type_description import GET_HASH_FUNC
+from rosidl_generator_type_description import GET_SOURCES_FUNC
 from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
@@ -36,7 +40,11 @@ namespace rosidl_typesupport_cpp
 {
 
 static rosidl_action_type_support_t @(interface_path.stem)_action_type_support_handle = {
-  NULL, NULL, NULL, NULL, NULL};
+  NULL, NULL, NULL, NULL, NULL,
+  &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(GET_HASH_FUNC),
+  &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(GET_DESCRIPTION_FUNC),
+  &@(idl_structure_type_to_c_typename(action.namespaced_type))__@(GET_SOURCES_FUNC),
+};
 
 }  // namespace rosidl_typesupport_cpp
 @[  for ns in reversed(action.namespaced_type.namespaces)]@
