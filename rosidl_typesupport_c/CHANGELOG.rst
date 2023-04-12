@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.0.0 (2023-04-12)
+------------------
 * Type Description Nested Support (`#141 <https://github.com/ros2/rosidl_typesupport/issues/141>`_)
 * Fix rosidl_typesupport_c/cpp exec dependencies. (`#140 <https://github.com/ros2/rosidl_typesupport/issues/140>`_)
 * Type hashes in typesupport (rep2011) (`#135 <https://github.com/ros2/rosidl_typesupport/issues/135>`_)
