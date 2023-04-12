@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* typesupport_tests needs to be updated to C++17 (`#137 <https://github.com/ros2/rosidl_typesupport/issues/137>`_)
+* Contributors: Lucas Wendland
+
 2.3.1 (2023-02-24)
 ------------------
 * Fix Typesupport Introspection tests (`#133 <https://github.com/ros2/rosidl_typesupport/issues/133>`_)

@@ -2,6 +2,14 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Type Description Nested Support (`#141 <https://github.com/ros2/rosidl_typesupport/issues/141>`_)
+* Fix rosidl_typesupport_c/cpp exec dependencies. (`#140 <https://github.com/ros2/rosidl_typesupport/issues/140>`_)
+* Type hashes in typesupport (rep2011) (`#135 <https://github.com/ros2/rosidl_typesupport/issues/135>`_)
+* Mark benchmark _ as UNUSED. (`#134 <https://github.com/ros2/rosidl_typesupport/issues/134>`_)
+* Contributors: Chris Lalancette, Emerson Knapp
+
 2.3.1 (2023-02-24)
 ------------------
 
