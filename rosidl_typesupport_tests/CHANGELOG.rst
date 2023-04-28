@@ -2,6 +2,9 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1.0 (2023-04-28)
+------------------
+
 3.0.0 (2023-04-12)
 ------------------
 * typesupport_tests needs to be updated to C++17 (`#137 <https://github.com/ros2/rosidl_typesupport/issues/137>`_)
