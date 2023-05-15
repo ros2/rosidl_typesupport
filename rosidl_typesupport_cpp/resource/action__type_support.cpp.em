@@ -71,3 +71,18 @@ get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.
 }
 
 }  // namespace rosidl_typesupport_cpp
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+ROSIDL_TYPESUPPORT_CPP_PUBLIC
+const rosidl_action_type_support_t *
+ROSIDL_TYPESUPPORT_INTERFACE__ACTION_SYMBOL_NAME(rosidl_typesupport_cpp, @(', '.join([package_name] + list(interface_path.parents[0].parts) + [interface_path.stem])))() {
+  return ::rosidl_typesupport_cpp::get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts) + [interface_path.stem]))>();
+}
+
+#ifdef __cplusplus
+}
+#endif
