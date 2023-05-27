@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.3 (2023-05-27)
+------------------
 * Added C interfaces to obtain service and action type support. (`#144 <https://github.com/ros2/rosidl_typesupport/issues/144>`_)
 * Contributors: Stefan Fabian
 
