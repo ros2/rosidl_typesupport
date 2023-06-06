@@ -98,7 +98,7 @@ set_property(TARGET ${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTY DEFINE_SYMBOL "ROSIDL_GENERATOR_C_BUILDING_DLL_${PROJECT_NAME}")
 
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-  PROPERTIES CXX_STANDARD 14)
+  PROPERTIES CXX_STANDARD 17)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
     PROPERTIES COMPILE_OPTIONS -Wall -Wextra -Wpedantic)
