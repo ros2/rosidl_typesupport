@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Don't override user provided compile definitions (`#145 <https://github.com/ros2/rosidl_typesupport/issues/145>`_)
+* Contributors: Emerson Knapp
+
 3.1.0 (2023-04-28)
 ------------------
 
