@@ -92,11 +92,11 @@ endif()
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTIES
     DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL"
-    CXX_STANDARD 14)
+    CXX_STANDARD 17)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
-    PROPERTIES COMPILE_OPTIONS -Wall -Wextra -Wpedantic)
+  target_compile_options(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # if only a single typesupport is used this package will directly reference it
