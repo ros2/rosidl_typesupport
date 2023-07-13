@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Don't override user provided compile definitions (`#146 <https://github.com/ros2/rosidl_typesupport/issues/146>`_)
+* Contributors: Shane Loretz
+
 3.0.0 (2023-04-12)
 ------------------
 * Type Description Nested Support (`#141 <https://github.com/ros2/rosidl_typesupport/issues/141>`_)
@@ -88,7 +93,7 @@ Changelog for package rosidl_typesupport_cpp
 * Update the maintainers (`#89 <https://github.com/ros2/rosidl_typesupport/issues/89>`_)
 * Added benchmark test to rosidl_typesupport_c/cpp (`#84 <https://github.com/ros2/rosidl_typesupport/issues/84>`_)
 * Handle rcpputils::find_library_path() failure (`#85 <https://github.com/ros2/rosidl_typesupport/issues/85>`_)
-* De-duplicate type_support_map.h header (`#81 <https://github.com/ros2/rosidl_typesupport/issues/81>`_) 
+* De-duplicate type_support_map.h header (`#81 <https://github.com/ros2/rosidl_typesupport/issues/81>`_)
 * Add fault injection macros and unit tests (`#80 <https://github.com/ros2/rosidl_typesupport/issues/80>`_)
 * Add Security Vulnerability Policy pointing to REP-2006 (`#76 <https://github.com/ros2/rosidl_typesupport/issues/76>`_)
 * Contributors: Alejandro Hernández Cordero, Chris Lalancette, Jose Luis Rivero, Louise Poubel, Michel Hidalgo, Stephen Brawner
