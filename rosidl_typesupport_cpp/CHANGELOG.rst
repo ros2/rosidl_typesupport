@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.0.1 (2023-07-14)
+------------------
 * Don't override user provided compile definitions (`#146 <https://github.com/ros2/rosidl_typesupport/issues/146>`_)
 * Contributors: Shane Loretz
 
