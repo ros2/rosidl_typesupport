@@ -2,8 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.1 (2023-07-18)
+------------------
+* Don't override user provided compile definitions (backport `#145 <https://github.com/ros2/rosidl_typesupport/issues/145>`_) (`#147 <https://github.com/ros2/rosidl_typesupport/issues/147>`_)
+* Contributors: mergify[bot]
+
 * Use target_link_libraries(... PRIVATE ...) in single typesupport case (`#124 <https://github.com/ros2/rosidl_typesupport/issues/124>`_)
 * rosidl CMake cleanup in rosidl_typesupport_cpp (`#123 <https://github.com/ros2/rosidl_typesupport/issues/123>`_)
 * Contributors: Shane Loretz
