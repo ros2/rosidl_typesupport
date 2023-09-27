@@ -1,4 +1,4 @@
-# Copyright 2016-2018 Open Source Robotics Foundation, Inc.
+# Copyright 2016-2023 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,57 +33,6 @@ foreach(_abs_idl_file ${rosidl_generate_interfaces_ABS_IDL_FILES})
     "${_output_path}/${_parent_folder}/${_header_name}__type_support.cpp"
   )
 endforeach()
-
-set(_dependency_files "")
-set(_dependencies "")
-foreach(_pkg_name ${rosidl_generate_interfaces_DEPENDENCY_PACKAGE_NAMES})
-  foreach(_idl_file ${${_pkg_name}_IDL_FILES})
-    set(_abs_idl_file "${${_pkg_name}_DIR}/../${_idl_file}")
-    normalize_path(_abs_idl_file "${_abs_idl_file}")
-    list(APPEND _dependency_files "${_abs_idl_file}")
-    list(APPEND _dependencies "${_pkg_name}:${_abs_idl_file}")
-  endforeach()
-endforeach()
-
-set(target_dependencies
-  "${rosidl_typesupport_c_BIN}"
-  ${rosidl_typesupport_c_GENERATOR_FILES}
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/action__type_support.c.em"
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/idl__type_support.cpp.em"
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/msg__type_support.cpp.em"
-  "${rosidl_typesupport_c_TEMPLATE_DIR}/srv__type_support.cpp.em"
-  ${rosidl_generate_interfaces_ABS_IDL_FILES}
-  ${_dependency_files})
-foreach(dep ${target_dependencies})
-  if(NOT EXISTS "${dep}")
-    message(FATAL_ERROR "Target dependency '${dep}' does not exist")
-  endif()
-endforeach()
-
-set(generator_arguments_file "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_c__arguments.json")
-rosidl_write_generator_arguments(
-  "${generator_arguments_file}"
-  PACKAGE_NAME "${PROJECT_NAME}"
-  IDL_TUPLES "${rosidl_generate_interfaces_IDL_TUPLES}"
-  ROS_INTERFACE_DEPENDENCIES "${_dependencies}"
-  OUTPUT_DIR "${_output_path}"
-  TEMPLATE_DIR "${rosidl_typesupport_c_TEMPLATE_DIR}"
-  TARGET_DEPENDENCIES ${target_dependencies}
-)
-
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
-
-get_used_typesupports(typesupports "rosidl_typesupport_c")
-add_custom_command(
-  OUTPUT ${_generated_sources}
-  COMMAND Python3::Interpreter
-  ARGS ${rosidl_typesupport_c_BIN}
-  --generator-arguments-file "${generator_arguments_file}"
-  --typesupports ${typesupports}
-  DEPENDS ${target_dependencies}
-  COMMENT "Generating C type support dispatch for ROS interfaces"
-  VERBATIM
-)
 
 set(_target_suffix "__rosidl_typesupport_c")
 
