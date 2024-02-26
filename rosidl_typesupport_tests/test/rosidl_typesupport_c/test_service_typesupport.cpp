@@ -31,8 +31,10 @@
 TEST(test_service_typesupport, event_message_create_and_destroy_invalid_arguments)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  // *INDENT-OFF*
   const rosidl_service_type_support_t * srv_ts =
     rosidl_typesupport_c__get_service_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes();  // NOLINT
+  // *INDENT-ON*
 
   rosidl_service_introspection_info_t valid_info;
 
@@ -49,11 +51,13 @@ TEST(test_service_typesupport, event_message_create_and_destroy_invalid_argument
 TEST(test_service_typesupport, basic_types_event_message_create)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
+  // *INDENT-OFF*
   const rosidl_service_type_support_t * srv_ts =
     rosidl_typesupport_c__get_service_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes();  // NOLINT
 
   const rosidl_message_type_support_t * msg_ts =
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes_Event();  // NOLINT
+  // *INDENT-ON*
 
   if (std::string(rmw_get_implementation_identifier()).find("rmw_cyclonedds") == 0) {
     EXPECT_STREQ(
@@ -184,10 +188,13 @@ TEST(test_service_typesupport, basic_types_event_message_create)
 
 TEST(test_service_typesupport, fibonacci_action_services_event)
 {
+  // *INDENT-OFF*
   const rosidl_message_type_support_t * send_goal_event_msg_ts =
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_SendGoal_Event();  // NOLINT
   const rosidl_message_type_support_t * get_result_event_msg_ts =
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__action__Fibonacci_GetResult_Event();  // NOLINT
+  // *INDENT-ON*
+
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
 
