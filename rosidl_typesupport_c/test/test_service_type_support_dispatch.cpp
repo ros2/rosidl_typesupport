@@ -91,7 +91,7 @@ TEST(TestServiceTypeSupportDispatch, get_handle_function) {
     rosidl_typesupport_c__get_service_typesupport_handle_function(
       &type_support,
       "different_identifier"), nullptr);
-  EXPECT_TRUE(rcutils_error_is_set());
+  EXPECT_FALSE(rcutils_error_is_set());
   rcutils_reset_error();
 
   rosidl_service_type_support_t type_support_c_identifier =
