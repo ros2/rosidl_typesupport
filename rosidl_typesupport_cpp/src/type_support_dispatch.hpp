@@ -41,7 +41,10 @@ get_typesupport_handle_function(
     return handle;
   }
 
-  if (handle->typesupport_identifier == rosidl_typesupport_cpp::typesupport_identifier) {
+  if (strcmp(
+      handle->typesupport_identifier,
+      rosidl_typesupport_cpp::typesupport_identifier) == 0)
+  {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
     for (size_t i = 0; i < map->size; ++i) {
