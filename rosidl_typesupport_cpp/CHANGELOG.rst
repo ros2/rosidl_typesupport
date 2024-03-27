@@ -2,6 +2,12 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* compare string contents but string pointer addresses. (`#153 <https://github.com/ros2/rosidl_typesupport/issues/153>`_)
+* Set hints to find the python version we actually want. (`#150 <https://github.com/ros2/rosidl_typesupport/issues/150>`_)
+* Contributors: Chris Lalancette, Tomoya Fujita
+
 3.2.0 (2023-06-07)
 ------------------
 * Don't override user provided compile definitions (`#145 <https://github.com/ros2/rosidl_typesupport/issues/145>`_)
