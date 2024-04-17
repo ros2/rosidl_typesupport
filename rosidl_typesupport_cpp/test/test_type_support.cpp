@@ -27,8 +27,8 @@ extern "C"
 // function still needs to be defined separately. Windows has gotten picky with its compiler
 // warnings recently.
 #if defined _WIN32 || defined __CYGWIN__
-__declspec(dllexport) const rosidl_message_type_support_t * test_message_type_support(void);
-__declspec(dllexport) const rosidl_service_type_support_t * test_service_type_support(void);
+__declspec(dllexport) const rosidl_message_type_support_t * test_message_type_support();
+__declspec(dllexport) const rosidl_service_type_support_t * test_service_type_support();
 #else
 const rosidl_message_type_support_t * test_message_type_support(void);
 const rosidl_service_type_support_t * test_service_type_support(void);
