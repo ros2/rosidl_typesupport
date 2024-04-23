@@ -30,8 +30,8 @@ extern "C"
 __declspec(dllexport) const rosidl_message_type_support_t * test_message_type_support();
 __declspec(dllexport) const rosidl_service_type_support_t * test_service_type_support();
 #else
-const rosidl_message_type_support_t * test_message_type_support(void);
-const rosidl_service_type_support_t * test_service_type_support(void);
+const rosidl_message_type_support_t * test_message_type_support();
+const rosidl_service_type_support_t * test_service_type_support();
 #endif
 
 static const rosidl_message_type_support_t message_type_support = {
@@ -42,9 +42,9 @@ static const rosidl_service_type_support_t service_type_support = {
   nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr
 };
 
-const rosidl_message_type_support_t * test_message_type_support(void) {return &message_type_support;}
+const rosidl_message_type_support_t * test_message_type_support() {return &message_type_support;}
 
-const rosidl_service_type_support_t * test_service_type_support(void) {return &service_type_support;}
+const rosidl_service_type_support_t * test_service_type_support() {return &service_type_support;}
 
 #ifdef __cplusplus
 }
