@@ -37,6 +37,12 @@ static const rosidl_service_type_support_t service_type_support = {
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-const rosidl_message_type_support_t * test_message_type_support(void) {return &message_type_support;}
+const rosidl_message_type_support_t * test_message_type_support(void)
+{
+  return &message_type_support;
+}
 
-const rosidl_service_type_support_t * test_service_type_support(void) {return &service_type_support;}
+const rosidl_service_type_support_t * test_service_type_support(void)
+{
+  return &service_type_support;
+}
