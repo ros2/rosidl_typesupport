@@ -2,6 +2,9 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 3.2.1 (2024-03-27)
 ------------------
 * compare string contents but string pointer addresses. (`#153 <https://github.com/ros2/rosidl_typesupport/issues/153>`_)
