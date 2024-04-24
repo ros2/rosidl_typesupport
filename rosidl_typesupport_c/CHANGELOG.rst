@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.2.2 (2024-04-24)
+------------------
 * Fixed warnings - strict-prototypes (`#155 <https://github.com/ros2/rosidl_typesupport/issues/155>`_) (`#156 <https://github.com/ros2/rosidl_typesupport/issues/156>`_)
 * Contributors: mergify[bot]
 
