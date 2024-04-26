@@ -88,6 +88,7 @@ if(BUILD_TESTING)
     "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
+  ament_add_test_label(test_message_type_support mimick)
   if(TARGET test_message_type_support)
     target_link_libraries(test_message_type_support
       ${PROJECT_NAME}
@@ -102,6 +103,7 @@ if(BUILD_TESTING)
     "DYLD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "LD_LIBRARY_PATH=${TEST_LIB_DIR}"
     "PATH=${TEST_LIB_DIR}")
+  ament_add_test_label(test_service_type_support mimick)
   if(TARGET test_service_type_support)
     target_link_libraries(test_service_type_support
       ${PROJECT_NAME}
