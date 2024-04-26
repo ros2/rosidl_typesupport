@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.3.0 (2024-04-26)
+------------------
 * Fixed warnings - strict-prototypes (`#155 <https://github.com/ros2/rosidl_typesupport/issues/155>`_)
 * Contributors: Alejandro Hernández Cordero
 
