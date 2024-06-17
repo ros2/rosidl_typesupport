@@ -2,8 +2,8 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+3.3.1 (2024-06-17)
+------------------
 * Add mechanism to disable workaround for dependency groups (`#157 <https://github.com/ros2/rosidl_typesupport/issues/157>`_)
 * Add 'mimick' label to tests which use Mimick (`#158 <https://github.com/ros2/rosidl_typesupport/issues/158>`_)
 * Contributors: Scott K Logan
