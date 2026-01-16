@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.4.1 (2025-10-20)
+------------------
+* Remove deprecated rosidl_typesupport_cpp/type_support_map.h (`#167 <https://github.com/ros2/rosidl_typesupport/issues/167>`_)
+* Contributors: Christophe Bedard
+
 3.4.0 (2025-04-25)
 ------------------
 
@@ -123,7 +128,7 @@ Changelog for package rosidl_typesupport_cpp
 * Update the maintainers (`#89 <https://github.com/ros2/rosidl_typesupport/issues/89>`_)
 * Added benchmark test to rosidl_typesupport_c/cpp (`#84 <https://github.com/ros2/rosidl_typesupport/issues/84>`_)
 * Handle rcpputils::find_library_path() failure (`#85 <https://github.com/ros2/rosidl_typesupport/issues/85>`_)
-* De-duplicate type_support_map.h header (`#81 <https://github.com/ros2/rosidl_typesupport/issues/81>`_) 
+* De-duplicate type_support_map.h header (`#81 <https://github.com/ros2/rosidl_typesupport/issues/81>`_)
 * Add fault injection macros and unit tests (`#80 <https://github.com/ros2/rosidl_typesupport/issues/80>`_)
 * Add Security Vulnerability Policy pointing to REP-2006 (`#76 <https://github.com/ros2/rosidl_typesupport/issues/76>`_)
 * Contributors: Alejandro Hernández Cordero, Chris Lalancette, Jose Luis Rivero, Louise Poubel, Michel Hidalgo, Stephen Brawner
