@@ -15,15 +15,10 @@
 #ifndef TYPE_SUPPORT_DISPATCH_HPP_
 #define TYPE_SUPPORT_DISPATCH_HPP_
 
-#include <cstddef>
-#include <cstdio>
-#include <cstring>
+#ifndef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+#include "./dynamic_support_dispatch.hpp"
+#endif  // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
 
-#include <memory>
-#include <stdexcept>
-#include <string>
-
-#include "rcpputils/shared_library.hpp"
 #include "rcutils/error_handling.h"
 #include "rcutils/snprintf.h"
 #include "rosidl_typesupport_c/identifier.h"
@@ -53,62 +48,16 @@ get_typesupport_handle_function(
       if (strcmp(map->typesupport_identifier[i], identifier) != 0) {
         continue;
       }
-      rcpputils::SharedLibrary * lib = nullptr;
-
-      if (!map->data[i]) {
-        char library_basename[1024];
-        int ret = rcutils_snprintf(
-          library_basename, 1023, "%s__%s",
-          map->package_name, identifier);
-        if (ret < 0) {
-          RCUTILS_SET_ERROR_MSG("Failed to format library name");
-          return nullptr;
-        }
-
-        std::string library_name;
-        try {
-          library_name = rcpputils::get_platform_library_name(library_basename);
-        } catch (const std::exception & e) {
-          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-            "Failed to compute library name for '%s' due to %s",
-            library_basename, e.what());
-          return nullptr;
-        }
-
-        try {
-          lib = new rcpputils::SharedLibrary(library_name);
-        } catch (const std::runtime_error & e) {
-          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-            "Could not load library %s: %s", library_name.c_str(), e.what());
-          return nullptr;
-        } catch (const std::bad_alloc & e) {
-          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-            "Could not load library %s: %s", library_name.c_str(), e.what());
-          return nullptr;
-        }
-        map->data[i] = lib;
-      }
-      auto clib = static_cast<const rcpputils::SharedLibrary *>(map->data[i]);
-      lib = const_cast<rcpputils::SharedLibrary *>(clib);
-
-      void * sym = nullptr;
-
-      try {
-        if (!lib->has_symbol(map->symbol_name[i])) {
-          RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-            "Failed to find symbol '%s' in library", map->symbol_name[i]);
-          return nullptr;
-        }
-        sym = lib->get_symbol(map->symbol_name[i]);
-      } catch (const std::exception & e) {
-        RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
-          "Failed to get symbol '%s' in library: %s",
-          map->symbol_name[i], e.what());
-        return nullptr;
-      }
-
       typedef const TypeSupport * (* funcSignature)(void);
+#ifndef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+      void * sym = handle_shared_library_from_name(map, i, identifier);
+      if (nullptr == sym) {
+        continue;
+      }
       funcSignature func = reinterpret_cast<funcSignature>(sym);
+#else
+      funcSignature func = reinterpret_cast<funcSignature>(map->data[i]);
+#endif  // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
       const TypeSupport * ts = func();
       return ts;
     }

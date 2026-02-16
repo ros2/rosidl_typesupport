@@ -105,6 +105,26 @@ typedef struct _@(service.namespaced_type.name)_type_support_data_t
   void * data[@(len(type_supports))];
 } _@(service.namespaced_type.name)_type_support_data_t;
 
+#ifdef ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+@[for type_support in sorted(type_supports)]@
+rosidl_service_type_support_t * ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))();
+@[end for]@
+#ifdef __cplusplus
+}
+#endif
+
+static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespaced_type.name)_service_typesupport_data = {
+  {
+@[for type_support in sorted(type_supports)]@
+    (void*) ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(type_support), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name)),
+@[end for]@
+  }
+};
+#else
 static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespaced_type.name)_service_typesupport_data = {
   {
 @[for type_support in sorted(type_supports)]@
@@ -112,6 +132,7 @@ static _@(service.namespaced_type.name)_type_support_data_t _@(service.namespace
 @[end for]@
   }
 };
+#endif // ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
 
 static const type_support_map_t _@(service.namespaced_type.name)_service_typesupport_map = {
   @(len(type_supports)),
@@ -121,7 +142,7 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
-static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
+static rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
   rosidl_typesupport_c__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
   rosidl_typesupport_c__get_service_typesupport_handle_function,
@@ -168,6 +189,11 @@ extern "C"
 const rosidl_service_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_c, @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))() {
 @[if len(type_supports) != 1]@
+  if (!::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_c::@(service.namespaced_type.name)_service_type_support_handle.typesupport_identifier) {
+    ::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_c::@(service.namespaced_type.name)_service_type_support_handle.typesupport_identifier =
+    rosidl_typesupport_c__typesupport_identifier;
+  }
+          
   return &::@('::'.join([package_name] + list(interface_path.parents[0].parts)))::rosidl_typesupport_c::@(service.namespaced_type.name)_service_type_support_handle;
 @[else]@
   return ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(@(list(type_supports)[0]), @(', '.join([package_name] + list(interface_path.parents[0].parts))), @(service.namespaced_type.name))();
