@@ -59,17 +59,8 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes_Event();  // NOLINT
   // *INDENT-ON*
 
-  if (std::string(rmw_get_implementation_identifier()).find("rmw_cyclonedds") == 0) {
-    EXPECT_STREQ(
-      srv_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-    EXPECT_STREQ(
-      msg_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-  } else {
-    EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_c");
-    EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_c");
-  }
+  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_c");
 
   EXPECT_EQ(srv_ts->event_typesupport, msg_ts);
 
