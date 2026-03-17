@@ -59,17 +59,8 @@ TEST(test_service_typesupport, basic_types_event_message_create)
     rosidl_typesupport_c__get_message_type_support_handle__rosidl_typesupport_tests__srv__BasicTypes_Event();  // NOLINT
   // *INDENT-ON*
 
-  if (std::string(rmw_get_implementation_identifier()).find("rmw_cyclonedds") == 0) {
-    EXPECT_STREQ(
-      srv_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-    EXPECT_STREQ(
-      msg_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-  } else {
-    EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_c");
-    EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_c");
-  }
+  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_c");
 
   EXPECT_EQ(srv_ts->event_typesupport, msg_ts);
 
@@ -198,15 +189,6 @@ TEST(test_service_typesupport, fibonacci_action_services_event)
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
 
-  if (std::string(rmw_get_implementation_identifier()).find("rmw_cyclonedds") == 0) {
-    EXPECT_STREQ(
-      send_goal_event_msg_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-    EXPECT_STREQ(
-      get_result_event_msg_ts->typesupport_identifier,
-      "rosidl_typesupport_introspection_c");
-  } else {
-    EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
-    EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
-  }
+  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
+  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_c");
 }
