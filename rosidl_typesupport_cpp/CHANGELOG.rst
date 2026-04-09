@@ -2,6 +2,11 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.4.2 (2026-04-09)
+------------------
+* Add DEPENDS_EXPLICIT_ONLY to remove implicit dependencies (`#168 <https://github.com/ros2/rosidl_typesupport/issues/168>`_)
+* Contributors: Anthony Welte
+
 3.4.1 (2025-10-20)
 ------------------
 * Remove deprecated rosidl_typesupport_cpp/type_support_map.h (`#167 <https://github.com/ros2/rosidl_typesupport/issues/167>`_)
