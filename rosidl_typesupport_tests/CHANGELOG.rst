@@ -2,6 +2,9 @@
 Changelog for package rosidl_typesupport_tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 3.4.2 (2026-04-09)
 ------------------
 * pass all tests for rmw_cyclonedds_cpp. (`#171 <https://github.com/ros2/rosidl_typesupport/issues/171>`_)
