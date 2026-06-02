@@ -2,6 +2,9 @@
 Changelog for package rosidl_typesupport_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 3.2.2 (2024-04-24)
 ------------------
 
