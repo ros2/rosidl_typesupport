@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(rosidl_typesupport_tests)
 
-# Default to C++17
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -15,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_ros_core REQUIRED)
   find_package(ament_lint_auto REQUIRED)
   find_package(rcutils REQUIRED)
   find_package(rmw REQUIRED)
@@ -42,6 +37,7 @@ if(BUILD_TESTING)
     "${cpp_typesupport_target}"
     rmw::rmw
     rmw_implementation::rmw_implementation
+    ament_cmake_ros_core::ament_ros_defaults
   )
 
   ament_add_gtest(test_service_typesupport_c
@@ -51,6 +47,7 @@ if(BUILD_TESTING)
     "${c_typesupport_target}"
     rmw::rmw
     rmw_implementation::rmw_implementation
+    ament_cmake_ros_core::ament_ros_defaults
   )
 endif()
 
