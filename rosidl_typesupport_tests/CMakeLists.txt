@@ -30,9 +30,20 @@ if(BUILD_TESTING)
   rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
   rosidl_get_typesupport_target(c_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_c")
 
+  # With a single typesupport implementation (e.g. only the introspection one),
+  # the wrapper typesupport is bypassed and the handles report the underlying
+  # typesupport identifier instead of the wrapper one.
+  get_used_typesupports(c_used_typesupports "rosidl_typesupport_c")
+  get_used_typesupports(cpp_used_typesupports "rosidl_typesupport_cpp")
+
   ament_add_gtest(test_service_typesupport_cpp
     test/rosidl_typesupport_cpp/test_service_typesupport.cpp
   )
+  list(LENGTH cpp_used_typesupports cpp_used_typesupports_count)
+  if(cpp_used_typesupports_count EQUAL 1)
+    target_compile_definitions(test_service_typesupport_cpp PRIVATE
+      "EXPECTED_TYPESUPPORT_IDENTIFIER=\"${cpp_used_typesupports}\"")
+  endif()
   target_link_libraries(test_service_typesupport_cpp
     "${cpp_typesupport_target}"
     rmw::rmw
@@ -43,6 +54,11 @@ if(BUILD_TESTING)
   ament_add_gtest(test_service_typesupport_c
     test/rosidl_typesupport_c/test_service_typesupport.cpp
   )
+  list(LENGTH c_used_typesupports c_used_typesupports_count)
+  if(c_used_typesupports_count EQUAL 1)
+    target_compile_definitions(test_service_typesupport_c PRIVATE
+      "EXPECTED_TYPESUPPORT_IDENTIFIER=\"${c_used_typesupports}\"")
+  endif()
   target_link_libraries(test_service_typesupport_c
     "${c_typesupport_target}"
     rmw::rmw
