@@ -49,7 +49,7 @@ if len(type_supports) != 1:
         'rosidl_typesupport_c/type_support_map.h',
         'rosidl_typesupport_cpp/service_type_support_dispatch.hpp',
     ]
-header_files.append('rosidl_typesupport_cpp/visibility_control.h')
+header_files.append(package_name + '/msg/rosidl_typesupport_cpp__visibility_control.h')
 if len(type_supports) != 1:
     header_files.append('rosidl_typesupport_interface/macros.h')
 }@
@@ -163,7 +163,7 @@ namespace rosidl_typesupport_cpp
 {
 
 template<>
-ROSIDL_TYPESUPPORT_CPP_PUBLIC
+ROSIDL_TYPESUPPORT_CPP_PUBLIC_@(package_name)
 const rosidl_service_type_support_t *
 get_service_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(service.namespaced_type.name)>()
 {
@@ -181,7 +181,7 @@ extern "C"
 {
 #endif
 
-ROSIDL_TYPESUPPORT_CPP_PUBLIC
+ROSIDL_TYPESUPPORT_CPP_PUBLIC_@(package_name)
 const rosidl_service_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__SERVICE_SYMBOL_NAME(rosidl_typesupport_cpp, @(', '.join([package_name] + list(interface_path.parents[0].parts) + [service.namespaced_type.name])))() {
   return ::rosidl_typesupport_cpp::get_service_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts) + [service.namespaced_type.name]))>();
