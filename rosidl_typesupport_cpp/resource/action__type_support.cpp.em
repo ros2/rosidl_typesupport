@@ -13,7 +13,7 @@ header_files = (
     'action_msgs/msg/goal_status_array.hpp',
     'action_msgs/srv/cancel_goal.hpp',
     include_base + '__struct.hpp',
-    'rosidl_typesupport_cpp/visibility_control.h',
+    package_name + '/msg/rosidl_typesupport_cpp__visibility_control.h',
     'rosidl_runtime_c/action_type_support_struct.h',
     'rosidl_typesupport_cpp/action_type_support.hpp',
     'rosidl_typesupport_cpp/message_type_support.hpp',
@@ -56,7 +56,7 @@ namespace rosidl_typesupport_cpp
 {
 
 template<>
-ROSIDL_TYPESUPPORT_CPP_PUBLIC
+ROSIDL_TYPESUPPORT_CPP_PUBLIC_@(package_name)
 const rosidl_action_type_support_t *
 get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts)))::@(interface_path.stem)>()
 {
@@ -77,7 +77,7 @@ extern "C"
 {
 #endif
 
-ROSIDL_TYPESUPPORT_CPP_PUBLIC
+ROSIDL_TYPESUPPORT_CPP_PUBLIC_@(package_name)
 const rosidl_action_type_support_t *
 ROSIDL_TYPESUPPORT_INTERFACE__ACTION_SYMBOL_NAME(rosidl_typesupport_cpp, @(', '.join([package_name] + list(interface_path.parents[0].parts) + [interface_path.stem])))() {
   return ::rosidl_typesupport_cpp::get_action_type_support_handle<@('::'.join([package_name] + list(interface_path.parents[0].parts) + [interface_path.stem]))>();

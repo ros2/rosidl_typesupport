@@ -108,6 +108,16 @@ add_custom_command(
   ${_dep_explicit_only}
 )
 
+# generate header to switch between export and import for a specific package
+set(_visibility_control_file
+  "${_output_path}/msg/rosidl_typesupport_cpp__visibility_control.h")
+string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
+configure_file(
+  "${rosidl_typesupport_cpp_TEMPLATE_DIR}/rosidl_typesupport_cpp__visibility_control.h.in"
+  "${_visibility_control_file}"
+  @ONLY
+)
+
 set(_target_suffix "__rosidl_typesupport_cpp")
 
 add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_cpp_LIBRARY_TYPE} ${_generated_sources})
@@ -117,8 +127,12 @@ if(rosidl_generate_interfaces_LIBRARY_NAME)
 endif()
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTIES
-    DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL"
+    DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_CPP_BUILDING_DLL_${PROJECT_NAME}"
     CXX_STANDARD 17)
+
+target_include_directories(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  PRIVATE
+  "${CMAKE_CURRENT_BINARY_DIR}/rosidl_typesupport_cpp")
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   target_compile_options(${rosidl_generate_interfaces_TARGET}${_target_suffix}
