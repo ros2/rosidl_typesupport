@@ -2,6 +2,16 @@
 Changelog for package rosidl_typesupport_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.5.1 (2026-11-03)
+------------------
+* Remove custom ament_cppcheck usage. (`#180 <https://github.com/ros2/rosidl_typesupport/issues/180>`_)
+* Use rosidl_find_package_idl() to find .idl file paths (`#176 <https://github.com/ros2/rosidl_typesupport/issues/176>`_)
+* Remove legacy ament export calls (`#177 <https://github.com/ros2/rosidl_typesupport/issues/177>`_)
+* Use the SPDX identifier Apache-2.0 in package.xml license tags (`#174 <https://github.com/ros2/rosidl_typesupport/issues/174>`_)
+* Skip redundant find_package(Python3) in generator extensions (`#173 <https://github.com/ros2/rosidl_typesupport/issues/173>`_)
+* use C++ 20 in default. (`#172 <https://github.com/ros2/rosidl_typesupport/issues/172>`_)
+* Contributors: Chris Lalancette, Cod3Cup0n, Michael Carroll, Nathan Wiebe Neufeldt, Tomoya Fujita
+
 3.5.0 (2026-05-05)
 ------------------
 
