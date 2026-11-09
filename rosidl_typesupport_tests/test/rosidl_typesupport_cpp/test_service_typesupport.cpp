@@ -29,6 +29,14 @@
 
 #include "rmw/rmw.h"
 
+// When only a single typesupport implementation is built, the wrapper is bypassed
+// and the handles report that implementation's identifier.
+#ifdef EXPECTED_TYPESUPPORT_IDENTIFIER
+static const char * const kExpectedTypesupportIdentifier = EXPECTED_TYPESUPPORT_IDENTIFIER;
+#else
+static const char * const kExpectedTypesupportIdentifier = "rosidl_typesupport_cpp";
+#endif
+
 TEST(test_service_typesupport, event_message_create_and_destroy_invalid_arguments)
 {
   rcutils_allocator_t allocator = rcutils_get_default_allocator();
@@ -60,8 +68,8 @@ TEST(test_service_typesupport, basic_types_event_message_create)
   const rosidl_message_type_support_t * msg_ts =
     rosidl_typesupport_cpp::get_message_type_support_handle<rosidl_typesupport_tests::srv::BasicTypes_Event>();  // NOLINT
 
-  EXPECT_STREQ(srv_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(srv_ts->typesupport_identifier, kExpectedTypesupportIdentifier);
+  EXPECT_STREQ(msg_ts->typesupport_identifier, kExpectedTypesupportIdentifier);
 
   // typesupports are static so this comparison *should* be valid?
   EXPECT_EQ(srv_ts->event_typesupport, msg_ts);
@@ -184,6 +192,6 @@ TEST(test_service_typesupport, fibonacci_action_services_event)
     rosidl_typesupport_tests::action::Fibonacci_GetResult::Event>();
   ASSERT_NE(nullptr, send_goal_event_msg_ts);
   ASSERT_NE(nullptr, get_result_event_msg_ts);
-  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
-  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, "rosidl_typesupport_cpp");
+  EXPECT_STREQ(send_goal_event_msg_ts->typesupport_identifier, kExpectedTypesupportIdentifier);
+  EXPECT_STREQ(get_result_event_msg_ts->typesupport_identifier, kExpectedTypesupportIdentifier);
 }
