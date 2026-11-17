@@ -123,6 +123,16 @@ static const type_support_map_t _@(service.namespaced_type.name)_service_typesup
   &_@(service.namespaced_type.name)_service_typesupport_data.data[0],
 };
 
+// Release the libraries cached by the dispatch functions when this library is unloaded
+struct _@(service.namespaced_type.name)_service_typesupport_releaser
+{
+  ~_@(service.namespaced_type.name)_service_typesupport_releaser()
+  {
+    rosidl_typesupport_c__release_type_support_map(&_@(service.namespaced_type.name)_service_typesupport_map);
+  }
+};
+static _@(service.namespaced_type.name)_service_typesupport_releaser _@(service.namespaced_type.name)_service_typesupport_releaser_instance;
+
 static const rosidl_service_type_support_t @(service.namespaced_type.name)_service_type_support_handle = {
   ::rosidl_typesupport_cpp::typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(service.namespaced_type.name)_service_typesupport_map),
