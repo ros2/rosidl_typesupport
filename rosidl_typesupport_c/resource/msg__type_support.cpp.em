@@ -97,6 +97,16 @@ static const type_support_map_t _@(message.structure.namespaced_type.name)_messa
   &_@(message.structure.namespaced_type.name)_message_typesupport_data.data[0],
 };
 
+// Release the libraries cached by the dispatch functions when this library is unloaded
+struct _@(message.structure.namespaced_type.name)_message_typesupport_releaser
+{
+  ~_@(message.structure.namespaced_type.name)_message_typesupport_releaser()
+  {
+    rosidl_typesupport_c__release_type_support_map(&_@(message.structure.namespaced_type.name)_message_typesupport_map);
+  }
+};
+static _@(message.structure.namespaced_type.name)_message_typesupport_releaser _@(message.structure.namespaced_type.name)_message_typesupport_releaser_instance;
+
 static const rosidl_message_type_support_t @(message.structure.namespaced_type.name)_message_type_support_handle = {
   rosidl_typesupport_c__typesupport_identifier,
   reinterpret_cast<const type_support_map_t *>(&_@(message.structure.namespaced_type.name)_message_typesupport_map),

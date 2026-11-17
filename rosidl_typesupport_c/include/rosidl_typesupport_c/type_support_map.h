@@ -17,6 +17,8 @@
 
 #include <stddef.h>
 
+#include "rosidl_typesupport_c/visibility_control.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -44,6 +46,18 @@ typedef struct type_support_map_t
   /// Array of pointers to type support handle functions that were successfully found.
   void ** data;
 } type_support_map_t;
+
+/// Release the shared libraries that were loaded and cached in `map->data`.
+/**
+ * Generated typesupport libraries call this when they are unloaded, so the cached libraries (and
+ * the memory tracking them) are not leaked.
+ * Entries are reset to NULL, so it is safe to call more than once.
+ *
+ * \param[in] map The map whose cached libraries should be released.
+ */
+ROSIDL_TYPESUPPORT_C_PUBLIC
+void
+rosidl_typesupport_c__release_type_support_map(const type_support_map_t * map);
 
 #ifdef __cplusplus
 }
